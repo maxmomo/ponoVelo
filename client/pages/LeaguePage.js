@@ -6,7 +6,7 @@ import { useMyContext } from '../context/MyContext';
 import Header from '../components/Basic/Header';
 import BasicSubtitleView from '../components/Basic/BasicSubtitleView';
 import BasicLogoButton from '../components/Basic/BasicLogoButton';
-import TitleLeague from '../components/TitleLeague';
+import TitleLeague from '../components/Title/TitleLeague';
 import RidersOfferList from '../components/RidersOfferList';
 import RidersOfferHeaderList from '../components/RidersOfferHeaderList';
 import NextEvent from '../components/NextEvent';

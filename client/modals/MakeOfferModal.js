@@ -6,7 +6,7 @@ import BasicButton from '../components/Basic/BasicButton';
 
 import { commonStyles, modalStyles } from '../styles/GlobalStyles';
 import RiderModal from '../components/Basic/RiderModal';
-import TitleRider from '../components/TitleRider';
+import TitleRider from '../components/Title/TitleRider';
 import colors from '../constants/colors';
 
 export default function MakeOfferModal(props) {

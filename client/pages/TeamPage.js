@@ -9,7 +9,7 @@ import HistoryList from '../components/List/HistoryList';
 import GtDiagram from '../components/Diagram/GtDiagram';
 import TeamInformation from '../components/TeamInformation';
 import TeamPerformance from '../components/TeamPerformance';
-import TitleTeam from '../components/TitleTeam';
+import TitleTeam from '../components/Title/TitleTeam';
 import BasicSubtitle from '../components/Basic/BasicSubtitle';
 import Jersey from '../components/Basic/Jersey';
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Flag from 'react-native-flags';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
-export default function TitleRider(props) {
+export default function TitleTeam(props) {
     return (
         <View style={styles.titleView}>
             <Flag code={props.nationality} size={32} type={'flat'}/>
-            <Text style={styles.titleText}>{props.name}</Text>
+            <Text style={styles.titleText}>{props.name.toUpperCase()}</Text>
         </View>
     );
 }

@@ -4,7 +4,7 @@ import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
 import BasicSubtitle from '../components/Basic/BasicSubtitle';
-import TitleTeam from '../components/TitleTeam';
+import TitleTeam from '../components/Title/TitleTeam';
 import SelectRace from '../components/SelectRace';
 import TeamResultList from '../components/TeamResultList';
 
