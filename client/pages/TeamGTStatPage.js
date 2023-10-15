@@ -52,7 +52,6 @@ export default function TeamGTStatPage({ route, navigation }) {
         })
         .then(response => {
             setStatistics(response.data);
-            console.log(response.data)
         })
         .catch(error => {
             console.error(error);
@@ -75,14 +74,6 @@ export default function TeamGTStatPage({ route, navigation }) {
     const toggleMontainVisibility = () => {
         setIsMontainVisible(!isMontainVisible);
     };
-
-    const areStatisticsEmpty = (stats) => {
-        return Object.values(stats).every(statArray => statArray.length === 0);
-    };
-    
-    if (areStatisticsEmpty(statistics)) {
-        return <SplashScreenWait />;
-    }
 
     return (
         <SafeAreaView style={styles.container}>
