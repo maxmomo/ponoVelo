@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
-import RidersList from '../components/RidersList';
+import RidersList from '../components/List/RidersList';
 import HistoryList from '../components/List/HistoryList';
 import GtDiagram from '../components/Diagram/GtDiagram';
 import TeamInformation from '../components/TeamInformation';

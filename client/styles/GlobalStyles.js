@@ -50,6 +50,15 @@ const commonStyles = StyleSheet.create({
         color: colors.whiteText,
         fontSize: 24
     },
+    greenText: {
+        color: 'green',
+    },
+    orangeText: {
+        color: 'orange',
+    },
+    redText: {
+        color: 'red',
+    },
     bold: {
         fontWeight: 'bold',
     },  
@@ -86,7 +95,14 @@ const commonStyles = StyleSheet.create({
     },
     padding1: {
         padding: '1%'
-    }
+    },
+    listView: {
+        padding: '1%',
+        borderBottomColor: '#E4E9F2',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
 });
 
 const modalStyles = StyleSheet.create({
