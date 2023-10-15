@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import colors from '../constants/colors';
-import { commonStyles } from '../styles/GlobalStyles';
+import colors from '../../constants/colors';
+import { commonStyles } from '../../styles/GlobalStyles';
 
 export default function TeamResultList(props) {
     const ListItem = ({ item }) => (
