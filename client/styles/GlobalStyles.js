@@ -104,6 +104,7 @@ const modalStyles = StyleSheet.create({
     },
 });
 
+
 const textStyles = StyleSheet.create({
     headerText: {
         fontSize: 32,
