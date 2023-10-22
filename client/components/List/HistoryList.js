@@ -17,7 +17,7 @@ export default function HistoryList(props) {
         }
     }
 
-    const ListItem = ({ item, index }) => (
+    const ListItem = ({ item }) => (
         <View style={[commonStyles.row, commonStyles.padding1]}>
             <View style={commonStyles.flex2}>
                 <Text style={commonStyles.text13}>{item.year}</Text>
@@ -35,7 +35,7 @@ export default function HistoryList(props) {
         <FlatList
             data={props.history}
             renderItem={({ item }) => <ListItem item={item} />}
-            keyExtractor={item => item.stage_id}
+            keyExtractor={item => item.url}
         />
     );
 }

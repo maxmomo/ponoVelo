@@ -67,7 +67,7 @@ export default function RidersList(props) {
             <FlatList
                 data={props.riders}
                 renderItem={({ item }) => <ListItem item={item} />}
-                keyExtractor={item => item.stage_id}
+                keyExtractor={item => item.id.toString()}
             />
 
         </View>

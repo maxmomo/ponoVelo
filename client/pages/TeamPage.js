@@ -97,10 +97,6 @@ export default function TeamPage() {
                             {visibility.isHistoryVisible && <HistoryList history={history} onItemPress={handleRefresh} />}
                             <BasicSubtitle text={'COUREURS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.RIDERS)} />
                             {visibility.isRidersVisible && <RidersList riders={riders} />}
-                        </>
-                    }
-                    ListFooterComponent={
-                        <>
                             <BasicSubtitle text={'PERFORMANCES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PERFORMANCES)} />
                             {visibility.isPerformancesVisible && <TeamPerformance />}
                         </>
