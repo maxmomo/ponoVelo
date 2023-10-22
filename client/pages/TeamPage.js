@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import { View, SafeAreaView, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
@@ -84,22 +84,28 @@ export default function TeamPage() {
                 <TitleTeam nationality={team['nationality']} name={team['name']} />
             </View>
             <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
-                <ScrollView 
-                    showsVerticalScrollIndicator={false}
-                >
-                    <View style={[commonStyles.margin2Top, commonStyles.row]}>
-                        <Jersey jersey={team['jersey']} height={150} width={150} />
-                        <GtDiagram statistics={statistics}></GtDiagram>
-                    </View>
-                    <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                    {visibility.isInformationVisible && <TeamInformation team={team} />}
-                    <BasicSubtitle text={'HISTORIQUE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.HISTORY)} />
-                    {visibility.isHistoryVisible && <HistoryList history={history} onItemPress={handleRefresh} />}
-                    <BasicSubtitle text={'COUREURS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.RIDERS)} />
-                    {visibility.isRidersVisible && <RidersList riders={riders} />}
-                    <BasicSubtitle text={'PERFORMANCES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PERFORMANCES)} />
-                    {visibility.isPerformancesVisible && <TeamPerformance/>}
-                </ScrollView>
+            <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <View style={[commonStyles.margin2Top, commonStyles.row]}>
+                                <Jersey jersey={team['jersey']} height={150} width={150} />
+                                <GtDiagram statistics={statistics}></GtDiagram>
+                            </View>
+                            <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
+                            {visibility.isInformationVisible && <TeamInformation team={team} />}
+                            <BasicSubtitle text={'HISTORIQUE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.HISTORY)} />
+                            {visibility.isHistoryVisible && <HistoryList history={history} onItemPress={handleRefresh} />}
+                            <BasicSubtitle text={'COUREURS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.RIDERS)} />
+                            {visibility.isRidersVisible && <RidersList riders={riders} />}
+                        </>
+                    }
+                    ListFooterComponent={
+                        <>
+                            <BasicSubtitle text={'PERFORMANCES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PERFORMANCES)} />
+                            {visibility.isPerformancesVisible && <TeamPerformance />}
+                        </>
+                    }
+                />
             </View>
         </SafeAreaView>
     );
