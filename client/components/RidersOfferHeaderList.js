@@ -7,6 +7,7 @@ import { commonStyles } from '../styles/GlobalStyles';
 
 export default function RidersOfferHeaderList(props) {
     
+    
     return (
         <View style={styles.riderItem}>
             <View style={styles.flagListView} />

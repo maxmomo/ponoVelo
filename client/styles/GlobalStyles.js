@@ -111,7 +111,7 @@ const modalStyles = StyleSheet.create({
         borderWidth: 2,
         borderColor: colors.whiteText,
         borderRadius: 10,
-        marginTop: '25%',
+        marginTop: '23%',
         padding: '5%',
     },
     titleView: {

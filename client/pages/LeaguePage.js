@@ -102,9 +102,11 @@ export default function LeaguePage() {
                     renderItem={({ item }) => {
                         switch (item.type) {
                             case 'headerOffers':
-                                return (
-                                    <RidersOfferHeaderList title={'Mes offres'} />
-                                )
+                                if (ridersOffer.length != 0) {
+                                    return (
+                                        <RidersOfferHeaderList title={'Mes offres'} />
+                                    )
+                                }
                             case 'offers':
                                 return item.data.map((offer, idx) => (
                                     <RidersOfferList key={idx} rider={offer} />
