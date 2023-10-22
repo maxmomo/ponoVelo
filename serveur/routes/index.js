@@ -28,7 +28,7 @@ router.get("/riders/all", getRiders)
 router.get("/team/riders", getRidersTeam)
 router.get("/team/history", getHistoryTeam)
 router.get("/team/statistics", getStatisticsTeam)
-router.get("/team/statistics/tdf", getStatisticsTeamRace)
+router.get("/team/race/statistics", getStatisticsTeamRace)
 
 router.get("/league/create", createLeague)
 router.get("/leagues/user", getUserLeagues)

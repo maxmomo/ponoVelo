@@ -1,18 +1,28 @@
-import React, {useEffect} from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView, Text, Dimensions, TouchableOpacity } from 'react-native';
-import Flag from 'react-native-flags';
+import React, {useEffect, useState, useCallback} from 'react';
+import { View, SafeAreaView, FlatList, Alert, ActivityIndicator } from 'react-native';
 import { useMyContext } from '../context/MyContext';
+
 import Header from '../components/Basic/Header';
-import axios from 'axios';
 import BestRidersList from '../components/List/BestRidersList';
 import BestRidersChart from '../components/Chart/BestRidersChart';
-import SplashScreenWait from '../screens/SplashScreenWait';
+import TitleTeam from '../components/Title/TitleTeam';
+import RaceLogo from '../components/Basic/RaceLogo';
+import BasicSubtitle from '../components/Basic/BasicSubtitle';
+
+import colors from '../constants/colors';
+import { commonStyles } from '../styles/GlobalStyles';
+
+import { getStatisticsRace } from '../api/statistic/api';
+
+const logo_vuelta = require('../assets/logo-vuelta.png');
+const logo_tdf = require('../assets/logo-tdf.png');
+const logo_giro = require('../assets/logo-giro.png');
 
 export default function TeamGTStatPage({ route, navigation }) {
     
     const { state, dispatch } = useMyContext();
 
-    const [statistics, setStatistics] = React.useState({
+    const [statistics, setStatistics] = useState({
         statistics_best_result: [],
         statistics_best_result_evolution: [],
         statistics_best_point: [],
@@ -22,173 +32,95 @@ export default function TeamGTStatPage({ route, navigation }) {
         statistics_best_young: [],
         statistics_best_young_evolution: []
     })
+    const [logo, setLogo] = useState('')
+    const [visibility, setVisibility] = useState({
+        isGCVisible: true,
+        isPointVisible: true,
+        isMontainVisible: true,
+        isYoungVisible: true
+    });
+    const [isLoading, setIsLoading] = useState(true);
 
-    const [isGCVisible, setIsGCVisible] = React.useState(true);
-    const [isPointVisible, setIsPointVisible] = React.useState(true);
-    const [isYoungVisible, setIsYoungVisible] = React.useState(true);
-    const [isMontainVisible, setIsMontainVisible] = React.useState(true);
+    const VISIBILITY_KEYS = {
+        GC: 'isGCVisible',
+        POINT: 'isPointVisible',
+        MONTAIN: 'isMontainVisible',
+        YOUNG: 'isYoungVisible'
+    };
     
     const team = state['team']
     const selectedRace = state['raceStatistic']
     
     useEffect(() => {
         if (selectedRace === 'Giro') {
-            getStatisticsTdf(1039);
+            getStatisticsDataEffect(1039);
+            setLogo(logo_giro);
         } else if (selectedRace === 'Tour de France') {
-            getStatisticsTdf(1049);
+            getStatisticsDataEffect(1049);
+            setLogo(logo_tdf);
         } else if (selectedRace === 'Vuelta') {
-            getStatisticsTdf(1051);
+            getStatisticsDataEffect(1051);
+            setLogo(logo_vuelta);
         }
     }, []);
 
-    const getStatisticsTdf = async (pcs_id) => {
-        await axios({
-            method: "get",
-            url: "http://192.168.1.125:3000/team/statistics/tdf",
-            params: {
-                related_team_id: team.related_team_id,
-                pcs_race_id: pcs_id
-            }
-        })
-        .then(response => {
-            setStatistics(response.data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    };
-    
+    const getStatisticsDataEffect = useCallback(async (pcs_id) => {
+        setIsLoading(true);
+        try {
+            const statisticsData = await getStatisticsRace(state['ip_adress'], team.related_team_id, pcs_id);
+            setStatistics(statisticsData);
+        } catch (error) {
+            Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+        } finally {
+            setIsLoading(false);
+        }
 
-    const toggleGCVisibility = () => {
-        setIsGCVisible(!isGCVisible);
+    }, [team, navigation]);
+
+    const toggleVisibility = (key) => {
+        setVisibility(prevVisibility => ({
+            ...prevVisibility,
+            [key]: !prevVisibility[key]
+        }));
     };
 
-    const togglePointVisibility = () => {
-        setIsPointVisible(!isPointVisible);
-    };
-
-    const toggleYoungVisibility = () => {
-        setIsYoungVisible(!isYoungVisible);
-    };
-
-    const toggleMontainVisibility = () => {
-        setIsMontainVisible(!isMontainVisible);
-    };
-
+    const Element = ({ toggle_key, statistics, statistics_evolution, isVisible, text }) => (
+        <>
+            <BasicSubtitle text={text} onPress={() => toggleVisibility(toggle_key)} />
+            {isVisible && (
+                <View>
+                    <View style={commonStyles.margin2Top}>
+                        <BestRidersList statistics={statistics} />
+                    </View>
+                    <View style={commonStyles.margin2Top}>
+                        <BestRidersChart statistics={statistics_evolution} />
+                    </View>
+                </View>
+            )}
+        </>
+    );    
+ 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={commonStyles.container}>
             <Header navigation={navigation} />
-            <View style={styles.titleView}>
-                <Flag code={team['nationality']} size={32} style={styles.flag} type={'flat'}/>
-                <Text style={styles.titleText}>{team['name'].toUpperCase()}</Text>
+            <View style={commonStyles.margin2Top}>
+                <TitleTeam nationality={team['nationality']} name={team['name']} />
             </View>
-            <View style={styles.subtitleView}>
-                <Text style={styles.subtitleText}>STATISTIQUES SUR {selectedRace.toUpperCase()}</Text>
+            <View style={[commonStyles.margin2Top, commonStyles.center]}>
+                <RaceLogo source={logo} height={100} width={100} />
             </View>
-            <ScrollView>
-                <TouchableOpacity style={styles.subtitleView2} onPress={toggleGCVisibility}>
-                    <Text style={styles.subtitleText2}>Meilleur classement général</Text>
-                </TouchableOpacity>
-                {isGCVisible &&
-                <View>
-                    <View style={styles.elements}>
-                        <BestRidersList statistics={statistics['statistics_best_result']} />
-                    </View>
-                    <View style={styles.elements}>
-                        <BestRidersChart statistics={statistics['statistics_best_result_evolution']} />
-                    </View>
-                </View>
-                }
-                <TouchableOpacity style={styles.subtitleView2} onPress={togglePointVisibility}>
-                    <Text style={styles.subtitleText2}>Meilleur classement par point</Text>
-                </TouchableOpacity>
-                {isPointVisible &&
-                <View>
-                    <View style={styles.elements}>
-                        <BestRidersList statistics={statistics['statistics_best_point']} />
-                    </View>
-                    <View style={styles.elements}>
-                        <BestRidersChart statistics={statistics['statistics_best_point_evolution']} />
-                    </View>
-                </View>
-                }
-                <TouchableOpacity style={styles.subtitleView2} onPress={toggleMontainVisibility}>
-                    <Text style={styles.subtitleText2}>Meilleur classement montagne</Text>
-                </TouchableOpacity>
-                {isMontainVisible &&
-                <View>
-                    <View style={styles.elements}>
-                        <BestRidersList statistics={statistics['statistics_best_montain']} />
-                    </View>
-                    <View style={styles.elements}>
-                        <BestRidersChart statistics={statistics['statistics_best_montain_evolution']} />
-                    </View>
-                </View>
-                }
-                <TouchableOpacity style={styles.subtitleView2} onPress={toggleYoungVisibility}>
-                    <Text style={styles.subtitleText2}>Meilleur classement jeune</Text>
-                </TouchableOpacity>
-                {isYoungVisible &&
-                <View>
-                    <View style={styles.elements}>
-                        <BestRidersList statistics={statistics['statistics_best_young']} />
-                    </View>
-                    <View style={styles.elements}>
-                        <BestRidersChart statistics={statistics['statistics_best_young_evolution']} />
-                    </View>
-                </View>
-                }
-            </ScrollView>
+            <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
+                {isLoading === false && <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <Element text={'Meilleur classement général'} toggle_key={VISIBILITY_KEYS.GC} statistics={statistics['statistics_best_result']} statistics_evolution={statistics['statistics_best_result_evolution']} isVisible={visibility.isGCVisible}/>
+                            <Element text={'Meilleur classement par point'} toggle_key={VISIBILITY_KEYS.POINT} statistics={statistics['statistics_best_point']} statistics_evolution={statistics['statistics_best_point_evolution']} isVisible={visibility.isPointVisible}/>
+                            <Element text={'Meilleur classement montagne'} toggle_key={VISIBILITY_KEYS.MONTAIN} statistics={statistics['statistics_best_montain']} statistics_evolution={statistics['statistics_best_montain_evolution']} isVisible={visibility.isMontainVisible}/>
+                            <Element text={'Meilleur classement jeune'} toggle_key={VISIBILITY_KEYS.YOUNG} statistics={statistics['statistics_best_young']} statistics_evolution={statistics['statistics_best_young_evolution']} isVisible={visibility.isYoungVisible}/>
+                        </>
+                    }
+                /> || <ActivityIndicator size="large" color={colors.theme} />}
+            </View>
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#21222D', 
-    },
-    scrollView: {
-        flex: 1
-    },
-    titleView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    flag: {
-        marginLeft: '3%',
-    },
-    titleText: {
-        marginLeft: '3%',
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#E4E9F2'
-    },
-    subtitleView: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#F2C238',
-        padding: '3%',
-        width: '90%',
-        marginBottom: '3%'
-    },
-    subtitleView2: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#F2C238',
-        padding: '3%',
-        width: '60%',
-        marginBottom: '3%'
-    },
-    subtitleText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#F2C238',
-    },
-    subtitleText2: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: '#F2C238',
-    },
-    elements: {
-        marginTop: '2%'
-    }
-});

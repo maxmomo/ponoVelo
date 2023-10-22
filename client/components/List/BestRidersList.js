@@ -34,7 +34,7 @@ export default function BestRidersList(props) {
         <FlatList
             data={props.statistics}
             renderItem={({ item }) => <ListItem item={item} />}
-            keyExtractor={item => item.stage_id}
+            keyExtractor={item => item.id.toString()}
         />
     );
 }

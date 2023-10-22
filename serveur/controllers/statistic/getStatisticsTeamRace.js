@@ -4,10 +4,12 @@ const db = require("../../config/database")
 const getStatisticsTeamRace = async (req, res) => {
     params = req.query
 
+    console.log(params)
+
     statistics = {}
     
     const statistics_best_result = await db.query(
-        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank " +
+        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank, re.id " +
         "FROM results re " +
         "JOIN riders ri ON ri.id = re.RiderId " +
         "JOIN races ra ON ra.id = re.RaceId " + 
@@ -69,7 +71,7 @@ const getStatisticsTeamRace = async (req, res) => {
     )
 
     const statistics_best_point = await db.query(
-        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank " +
+        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank, re.id " +
         "FROM results re " +
         "JOIN riders ri ON ri.id = re.RiderId " +
         "JOIN races ra ON ra.id = re.RaceId " + 
@@ -131,7 +133,7 @@ const getStatisticsTeamRace = async (req, res) => {
     )
 
     const statistics_best_young = await db.query(
-        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank " +
+        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank, re.id " +
         "FROM results re " +
         "JOIN riders ri ON ri.id = re.RiderId " +
         "JOIN races ra ON ra.id = re.RaceId " + 
@@ -193,7 +195,7 @@ const getStatisticsTeamRace = async (req, res) => {
     )
 
     const statistics_best_montain = await db.query(
-        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank " +
+        "SELECT ri.name as rider_name, ri.id as rider_id, ra.season as season, re.result_rank, re.id " +
         "FROM results re " +
         "JOIN riders ri ON ri.id = re.RiderId " +
         "JOIN races ra ON ra.id = re.RaceId " + 

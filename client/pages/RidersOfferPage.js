@@ -33,7 +33,6 @@ export default function RidersOfferPage() {
     const [triggerRefresh, setTriggerRefresh] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
-
     const filteredRidersOffer = ridersOffer.filter(rider => (searchQuery1 === '' || rider.team_status === searchQuery1) && (rider.team_name.toLowerCase().includes(searchQuery2.toLowerCase()) || rider.team_abbreviation.toLowerCase().includes(searchQuery2.toLowerCase())) &&  rider.rider_name.toLowerCase().includes(searchQuery3.toLowerCase()));
     const filteredRidersOfferMercato = ridersOfferMercato.filter(rider => (searchQuery1 === '' || rider.team_status === searchQuery1) && (rider.team_name.toLowerCase().includes(searchQuery2.toLowerCase()) || rider.team_abbreviation.toLowerCase().includes(searchQuery2.toLowerCase())) && rider.rider_name.toLowerCase().includes(searchQuery3.toLowerCase()));
 
