@@ -6,13 +6,15 @@ import colors from '../constants/colors';
 
 export default function RidersOfferList(props) {
     const toggleModalList = () => {
-        if (props.rider.offer) {
-            props.setOffer(props.rider.offer.toString()) 
-        } else {
-            props.setOffer(props.rider.cost.toString())
+        if (!props.isLoading) {
+            if (props.rider.offer) {
+                props.setOffer(props.rider.offer.toString()) 
+            } else {
+                props.setOffer(props.rider.cost.toString())
+            }
+            props.setRider(props.rider)
+            props.toggleModal();
         }
-        props.setRider(props.rider)
-        props.toggleModal();
     };
 
     return (
@@ -32,10 +34,10 @@ export default function RidersOfferList(props) {
             <View style={styles.dataListView}>
                 <Text style={styles.listElement}>{props.rider.offer}</Text>
             </View>
-            {props.toggleModal && <TouchableOpacity onPress={toggleModalList}>
+            {props.toggleModal && <TouchableOpacity onPress={toggleModalList} disabled={props.isLoading}>
                 <MaterialCommunityIcons name='plus' size={30} color={colors.theme} /> 
             </TouchableOpacity>}
-            {props.toggleModal && props.rider.offer && <TouchableOpacity onPress={props.onPressDelete}>
+            {props.toggleModal && props.rider.offer && <TouchableOpacity onPress={props.onPressDelete} disabled={props.isLoading}>
                 <MaterialCommunityIcons name='delete-circle' size={30} color={colors.red} /> 
             </TouchableOpacity>}
         </View>

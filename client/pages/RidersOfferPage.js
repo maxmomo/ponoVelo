@@ -31,6 +31,8 @@ export default function RidersOfferPage() {
     const [offer, setOffer] = useState('');
     const [rider, setRider] = useState({});
     const [triggerRefresh, setTriggerRefresh] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     const filteredRidersOffer = ridersOffer.filter(rider => (searchQuery1 === '' || rider.team_status === searchQuery1) && (rider.team_name.toLowerCase().includes(searchQuery2.toLowerCase()) || rider.team_abbreviation.toLowerCase().includes(searchQuery2.toLowerCase())) &&  rider.rider_name.toLowerCase().includes(searchQuery3.toLowerCase()));
     const filteredRidersOfferMercato = ridersOfferMercato.filter(rider => (searchQuery1 === '' || rider.team_status === searchQuery1) && (rider.team_name.toLowerCase().includes(searchQuery2.toLowerCase()) || rider.team_abbreviation.toLowerCase().includes(searchQuery2.toLowerCase())) && rider.rider_name.toLowerCase().includes(searchQuery3.toLowerCase()));
@@ -49,6 +51,7 @@ export default function RidersOfferPage() {
     }, [triggerRefresh, getMercatoDataEffect]);
 
     const getMercatoDataEffect = useCallback(async () => {
+        setIsLoading(true);
         try {
             const offersData = await getRidersOffer(state['ip_adress'], user_id, league_id);
             setRidersOffer(offersData);
@@ -58,6 +61,8 @@ export default function RidersOfferPage() {
 
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+        } finally {
+            setIsLoading(false);
         }
 
     }, [user_id, league_id, navigation]);
@@ -125,11 +130,11 @@ export default function RidersOfferPage() {
                 ]}
                 stickySectionHeadersEnabled={false}
                 keyExtractor={(item, index) => `${item.rider_id || index}`}
-                renderItem={({ item }) => <RidersOfferList rider={item} toggleModal={toggleModal} offer={offer} setOffer={setOffer} setRider={setRider} onPressDelete={() => onPressDelete(item)} />}
+                renderItem={({ item }) => <RidersOfferList rider={item} toggleModal={toggleModal} offer={offer} setOffer={setOffer} setRider={setRider} isLoading={isLoading} onPressDelete={() => onPressDelete(item)} />}
                 renderSectionHeader={({ section: { title } }) => (
-                    <View>
+                    <View style={commonStyles.margin2Top}>
                         <BasicSubtitleView text={title}/>
-                        <RidersOfferHeaderList title={title} modify={true} />
+                        {ridersOffer.length != 0 && <RidersOfferHeaderList title={title} modify={true} />}
                     </View>
                 )}
             />
