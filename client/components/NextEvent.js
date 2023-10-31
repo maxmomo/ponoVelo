@@ -20,7 +20,7 @@ export default function NextEvent(props) {
         source = logo_tdf
     }
     return (
-        <TouchableOpacity style={commonStyles.center}>
+        <TouchableOpacity style={commonStyles.center} onPress={props.onPress}>
             <RaceLogo width={150} height={150} source={source} />
             <Text style={commonStyles.text16}>{props.stage_name}</Text>
         </TouchableOpacity>

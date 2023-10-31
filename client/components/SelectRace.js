@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 
 import colors from '../constants/colors';
 import RaceLogo from './Basic/RaceLogo';
@@ -22,7 +22,7 @@ export default function SelectRace(props) {
                 ]}
                 onPress={() => props.setGiro()}
             >
-                <RaceLogo source={logo_giro} height={imageWidth} width={imageWidth}/>
+                <RaceLogo source={logo_giro} height={imageWidth} width={imageWidth} />
             </TouchableOpacity>
             <TouchableOpacity
                 style={[
@@ -31,7 +31,7 @@ export default function SelectRace(props) {
                 ]}
                 onPress={() => props.setTDF()}
             >
-                <RaceLogo source={logo_tdf} height={imageWidth} width={imageWidth}/>
+                <RaceLogo source={logo_tdf} height={imageWidth} width={imageWidth} />
             </TouchableOpacity>
             <TouchableOpacity
                 style={[
@@ -40,7 +40,7 @@ export default function SelectRace(props) {
                 ]}
                 onPress={() => props.setVuelta()}
             >
-                <RaceLogo source={logo_vuelta} height={imageWidth} width={imageWidth}/>
+                <RaceLogo source={logo_vuelta} height={imageWidth} width={imageWidth} />
             </TouchableOpacity>
         </View>
     );

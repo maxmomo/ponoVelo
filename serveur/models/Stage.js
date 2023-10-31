@@ -38,6 +38,9 @@ const Stage = sequelize.define('Stage', {
     },
     race_id: {
         type: DataTypes.INTEGER,
+    },
+    profile_icone: {
+        type: DataTypes.STRING,
     }
 });
 

@@ -17,6 +17,7 @@ const {createUserRidersOffers} = require('../controllers/ridersOffers/createUser
 const {deleteUserRidersOffers} = require('../controllers/ridersOffers/deleteUserRidersOffers');
 const {getRiders} = require('../controllers/riders/getRiders');
 const {getNextRace} = require('../controllers/races/getNextRace');
+const {getStagesRace} = require('../controllers/stages/getStagesRace');
 
 router.get("/users/create", createUser)
 router.get("/users/connect", connectUser)
@@ -40,5 +41,6 @@ router.get("/ridersOffers/user/create", createUserRidersOffers)
 router.get("/ridersOffers/user/delete", deleteUserRidersOffers)
 
 router.get("/race/next", getNextRace)
+router.get('/race/stages', getStagesRace)
 
 module.exports = router

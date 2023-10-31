@@ -14,6 +14,7 @@ import SplashScreenWait from './screens/SplashScreenWait';
 import LeaguePage from './pages/LeaguePage';
 import RidersOfferPage from './pages/RidersOfferPage';
 import colors from './constants/colors';
+import RacePage from './pages/RacePage';
 
 const Stack = createStackNavigator();
 
@@ -99,6 +100,14 @@ export default function App() {
             component={RidersOfferPage}
             options={() => ({
               title: 'RidersOffer',
+              headerShown: false
+            })}
+          />
+          <Stack.Screen 
+            name='Race' 
+            component={RacePage}
+            options={() => ({
+              title: 'Race',
               headerShown: false
             })}
           />

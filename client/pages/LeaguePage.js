@@ -78,6 +78,11 @@ export default function LeaguePage() {
         navigation.navigate('RidersOffer');
     };
 
+    const goRace = () => {
+        dispatch({ type: 'SET_RACE', payload: next_race });
+        navigation.navigate('Race');
+    };
+
     const data = [
         { type: 'subtitle', data: 'Mes offres' },
         { type: 'headerOffers', data: ridersOffer },
@@ -120,7 +125,7 @@ export default function LeaguePage() {
                             case 'buttonBet':
                                 return (
                                     <View style={commonStyles.margin5Top}>
-                                        <BasicLogoButton text={'Parier sur l\'évènement'} onPress={goLeagueRidersOffer} logo={'flag-checkered'} />
+                                        <BasicLogoButton text={'Parier sur l\'évènement'} onPress={goRace} logo={'flag-checkered'} />
                                     </View>
                                 );
                             case 'subtitle':
@@ -132,7 +137,7 @@ export default function LeaguePage() {
                             case 'event':
                                 return (
                                     <View style={commonStyles.margin2Top}>
-                                        <NextEvent race_name={item.data['race_name']} stage_name={item.data['stage_name']} />
+                                        <NextEvent race_name={item.data['race_name']} stage_name={item.data['stage_name']} onPress={goRace} />
                                     </View>
                                 );
                             default:

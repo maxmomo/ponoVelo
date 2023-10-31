@@ -19,5 +19,26 @@ const getNextRace = async (ip_address) => {
     }
 };
 
+/**
+ * Fonction pour récupérer les étapes de la course.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} race_id - id de la course.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des étapes
+ */
+const getStages = async (ip_address, race_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/race/stages',
+            params: { race_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
-export { getNextRace };
+
+export { getNextRace, getStages };

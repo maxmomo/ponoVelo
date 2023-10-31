@@ -103,6 +103,12 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
+    margin2Left: {
+        marginLeft: '2%'
+    },
+    margin3Bottom: {
+        marginBottom: '3%'
+    }
 });
 
 const modalStyles = StyleSheet.create({
