@@ -9,10 +9,11 @@ import CardLeagues from '../components/Cards/CardLeagues';
 import CreateLeagueModal from '../modals/CreateLeagueModal';
 import JoinLeagueModal from '../modals/JoinLeagueModal';
 
-import { getUserLeagues, createLeague, joinLeague } from '../api/league/api';
+import { createLeague, joinLeague } from '../api/league/api';
+import { getNextRace } from '../api/race/api';
+import { getLeaguesUser } from '../api/user/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
-import { getNextRace } from '../api/race/api';
 
 function generatePassword() {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -45,7 +46,7 @@ export default function LeaguesScreen() {
 
     const getLeaguesEffect = useCallback(async () => {
         try {
-            const leaguesData = await getUserLeagues(state['ip_adress'], user_id);
+            const leaguesData = await getLeaguesUser(state['ip_adress'], user_id);
             setLeagues(leaguesData)
 
             const nextRace = await getNextRace(state['ip_adress'])

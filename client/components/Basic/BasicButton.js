@@ -23,12 +23,13 @@ const styles = StyleSheet.create({
         paddingVertical: '3%',
         paddingHorizontal: '10%',
         borderRadius: 10,
-        margin: '2%'
+        margin: '2%',
+        justifyContent: 'center'
     },
     buttonText: {
         color: colors.background,
         fontSize: 16,
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
     },
 });

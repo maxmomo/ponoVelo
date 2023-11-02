@@ -27,20 +27,20 @@ export default function HomePage() {
                 }}
             >
                 <Tab.Screen 
-                    name='Equipes' 
-                    component={TeamsScreen}
-                    options={{
-                        tabBarIcon: ({ color }) => (
-                            <MaterialCommunityIcons name='tshirt-crew' color={color} size={30} />
-                        ),
-                    }}
-                />
-                <Tab.Screen 
                     name='Ligues'
                     component={LeaguesScreen}
                     options={{ 
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name='flag-checkered' color={color} size={30} />
+                        ),
+                    }}
+                />
+                <Tab.Screen 
+                    name='Equipes' 
+                    component={TeamsScreen}
+                    options={{
+                        tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name='tshirt-crew' color={color} size={30} />
                         ),
                     }}
                 />

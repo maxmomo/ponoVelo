@@ -1,6 +1,6 @@
 const db = require("../../config/database")
 
-const getUserLeagues = async (req, res) => {
+const getLeaguesUser = async (req, res) => {
     params = req.query
 
     const leagues = await db.query(
@@ -21,4 +21,4 @@ const getUserLeagues = async (req, res) => {
 };
 
 
-module.exports = {getUserLeagues};
+module.exports = {getLeaguesUser};

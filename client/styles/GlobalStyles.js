@@ -68,6 +68,12 @@ const commonStyles = StyleSheet.create({
     margin5Top: {
         marginTop: '5%'
     },
+    marginHorizontal2: {
+        marginHorizontal: '2%'
+    },
+    marginVertical1: {
+        marginVertical: '1%'
+    },
     flex1: {
         flex: 1
     },
@@ -100,6 +106,12 @@ const commonStyles = StyleSheet.create({
         padding: '1%',
         borderBottomColor: '#E4E9F2',
         borderBottomWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    startlistView: {
+        marginLeft: '8%',
+        marginTop: '2%',
         flexDirection: 'row',
         alignItems: 'center'
     },

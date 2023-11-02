@@ -13,8 +13,11 @@ import NextEvent from '../components/NextEvent';
 import CountDown from '../components/Basic/Countdown';
 
 import { getRidersOffer } from '../api/mercato/api';
+import { getUsersLeague } from '../api/league/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
+import UsersList from '../components/List/UsersList';
+
 
 export default function LeaguePage() {
     
@@ -22,6 +25,7 @@ export default function LeaguePage() {
     const { state, dispatch } = useMyContext();
 
     const [ridersOffer, setRidersOffer] = useState([]);
+    const [users, setUsers] = useState([]);
     const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
     const league = state['league']
@@ -68,6 +72,9 @@ export default function LeaguePage() {
             const offersData = await getRidersOffer(state['ip_adress'], user_id, league_id);
             setRidersOffer(offersData);
 
+            const usersData = await getUsersLeague(state['ip_adress'], league_id, user_id);
+            setUsers(usersData);
+
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
         }
@@ -91,6 +98,8 @@ export default function LeaguePage() {
         { type: 'subtitle', data: 'Prochain evenement' },
         { type: 'event', data: next_race },
         { type: 'buttonBet', data: null },
+        { type: 'subtitle', data: 'Utilisateurs de la ligue' },
+        { type: 'users', data: users },
     ];
     
     return (
@@ -98,7 +107,12 @@ export default function LeaguePage() {
             <Header navigation={navigation} />
             <View style={commonStyles.margin2Top}>
                 <TitleLeague name={league['name'].toUpperCase()} />
+            </View>
+            <View style={commonStyles.margin2Top}> 
                 <CountDown timeLeft={timeLeft} />
+            </View>
+            <View style={[commonStyles.margin2Top, commonStyles.margin2Left]}>
+                <Text style={commonStyles.text18}>Budget restant : {league['total']} M</Text>
             </View>
             <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
                 <FlatList
@@ -122,12 +136,6 @@ export default function LeaguePage() {
                                         <BasicLogoButton text={'Accès au mercato'} onPress={goLeagueRidersOffer} logo={'swap-horizontal'} />
                                     </View>
                                 );
-                            case 'buttonBet':
-                                return (
-                                    <View style={commonStyles.margin5Top}>
-                                        <BasicLogoButton text={'Parier sur l\'évènement'} onPress={goRace} logo={'flag-checkered'} />
-                                    </View>
-                                );
                             case 'subtitle':
                                 return (
                                     <View style={commonStyles.margin2Top}>
@@ -138,6 +146,12 @@ export default function LeaguePage() {
                                 return (
                                     <View style={commonStyles.margin2Top}>
                                         <NextEvent race_name={item.data['race_name']} stage_name={item.data['stage_name']} onPress={goRace} />
+                                    </View>
+                                );
+                            case 'users': 
+                                return (
+                                    <View style={commonStyles.margin2Top}>
+                                        <UsersList users={users} />
                                     </View>
                                 );
                             default:

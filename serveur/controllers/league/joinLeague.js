@@ -11,7 +11,7 @@ const joinLeague = async (req, res) => {
             password: params['password']
         }
     })
-
+    
     if (league.length === 1) {
         userLeague = await UsersLeagues.findAll({
             where: {

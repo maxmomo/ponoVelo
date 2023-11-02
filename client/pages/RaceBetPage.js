@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import { View, SafeAreaView, FlatList, Alert } from 'react-native';
+import { View, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
@@ -9,13 +9,13 @@ import TitleRace from '../components/Title/TitleRace';
 import BasicSubtitle from '../components/Basic/BasicSubtitle';
 import BasicButton from '../components/Basic/BasicButton';
 
-import { getStagesRace, getStartListRace } from '../api/race/api';
+import { getStages, getStartList } from '../api/race/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
 import StagesList from '../components/List/StagesList';
 import StartlistList from '../components/List/StartlistList';
 
-export default function RacePage() {
+export default function RaceBetPage() {
     
     const { state, dispatch } = useMyContext();
     const navigation = useNavigation();
@@ -49,11 +49,11 @@ export default function RacePage() {
 
     const getRaceDataEffect = useCallback(async () => {
         try {
-            const stagesData = await getStagesRace(state['ip_adress'], race.race_id);
-            setStages(stagesData);
+            // const stagesData = await getStages(state['ip_adress'], race.race_id);
+            // setStages(stagesData);
 
-            const startlistData = await getStartListRace(state['ip_adress'], race.race_id);
-            setStartlist(startlistData);
+            // const startlistData = await getStartList(state['ip_adress'], race.race_id);
+            // setStartlist(startlistData);
 
             // const statisticsData = await getStatistics(state['ip_adress'], team.related_team_id);
             // setStatistics(statisticsData);
@@ -71,8 +71,8 @@ export default function RacePage() {
         }));
     };
 
-    const goRaceBet = () => {
-        navigation.navigate('RaceBet');
+    const handleRefresh = () => {
+        setRefreshKey(prevKey => prevKey + 1);
     };
 
     return (
@@ -81,14 +81,34 @@ export default function RacePage() {
             <View style={commonStyles.margin2Top}>
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
             </View>
-            <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
-            <FlatList
+            <View style={[{backgroundColor: 'red'}, commonStyles.flex1]}>
+            </View>
+            <View style={[commonStyles.flex1, commonStyles.row]}>
+                <View style={[{backgroundColor: 'pink'}, commonStyles.flex1]}>
+                </View>
+                <View style={[{backgroundColor: 'yellow'}, commonStyles.flex1]}>
+                </View>
+            </View>
+            <View style={[commonStyles.flex1, commonStyles.row]}>
+                <View style={[{backgroundColor: 'purple'}, commonStyles.flex1]}>
+                </View>
+                <View style={[{backgroundColor: 'brown'}, commonStyles.flex1]}>
+                    <View style={[{backgroundColor: 'blue'}, commonStyles.flex1]}>
+                    </View>
+                    <View style={[{backgroundColor: 'brown'}, commonStyles.flex1]}>
+                    </View>
+                    <View style={[{backgroundColor: 'green'}, commonStyles.flex1]}>
+                    </View>
+                </View>
+            </View>
+            {/* <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
+                <FlatList
                     ListHeaderComponent={
                         <>
                             <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
                             {visibility.isInformationVisible && <View style={commonStyles.row}>
                                 <RaceInformation race={race} />
-                                <BasicButton text='Parier' onPress={goRaceBet} />
+                                <BasicButton text='Parier' />
                             </View>
                             }
                             <BasicSubtitle text={'ETAPES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STAGES)} />
@@ -98,7 +118,7 @@ export default function RacePage() {
                         </>
                     }
                 />
-            </View>
+            </View> */}
         </SafeAreaView>
     );
 }

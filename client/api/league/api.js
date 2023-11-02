@@ -1,27 +1,6 @@
 import axios from 'axios';
 
 /**
- * Fonction pour récupérer les ligues de l'utilisateur.
- *
- * @param {string} ip_address - Adresse IP du serveur.
- * @param {integer} user_id - id de l'utilisateur.
- * @returns {Promise<Object|boolean>} - Renvoie les données des ligues de l'utilisateur
- */
-const getUserLeagues = async (ip_address, user_id) => {
-    try {
-        const response = await axios({
-            method: 'get',
-            url: 'http://' + ip_address + ':3000/leagues/user',
-            params: { user_id }
-        });
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
-
-/**
  * Fonction pour créer une ligue.
  *
  * @param {string} ip_address - Adresse IP du serveur.
@@ -67,5 +46,27 @@ const joinLeague = async (ip_address, name, password, user_id) => {
     }
 };
 
+/**
+ * Fonction pour récupérer les utilisateurs de la ligue.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {string} league_id - id de la ligue.
+ * @param {string} user_id - id de l'utilisateur connecté.
+ * @returns {Promise<Object|boolean>} - Renvoie les utilisateurs de la ligue
+ */
+const getUsersLeague = async (ip_address, league_id, user_id ) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/league/users',
+            params: { league_id, user_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
-export { getUserLeagues, createLeague, joinLeague};
+
+export { createLeague, joinLeague, getUsersLeague };

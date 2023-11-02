@@ -15,6 +15,7 @@ import LeaguePage from './pages/LeaguePage';
 import RidersOfferPage from './pages/RidersOfferPage';
 import colors from './constants/colors';
 import RacePage from './pages/RacePage';
+import RaceBetPage from './pages/RaceBetPage';
 
 const Stack = createStackNavigator();
 
@@ -108,6 +109,14 @@ export default function App() {
             component={RacePage}
             options={() => ({
               title: 'Race',
+              headerShown: false
+            })}
+          />
+          <Stack.Screen 
+            name='RaceBet' 
+            component={RaceBetPage}
+            options={() => ({
+              title: 'RaceBet',
               headerShown: false
             })}
           />
