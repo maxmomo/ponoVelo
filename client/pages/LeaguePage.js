@@ -4,7 +4,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
-import BasicSubtitleView from '../components/Basic/BasicSubtitleView';
+import BasicSubtitleWhiteView from '../components/Basic/BasicSubtitleWhiteView';
 import BasicLogoButton from '../components/Basic/BasicLogoButton';
 import TitleLeague from '../components/Title/TitleLeague';
 import RidersOfferList from '../components/RidersOfferList';
@@ -139,7 +139,7 @@ export default function LeaguePage() {
                             case 'subtitle':
                                 return (
                                     <View style={commonStyles.margin2Top}>
-                                        <BasicSubtitleView text={item.data} />
+                                        <BasicSubtitleWhiteView text={item.data} />
                                     </View>
                                 );
                             case 'event':

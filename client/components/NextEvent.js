@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet} from 'react-native';
 import RaceLogo from './Basic/RaceLogo';
 import { commonStyles } from '../styles/GlobalStyles';
+import colors from '../constants/colors';
 const logo_vuelta = require('../assets/logo-vuelta.png');
 const logo_tdf = require('../assets/logo-tdf.png');
 const logo_giro = require('../assets/logo-giro.png');
@@ -22,7 +23,7 @@ export default function NextEvent(props) {
     return (
         <TouchableOpacity style={commonStyles.center} onPress={props.onPress}>
             <RaceLogo width={150} height={150} source={source} />
-            <Text style={commonStyles.text16}>{props.stage_name}</Text>
+            <Text style={[commonStyles.text16, {color: colors.theme}]}>{props.stage_name}</Text>
         </TouchableOpacity>
     );
 }
