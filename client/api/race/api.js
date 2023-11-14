@@ -61,5 +61,28 @@ const getStartListRace = async (ip_address, race_id) => {
     }
 };
 
+/**
+ * Fonction pour récupérer les paris de l'utilisateur pour la course dans la ligue (classement général)
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} race_id - id de la course.
+ * @param {integer} user_id - id de l'utilisateur'.
+ * @param {integer} league_id - id de la ligue.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des paris
+ */
+const getBetsUserRace = async (ip_address, race_id, user_id, league_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/race/user/bets',
+            params: { race_id, user_id, league_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
-export { getNextRace, getStagesRace, getStartListRace };
+
+export { getNextRace, getStagesRace, getStartListRace, getBetsUserRace };

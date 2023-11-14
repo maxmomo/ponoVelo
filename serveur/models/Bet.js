@@ -5,6 +5,7 @@ const Race = require("./Race")
 const Stage = require("./Stage")
 const User = require("./User")
 const BetType = require("./BetType")
+const League = require("./League")
 
 const Bet = sequelize.define('Bet', {
     position: {
@@ -26,5 +27,8 @@ Bet.belongsTo(User);
 
 BetType.hasMany(Bet);
 Bet.belongsTo(BetType);
+
+League.hasMany(Bet);
+Bet.belongsTo(League);
 
 module.exports = Bet;

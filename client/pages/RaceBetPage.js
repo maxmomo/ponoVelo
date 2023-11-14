@@ -9,18 +9,19 @@ import TitleRace from '../components/Title/TitleRace';
 import BasicSubtitle from '../components/Basic/BasicSubtitle';
 import BasicButton from '../components/Basic/BasicButton';
 
-import { getStages, getStartList } from '../api/race/api';
+import { getBetsUserRace } from '../api/race/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
 import StagesList from '../components/List/StagesList';
 import StartlistList from '../components/List/StartlistList';
+import Bets10List from '../components/List/Bets10List';
 
 export default function RaceBetPage() {
     
     const { state, dispatch } = useMyContext();
     const navigation = useNavigation();
 
-    const [stages, setStages] = useState([]);
+    const [bets, setBets] = useState([]);
     const [startlist, setStartlist] = useState([]);
 
     const [visibility, setVisibility] = useState({
@@ -42,15 +43,19 @@ export default function RaceBetPage() {
     const team = state['team']
     const race = state['race']
     const year = state['year']
+    const user_id = state['user']['id']
+    const league_id = state['league']['id']
+    const race_id = state['race']['race_id']
 
     useEffect(() => {
-        getRaceDataEffect();
-    }, [refreshKey, getRaceDataEffect]);
+        getBetDataEffect();
+    }, [refreshKey, getBetDataEffect]);
 
-    const getRaceDataEffect = useCallback(async () => {
+    const getBetDataEffect = useCallback(async () => {
         try {
-            // const stagesData = await getStages(state['ip_adress'], race.race_id);
-            // setStages(stagesData);
+            const betsData = await getBetsUserRace(state['ip_adress'], race_id, user_id, league_id);
+            setBets(betsData);
+            console.log(betsData)
 
             // const startlistData = await getStartList(state['ip_adress'], race.race_id);
             // setStartlist(startlistData);
@@ -81,15 +86,16 @@ export default function RaceBetPage() {
             <View style={commonStyles.margin2Top}>
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
             </View>
-            <View style={[{backgroundColor: 'red'}, commonStyles.flex1]}>
+            <View style={[{backgroundColor: 'red'}, commonStyles.flex3]}>
+                <Bets10List bets={bets} />
             </View>
-            <View style={[commonStyles.flex1, commonStyles.row]}>
+            <View style={[commonStyles.flex2, commonStyles.row]}>
                 <View style={[{backgroundColor: 'pink'}, commonStyles.flex1]}>
                 </View>
                 <View style={[{backgroundColor: 'yellow'}, commonStyles.flex1]}>
                 </View>
             </View>
-            <View style={[commonStyles.flex1, commonStyles.row]}>
+            <View style={[commonStyles.flex2, commonStyles.row]}>
                 <View style={[{backgroundColor: 'purple'}, commonStyles.flex1]}>
                 </View>
                 <View style={[{backgroundColor: 'brown'}, commonStyles.flex1]}>
