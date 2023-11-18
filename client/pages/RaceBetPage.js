@@ -15,6 +15,7 @@ import { commonStyles } from '../styles/GlobalStyles';
 import StagesList from '../components/List/StagesList';
 import StartlistList from '../components/List/StartlistList';
 import Bets10List from '../components/List/Bets10List';
+import Podium from '../components/Podium';
 
 export default function RaceBetPage() {
     
@@ -30,13 +31,6 @@ export default function RaceBetPage() {
         isStartlistVisible: true,
         isPerformancesVisible: true
     });
-
-    const VISIBILITY_KEYS = {
-        INFORMATION: 'isInformationVisible',
-        STAGES: 'isStagesVisible',
-        STARTLIST: 'isStartListVisible',
-        PERFORMANCES: 'isPerformancesVisible'
-    };
 
     const [refreshKey, setRefreshKey] = React.useState(0);
 
@@ -55,14 +49,7 @@ export default function RaceBetPage() {
         try {
             const betsData = await getBetsUserRace(state['ip_adress'], race_id, user_id, league_id);
             setBets(betsData);
-            console.log(betsData)
 
-            // const startlistData = await getStartList(state['ip_adress'], race.race_id);
-            // setStartlist(startlistData);
-
-            // const statisticsData = await getStatistics(state['ip_adress'], team.related_team_id);
-            // setStatistics(statisticsData);
-            // dispatch({ type: 'SET_STATISTICS', payload: statisticsData });
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
         }
@@ -86,45 +73,30 @@ export default function RaceBetPage() {
             <View style={commonStyles.margin2Top}>
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
             </View>
-            <View style={[{backgroundColor: 'red'}, commonStyles.flex3]}>
+            <View style={[commonStyles.flex3]}>
                 <Bets10List bets={bets} />
             </View>
             <View style={[commonStyles.flex2, commonStyles.row]}>
-                <View style={[{backgroundColor: 'pink'}, commonStyles.flex1]}>
+                <View style={[commonStyles.flex1]}>
+                    <Podium type={'Classement par point'} bets={bets} />
                 </View>
-                <View style={[{backgroundColor: 'yellow'}, commonStyles.flex1]}>
+                <View style={[commonStyles.flex1]}>
+                    <Podium type={'Classement montagne'} bets={bets} />
                 </View>
             </View>
             <View style={[commonStyles.flex2, commonStyles.row]}>
-                <View style={[{backgroundColor: 'purple'}, commonStyles.flex1]}>
+                <View style={[commonStyles.flex1]}>
+                    <Podium type={'Classement jeune'} bets={bets} />
                 </View>
-                <View style={[{backgroundColor: 'brown'}, commonStyles.flex1]}>
-                    <View style={[{backgroundColor: 'blue'}, commonStyles.flex1]}>
+                <View style={[commonStyles.flex1]}>
+                    {/* <View style={[{backgroundColor: 'blue'}, commonStyles.flex1]}>
                     </View>
                     <View style={[{backgroundColor: 'brown'}, commonStyles.flex1]}>
                     </View>
                     <View style={[{backgroundColor: 'green'}, commonStyles.flex1]}>
-                    </View>
+                    </View> */}
                 </View>
             </View>
-            {/* <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
-                <FlatList
-                    ListHeaderComponent={
-                        <>
-                            <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                            {visibility.isInformationVisible && <View style={commonStyles.row}>
-                                <RaceInformation race={race} />
-                                <BasicButton text='Parier' />
-                            </View>
-                            }
-                            <BasicSubtitle text={'ETAPES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STAGES)} />
-                            {visibility.isStagesVisible && <StagesList stages={stages}  />}
-                            <BasicSubtitle text={'STARTLIST'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STARTLIST)} />
-                            {visibility.isStartlistVisible && <StartlistList startlist={startlist} />}
-                        </>
-                    }
-                />
-            </View> */}
         </SafeAreaView>
     );
 }

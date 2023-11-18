@@ -1,31 +1,40 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { useMyContext } from '../../context/MyContext';
+import { View, Text, TouchableOpacity } from 'react-native';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import colors from '../../constants/colors';
+import Flag from 'react-native-flags';
 import { commonStyles } from '../../styles/GlobalStyles';
 
 export default function Bets10List(props) {
 
-    console.log(props.bets)
+    const betsOfType1 = props.bets.filter(bet => bet.type_id === 1);
 
-    const ListItem = ({ item }) => (
-        <View style={[commonStyles.row, commonStyles.padding1]}>
-            <View style={commonStyles.flex2}>
-                <Text style={commonStyles.text13}>{item.position}</Text>
-            </View>
-            <View style={commonStyles.flex5}>
-                <Text style={commonStyles.text13}>{item.name}</Text>
-            </View>
-        </View>
-    )
+    const renderNameForPosition = (position) => {
+        const bet = betsOfType1.find(bet => bet.position === position);
+        return bet ? [bet.fullName, bet.nationality] : ['', false];
+    }
 
     return (
-        <FlatList
-            data={props.bets}
-            renderItem={({ item }) => <ListItem item={item} />}
-            keyExtractor={item => item.id}
-        />
+        <TouchableOpacity style={[commonStyles.flex1, commonStyles.padding1, commonStyles.roundyellow, commonStyles.margin1]}>
+            <View style={[commonStyles.center, commonStyles.margin1Bottom]}>
+                <Text style={[commonStyles.text16, commonStyles.bold]}>Classement général</Text>
+            </View>
+            <View style={[commonStyles.row, commonStyles.flex1]}>
+                <View style={[commonStyles.padding1, commonStyles.spaceBetween]}>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((position) => (
+                        <Text key={position} style={commonStyles.text13}>{position}</Text>
+                    ))}
+                </View>
+                <View style={[commonStyles.padding1, commonStyles.spaceBetween]}>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((position) => (
+                        <View key={position} style={[commonStyles.row]} >
+                            {renderNameForPosition(position)[1] && <Flag code={renderNameForPosition(position)[1]} size={16} type={'flat'}/>}
+                            <Text key={position} style={[commonStyles.text13, commonStyles.margin2Left]}>
+                                {renderNameForPosition(position)[0]}
+                            </Text>
+                        </View>
+                    ))}
+                </View>
+            </View>
+        </TouchableOpacity>
     );
 }

@@ -18,6 +18,14 @@ const commonStyles = StyleSheet.create({
         color: colors.whiteText,
         fontSize: 13
     },
+    text13Inv: {
+        color: colors.backgroundLight,
+        fontSize: 13
+    },
+    text20Inv: {
+        color: colors.backgroundLight,
+        fontSize: 20
+    },
     text14: {
         color: colors.whiteText,
         fontSize: 14
@@ -62,6 +70,12 @@ const commonStyles = StyleSheet.create({
     bold: {
         fontWeight: 'bold',
     },  
+    margin1: {
+        margin: '1%'
+    },
+    margin2: {
+        margin: '2%'
+    },
     margin2Top: {
         marginTop: '2%'
     },
@@ -73,6 +87,15 @@ const commonStyles = StyleSheet.create({
     },
     marginVertical1: {
         marginVertical: '1%'
+    },
+    margin2Left: {
+        marginLeft: '2%'
+    },
+    margin1Bottom: {
+        marginBottom: '1%'
+    },
+    margin3Bottom: {
+        marginBottom: '3%'
     },
     flex1: {
         flex: 1
@@ -89,8 +112,14 @@ const commonStyles = StyleSheet.create({
     flex5: {
         flex: 5
     },
+    flex10: {
+        flex: 10
+    },
     row: {
         flexDirection: 'row'
+    },
+    column: {
+        flexDirection: 'column'
     },
     center: {
         alignItems: 'center',
@@ -98,6 +127,9 @@ const commonStyles = StyleSheet.create({
     },
     centerVertical: {
         justifyContent: 'center'
+    },
+    spaceBetween: {
+        justifyContent: 'space-between'
     },
     padding1: {
         padding: '1%'
@@ -115,11 +147,13 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    margin2Left: {
-        marginLeft: '2%'
+    roundyellow: {
+        borderWidth: 2,
+        borderColor: colors.theme,
+        borderRadius: 10
     },
-    margin3Bottom: {
-        marginBottom: '3%'
+    colorWhite: {
+        backgroundColor: colors.whiteText
     }
 });
 

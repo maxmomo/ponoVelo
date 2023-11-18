@@ -6,19 +6,38 @@ const getBetsUserRace = async (req, res) => {
 
 
     // bet = Bet.create({
-    //     position: 1,
-    //     RiderId: 2,
+    //     position: 2,
+    //     RiderId: 42,
     //     RaceId: 296,
     //     UserId: 1,
-    //     BetTypeId: 1,
+    //     BetTypeId: 2,
     //     LeagueId: 23
     // })
+
+    //     bet = Bet.create({
+    //     position: 2,
+    //     RiderId: 741,
+    //     RaceId: 296,
+    //     UserId: 1,
+    //     BetTypeId: 2,
+    //     LeagueId: 23
+    // })
+
+    //     bet = Bet.create({
+    //     position: 2,
+    //     RiderId: 512,
+    //     RaceId: 296,
+    //     UserId: 1,
+    //     BetTypeId: 3,
+    //     LeagueId: 23
+    // })
+
 
     // console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
     // console.log(bet)
 
     const bets = await db.query(
-        "SELECT b.id, b.BetTypeId as type_id , b.position as position, ri.id as rider_id, ri.name as name , ri.nationality as nationality " +
+        "SELECT b.id, b.BetTypeId as type_id , b.position as position, ri.id as rider_id, ri.name as name, ri.firstName as firstName, ri.fullName as fullName, ri.nationality as nationality, ri.picture as picture " +
         "FROM bets b " +
         "JOIN riders ri ON ri.id = b.RiderId " +
         "WHERE " +

@@ -9,6 +9,12 @@ const Rider = sequelize.define('Rider', {
     name: {
         type: DataTypes.STRING,
     },
+    firstName: {
+        type: DataTypes.STRING,
+    },
+    fullName: {
+        type: DataTypes.STRING,
+    },
     nationality: {
         type: DataTypes.STRING,
     },
