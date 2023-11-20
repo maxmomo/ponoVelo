@@ -8,12 +8,12 @@ export default function Podium(props) {
 
     let bets = []
 
-    if (props.type === 'Classement par point') {
-        bets = props.bets.filter(bet => bet.type_id === 1);
-    } else if (props.type === 'Classement montagne') {
+    if (props.betTypeId === 2) {
         bets = props.bets.filter(bet => bet.type_id === 2);
-    } else if (props.type === 'Classement jeune') {
+    } else if (props.betTypeId === 3) {
         bets = props.bets.filter(bet => bet.type_id === 3);
+    } else if (props.betTypeId === 4) {
+        bets = props.bets.filter(bet => bet.type_id === 4);
     }
 
     const firstPlace = bets.find(bet => bet.position === 1);

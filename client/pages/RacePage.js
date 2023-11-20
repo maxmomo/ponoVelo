@@ -51,13 +51,33 @@ export default function RacePage() {
         try {
             const stagesData = await getStagesRace(state['ip_adress'], race.race_id);
             setStages(stagesData);
-
+            
             const startlistData = await getStartListRace(state['ip_adress'], race.race_id);
-            setStartlist(startlistData);
-
-            // const statisticsData = await getStatistics(state['ip_adress'], team.related_team_id);
-            // setStatistics(statisticsData);
-            // dispatch({ type: 'SET_STATISTICS', payload: statisticsData });
+            const teams = startlistData.reduce((acc, rider) => {
+                const { team_name, team_id, team_nationality, team_jersey } = rider;
+                if (!acc[team_id]) {
+                    acc[team_id] = {
+                        team_name,
+                        team_nationality,
+                        team_id,
+                        team_jersey,
+                        riders: [],
+                    };
+                }
+                acc[team_id].riders.push(rider);
+                return acc;
+            }, {});
+            
+            const teamSections = Object.keys(teams).map(key => ({
+                title: teams[key].team_name,
+                data: teams[key].riders,
+                team_nationality: teams[key].team_nationality,
+                team_jersey: teams[key].team_jersey,
+                team_id: teams[key].team_id,
+            }));
+            dispatch({ type: 'SET_STARTLIST', payload: teamSections });
+            setStartlist(teamSections);
+            
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
         }

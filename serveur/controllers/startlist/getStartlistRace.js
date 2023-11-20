@@ -4,7 +4,7 @@ const getStartListRace = async (req, res) => {
     params = req.query
     
     const startlist = await db.query(
-        "SELECT ri.id as rider_id, ri.nationality as rider_nationality, ri.fullName as rider_name, t.id as team_id, t.name as team_name, t.nationality as team_nationality " +
+        "SELECT ri.id as rider_id, ri.nationality as rider_nationality, ri.fullName as rider_name, ri.picture as rider_picture, t.id as team_id, t.name as team_name, t.nationality as team_nationality, t.jersey as team_jersey " +
         "FROM startlists st " +
         "JOIN riders ri ON ri.id = st.RiderId " +
         "JOIN teams t ON t.id = ri.team_id " +

@@ -84,5 +84,32 @@ const getBetsUserRace = async (ip_address, race_id, user_id, league_id) => {
     }
 };
 
+/**
+ * Fonction pour créer un paris de l'utilisateur pour la course dans la ligue (classement général)
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} race_id - id de la course.
+ * @param {integer} user_id - id de l'utilisateur'.
+ * @param {integer} league_id - id de la ligue.
+ * @param {integer} position - position du paris.
+ * @param {integer} rider_id - id du coureur.
+ * @param {integer} bet_type_id - id du type de paris.
+ * @returns {Promise<Object|boolean>} - Renvoie le paris créé ou modifié
+ */
+const setBetsUserRace = async (ip_address, race_id, user_id, league_id, position, rider_id, bet_type_id) => {
 
-export { getNextRace, getStagesRace, getStartListRace, getBetsUserRace };
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/race/user/bets/set',
+            params: { race_id, user_id, league_id, position, rider_id, bet_type_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
+export { getNextRace, getStagesRace, getStartListRace, getBetsUserRace, setBetsUserRace };

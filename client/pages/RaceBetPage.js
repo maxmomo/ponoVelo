@@ -4,18 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
-import RaceInformation from '../components/RaceInformation';
 import TitleRace from '../components/Title/TitleRace';
-import BasicSubtitle from '../components/Basic/BasicSubtitle';
-import BasicButton from '../components/Basic/BasicButton';
 
-import { getBetsUserRace } from '../api/race/api';
+import { getBetsUserRace, setBetsUserRace } from '../api/race/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
-import StagesList from '../components/List/StagesList';
-import StartlistList from '../components/List/StartlistList';
 import Bets10List from '../components/List/Bets10List';
 import Podium from '../components/Podium';
+import BetModal from '../modals/BetModal';
 
 export default function RaceBetPage() {
     
@@ -24,15 +20,10 @@ export default function RaceBetPage() {
 
     const [bets, setBets] = useState([]);
     const [startlist, setStartlist] = useState([]);
-
-    const [visibility, setVisibility] = useState({
-        isInformationVisible: true,
-        isStagesVisible: true,
-        isStartlistVisible: true,
-        isPerformancesVisible: true
-    });
-
-    const [refreshKey, setRefreshKey] = React.useState(0);
+    const [position, setPosition] = useState(0)
+    const [riderId, setRiderId] = useState(0)
+    const [betTypeId, setBetTypeId] = useState(0)
+    const [isModalBetVisible, setIsModalBetVisible] = useState(false);
 
     const team = state['team']
     const race = state['race']
@@ -43,7 +34,8 @@ export default function RaceBetPage() {
 
     useEffect(() => {
         getBetDataEffect();
-    }, [refreshKey, getBetDataEffect]);
+        setStartlist(state['startlist'])
+    }, [getBetDataEffect, riderId, isModalBetVisible]);
 
     const getBetDataEffect = useCallback(async () => {
         try {
@@ -56,15 +48,23 @@ export default function RaceBetPage() {
 
     }, [team, year, navigation]);
 
-    const toggleVisibility = (key) => {
-        setVisibility(prevVisibility => ({
-            ...prevVisibility,
-            [key]: !prevVisibility[key]
-        }));
+    const onPressCreateBet = async () => {
+        try {
+            const betData = await setBetsUserRace(state['ip_adress'], race_id, user_id, league_id, position, riderId, betTypeId);
+            setIsModalBetVisible(false)
+            
+        } catch (error) {
+            Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+        }
     };
 
-    const handleRefresh = () => {
-        setRefreshKey(prevKey => prevKey + 1);
+    const toggleBetModal = () => {
+        setIsModalBetVisible(!isModalBetVisible);
+    };
+
+    const onPressItem = (typeId) => {
+        setIsModalBetVisible(!isModalBetVisible);
+        setBetTypeId(typeId)
     };
 
     return (
@@ -74,29 +74,24 @@ export default function RaceBetPage() {
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
             </View>
             <View style={[commonStyles.flex3]}>
-                <Bets10List bets={bets} />
+                <Bets10List bets={bets} onPress={() => onPressItem(1)} betTypeId={1} />
             </View>
             <View style={[commonStyles.flex2, commonStyles.row]}>
                 <View style={[commonStyles.flex1]}>
-                    <Podium type={'Classement par point'} bets={bets} />
+                    <Podium type={'Classement par point'} bets={bets} onPress={() => onPressItem(2)} betTypeId={2} />
                 </View>
                 <View style={[commonStyles.flex1]}>
-                    <Podium type={'Classement montagne'} bets={bets} />
+                    <Podium type={'Classement montagne'} bets={bets} onPress={() => onPressItem(3)} betTypeId={3} />
                 </View>
             </View>
             <View style={[commonStyles.flex2, commonStyles.row]}>
                 <View style={[commonStyles.flex1]}>
-                    <Podium type={'Classement jeune'} bets={bets} />
+                    <Podium type={'Classement jeune'} bets={bets} onPress={() => onPressItem(4)} betTypeId={4} />
                 </View>
                 <View style={[commonStyles.flex1]}>
-                    {/* <View style={[{backgroundColor: 'blue'}, commonStyles.flex1]}>
-                    </View>
-                    <View style={[{backgroundColor: 'brown'}, commonStyles.flex1]}>
-                    </View>
-                    <View style={[{backgroundColor: 'green'}, commonStyles.flex1]}>
-                    </View> */}
                 </View>
             </View>
+            <BetModal visible={isModalBetVisible} toggleModal={toggleBetModal} startlist={startlist} setPosition={setPosition} riderId={riderId} setRiderId={setRiderId} onPress={onPressCreateBet} betTypeId={betTypeId} />
         </SafeAreaView>
     );
 }

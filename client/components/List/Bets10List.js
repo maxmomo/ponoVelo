@@ -14,7 +14,7 @@ export default function Bets10List(props) {
     }
 
     return (
-        <TouchableOpacity style={[commonStyles.flex1, commonStyles.padding1, commonStyles.roundyellow, commonStyles.margin1]}>
+        <TouchableOpacity style={[commonStyles.flex1, commonStyles.padding1, commonStyles.roundyellow, commonStyles.margin1]} onPress={props.onPress}>
             <View style={[commonStyles.center, commonStyles.margin1Bottom]}>
                 <Text style={[commonStyles.text16, commonStyles.bold]}>Classement général</Text>
             </View>

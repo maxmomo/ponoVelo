@@ -1,30 +1,10 @@
 import React from 'react';
-import { View, Text, FlatList, SectionList } from 'react-native';
+import { View, Text, SectionList } from 'react-native';
 import Flag from 'react-native-flags';
 
 import { commonStyles } from '../../styles/GlobalStyles';
 
 export default function StartlistList(props) {
-
-    const teams = props.startlist.reduce((acc, rider) => {
-        const { team_name, team_id, team_nationality } = rider;
-        if (!acc[team_id]) {
-            acc[team_id] = {
-                team_name,
-                team_nationality,
-                team_id,
-                riders: [],
-            };
-        }
-        acc[team_id].riders.push(rider);
-        return acc;
-    }, {});
-
-    const teamSections = Object.keys(teams).map(key => ({
-        title: teams[key].team_name,
-        data: teams[key].riders,
-        team_nationality: teams[key].team_nationality,
-    }));
 
     const renderRider = ({ item }) => (
         <View style={commonStyles.startlistView}>
@@ -51,7 +31,7 @@ export default function StartlistList(props) {
     return (
         <View style={commonStyles.flex1}>
             <SectionList
-                sections={teamSections}
+                sections={props.startlist}
                 keyExtractor={(item, index) => item + index}
                 renderItem={renderRider}
                 renderSectionHeader={renderSectionHeader}

@@ -11,6 +11,7 @@ const SET_RACE_STATISTIC = 'SET_RACE_STATISTIC';
 const SET_LEAGUE = 'SET_LEAGUE';
 const SET_NEXT_RACE = 'SET_NEXT_RACE';
 const SET_RACE = 'SET_RACE';
+const SET_STARTLIST = 'SET_STARTLIST';
 
 // Définit le fournisseur du contexte
 export const MyContextProvider = ({ children }) => {
@@ -24,7 +25,8 @@ export const MyContextProvider = ({ children }) => {
         team_status: ['WT', 'PRT'],
         ip_adress: '192.168.1.125',
         next_race: {},
-        race: {}
+        race: {},
+        startlist: [],
     };
 
     const reducer = (state, action) => {
@@ -43,6 +45,8 @@ export const MyContextProvider = ({ children }) => {
                 return { ...state, next_race: action.payload };
             case SET_RACE:
                 return { ...state, race: action.payload };
+            case SET_STARTLIST:
+                    return { ...state, startlist: action.payload };
             default:
                 return state;
         }

@@ -57,5 +57,4 @@ const getBetsUserRace = async (req, res) => {
     res.json(bets[0])
 };
 
-
 module.exports = {getBetsUserRace};
