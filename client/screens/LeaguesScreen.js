@@ -107,7 +107,7 @@ export default function LeaguesScreen() {
         
     return (
         <SafeAreaView style={commonStyles.container}>
-            <Header/>
+            <Header is_navigation={false}/>
             <View style={[commonStyles.margin2Top]}>
                 <BasicLogoButton text={'Nouvelle ligue'} onPress={toggleCreateModal} logo={'plus'} />
                 <BasicLogoButton text={'Rejoindre ligue'} onPress={toggleJoinModal} logo={'arrow-right-circle'} />

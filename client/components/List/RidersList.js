@@ -24,7 +24,7 @@ export default function RidersList(props) {
                 <Flag code={item.nationality} size={24} type={'flat'}/>
             </View>
             <View style={[commonStyles.flex4, commonStyles.centerVertical]}>
-                <Text style={commonStyles.text13}>{item.name}</Text>
+                <Text style={commonStyles.text13}>{item.fullName}</Text>
             </View>
             <View style={[commonStyles.flex1, commonStyles.center]}>
                 <Text style={getPointsStyle(item.odr_points)}>{item.odr_points}</Text>

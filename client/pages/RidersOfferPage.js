@@ -134,7 +134,7 @@ export default function RidersOfferPage() {
 
     return (
         <SafeAreaView style={commonStyles.container}>
-            <Header navigation={navigation} />
+            <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
                 <BasicSearchBar placeholder={'Rechercher un coureur...'} value={searchQuery3} onChangeText={setSearchQuery3} />
             </View>

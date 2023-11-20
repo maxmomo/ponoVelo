@@ -38,6 +38,10 @@ const commonStyles = StyleSheet.create({
         color: colors.whiteText,
         fontSize: 18
     },
+    text18: {
+        color: colors.whiteText,
+        fontSize: 18
+    },
     text20: {
         color: colors.whiteText,
         fontSize: 20
@@ -154,6 +158,9 @@ const commonStyles = StyleSheet.create({
     },
     colorWhite: {
         backgroundColor: colors.whiteText
+    },
+    colorRed: {
+        color: colors.red
     }
 });
 

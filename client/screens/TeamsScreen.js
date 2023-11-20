@@ -46,7 +46,7 @@ export default function TeamsScreen() {
 
     return (
         <SafeAreaView style={commonStyles.container}>
-            <Header/>
+            <Header is_navigation={false} />
             <View style={commonStyles.margin2Top}>
                 <SelectTeamStatus data={status} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
             </View>

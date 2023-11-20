@@ -104,7 +104,7 @@ export default function LeaguePage() {
     
     return (
         <SafeAreaView style={commonStyles.containerLight}>
-            <Header navigation={navigation} />
+            <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
                 <TitleLeague name={league['name'].toUpperCase()} />
             </View>

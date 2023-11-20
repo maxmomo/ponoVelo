@@ -44,7 +44,7 @@ export default function TeamGTWinPage({route, navigation}) {
 
     return (
         <SafeAreaView style={commonStyles.container}>
-            <Header navigation={navigation} />
+            <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
                 <TitleTeam nationality={team['nationality']} name={team['name']}/>
             </View>

@@ -71,7 +71,7 @@ export default function RidersScreen() {
 
     return (
         <View style={styles.container}>
-            <Header navigation={navigation}/>
+            <Header is_navigation={true} />
             <View style={styles.selectView}>
                 <FlatList
                     data={sort}

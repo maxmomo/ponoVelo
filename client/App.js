@@ -16,6 +16,7 @@ import RidersOfferPage from './pages/RidersOfferPage';
 import colors from './constants/colors';
 import RacePage from './pages/RacePage';
 import RaceBetPage from './pages/RaceBetPage';
+import ProfileMenuPage from './pages/ProfileMenuPage';
 
 const Stack = createStackNavigator();
 
@@ -117,6 +118,14 @@ export default function App() {
             component={RaceBetPage}
             options={() => ({
               title: 'RaceBet',
+              headerShown: false
+            })}
+          />
+          <Stack.Screen 
+            name='ProfileMenu' 
+            component={ProfileMenuPage}
+            options={() => ({
+              title: 'ProfileMenu',
               headerShown: false
             })}
           />

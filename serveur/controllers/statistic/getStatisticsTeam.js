@@ -5,7 +5,7 @@ const getStatisticsTeam = async (req, res) => {
     params = req.query
     
     const statistics = await db.query(
-        "SELECT ri.name AS rider_name, ri.id AS rider_id, ra.name AS race_name, ra.id AS race_id, ra.season AS season, s.name AS stage_name, s.id AS stage_id, ri.nationality as nationality " +
+        "SELECT ri.fullName AS rider_name, ri.id AS rider_id, ra.name AS race_name, ra.id AS race_id, ra.season AS season, s.name AS stage_name, s.id AS stage_id, ri.nationality as nationality " +
         "FROM results re " +
         "JOIN riders ri ON ri.id = re.RiderId " +
         "JOIN races ra ON ra.id = re.RaceId " +

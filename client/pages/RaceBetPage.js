@@ -69,7 +69,7 @@ export default function RaceBetPage() {
 
     return (
         <SafeAreaView style={commonStyles.containerLight}>
-            <Header navigation={navigation} />
+            <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
             </View>
