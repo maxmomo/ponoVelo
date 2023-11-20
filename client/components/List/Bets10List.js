@@ -3,14 +3,17 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 import Flag from 'react-native-flags';
 import { commonStyles } from '../../styles/GlobalStyles';
+import colors from '../../constants/colors';
 
 export default function Bets10List(props) {
 
     const betsOfType1 = props.bets.filter(bet => bet.type_id === 1);
 
+    console.log(betsOfType1)
+
     const renderNameForPosition = (position) => {
         const bet = betsOfType1.find(bet => bet.position === position);
-        return bet ? [bet.fullName, bet.nationality] : ['', false];
+        return bet ? [bet.fullName, bet.nationality, bet.is_boost] : ['', false];
     }
 
     return (
@@ -28,7 +31,7 @@ export default function Bets10List(props) {
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((position) => (
                         <View key={position} style={[commonStyles.row]} >
                             {renderNameForPosition(position)[1] && <Flag code={renderNameForPosition(position)[1]} size={16} type={'flat'}/>}
-                            <Text key={position} style={[commonStyles.text13, commonStyles.margin2Left]}>
+                            <Text key={position} style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
                                 {renderNameForPosition(position)[0]}
                             </Text>
                         </View>

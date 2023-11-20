@@ -3,6 +3,7 @@ import { View, Text, SectionList } from 'react-native';
 import Flag from 'react-native-flags';
 
 import { commonStyles } from '../../styles/GlobalStyles';
+import colors from '../../constants/colors';
 
 export default function StartlistList(props) {
 
@@ -12,7 +13,9 @@ export default function StartlistList(props) {
                 <Flag code={item.rider_nationality} size={24} type={'flat'}/>
             </View>
             <View style={commonStyles.margin2Left}>
-                <Text style={commonStyles.text13}>{item.rider_name}</Text>
+            <Text style={[commonStyles.text13, item.is_boost ? { color: colors.theme } : {}]}>
+                {item.rider_name}
+            </Text>
             </View>
         </View>
     );

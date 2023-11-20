@@ -41,18 +41,21 @@ const getStagesRace = async (ip_address, race_id) => {
 };
 
 /**
- * Fonction pour récupérer la startlist de la course.
+ * Fonction pour récupérer la startlist de la course (dans un contexte de ligue / utilisateur).
  *
  * @param {string} ip_address - Adresse IP du serveur.
  * @param {integer} race_id - id de la course.
+ * @param {integer} user_id - id de l'utilisateur.
+ * @param {integer} league_id - id de la ligue.
  * @returns {Promise<Object|boolean>} - Renvoie les données de la startlist
  */
-const getStartListRace = async (ip_address, race_id) => {
+const getStartListRace = async (ip_address, race_id, user_id, league_id) => {
+    console.log(race_id, user_id, league_id)
     try {
         const response = await axios({
             method: 'get',
             url: 'http://' + ip_address + ':3000/race/startlist',
-            params: { race_id }
+            params: { race_id, user_id, league_id }
         });
         return response.data;
     } catch (error) {

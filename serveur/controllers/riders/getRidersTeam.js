@@ -9,6 +9,7 @@ const UsersLeagues = require("../../models/UsersLeagues")
 const UserRidersOffer = require("../../models/UserRidersOffer")
 const BetType = require("../../models/BetType")
 const Bet = require("../../models/Bet")
+const UserRiders = require("../../models/UserRiders")
 
 const db = require("../../config/database")
 

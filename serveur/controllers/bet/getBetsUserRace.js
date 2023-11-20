@@ -4,42 +4,15 @@ const Bet = require("../../models/Bet")
 const getBetsUserRace = async (req, res) => {
     params = req.query
 
-
-    // bet = Bet.create({
-    //     position: 2,
-    //     RiderId: 42,
-    //     RaceId: 296,
-    //     UserId: 1,
-    //     BetTypeId: 2,
-    //     LeagueId: 23
-    // })
-
-    //     bet = Bet.create({
-    //     position: 2,
-    //     RiderId: 741,
-    //     RaceId: 296,
-    //     UserId: 1,
-    //     BetTypeId: 2,
-    //     LeagueId: 23
-    // })
-
-    //     bet = Bet.create({
-    //     position: 2,
-    //     RiderId: 512,
-    //     RaceId: 296,
-    //     UserId: 1,
-    //     BetTypeId: 3,
-    //     LeagueId: 23
-    // })
-
-
-    // console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
-    // console.log(bet)
-
     const bets = await db.query(
-        "SELECT b.id, b.BetTypeId as type_id , b.position as position, ri.id as rider_id, ri.name as name, ri.firstName as firstName, ri.fullName as fullName, ri.nationality as nationality, ri.picture as picture " +
+        "SELECT b.id, b.BetTypeId as type_id , b.position as position, ri.id as rider_id, ri.name as name, ri.firstName as firstName, ri.fullName as fullName, ri.nationality as nationality, ri.picture as picture, " +
+        "CASE " +
+        "WHEN ur.RiderId IS NOT NULL THEN 1 " +
+        "ELSE 0 " + 
+        "END as is_boost " +
         "FROM bets b " +
         "JOIN riders ri ON ri.id = b.RiderId " +
+        "LEFT JOIN userriders ur ON ur.RiderId = ri.id AND ur.UserId = :user_id AND ur.LeagueId = :league_id " + 
         "WHERE " +
         "b.RaceId = :race_id AND " +
         "b.UserId = :user_id AND " +

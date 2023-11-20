@@ -42,6 +42,8 @@ export default function RacePage() {
     const team = state['team']
     const race = state['race']
     const year = state['year']
+    const user_id = state['user']['id']
+    const league_id = state['league']['id']
 
     useEffect(() => {
         getRaceDataEffect();
@@ -52,7 +54,8 @@ export default function RacePage() {
             const stagesData = await getStagesRace(state['ip_adress'], race.race_id);
             setStages(stagesData);
             
-            const startlistData = await getStartListRace(state['ip_adress'], race.race_id);
+            const startlistData = await getStartListRace(state['ip_adress'], race.race_id, user_id, league_id);
+
             const teams = startlistData.reduce((acc, rider) => {
                 const { team_name, team_id, team_nationality, team_jersey } = rider;
                 if (!acc[team_id]) {

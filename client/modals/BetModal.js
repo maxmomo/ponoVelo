@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, FlatList, StyleSheet, TouchableOpacity, Dimensions   } from 'react-native';
 
-import BasicTextInput from '../components/Basic/BasicTextInput';
 import BasicButton from '../components/Basic/BasicButton';
 import Jersey from '../components/Basic/Jersey';
 import Portrait from '../components/Basic/Portrait';
