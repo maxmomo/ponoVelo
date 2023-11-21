@@ -1,16 +1,3 @@
-const Rider = require("../../models/Rider")
-const RidersTeams = require("../../models/RidersTeams")
-const Race = require("../../models/Race")
-const Stage = require("../../models/Stage")
-const StartList = require("../../models/StartList")
-const Result = require("../../models/Result")
-const League = require("../../models/League")
-const UsersLeagues = require("../../models/UsersLeagues")
-const UserRidersOffer = require("../../models/UserRidersOffer")
-const BetType = require("../../models/BetType")
-const Bet = require("../../models/Bet")
-const UserRiders = require("../../models/UserRiders")
-
 const db = require("../../config/database")
 
 const getRidersTeam = async (req, res) => {
