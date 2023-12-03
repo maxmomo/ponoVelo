@@ -41,6 +41,9 @@ const Stage = sequelize.define('Stage', {
     },
     profile_icone: {
         type: DataTypes.STRING,
+    },
+    profile: {
+        type: DataTypes.STRING
     }
 });
 

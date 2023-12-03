@@ -17,6 +17,7 @@ import colors from './constants/colors';
 import RacePage from './pages/RacePage';
 import RaceBetPage from './pages/RaceBetPage';
 import ProfileMenuPage from './pages/ProfileMenuPage';
+import StagePage from './pages/StagePage';
 
 const Stack = createStackNavigator();
 
@@ -126,6 +127,14 @@ export default function App() {
             component={ProfileMenuPage}
             options={() => ({
               title: 'ProfileMenu',
+              headerShown: false
+            })}
+          />
+          <Stack.Screen 
+            name='Stage' 
+            component={StagePage}
+            options={() => ({
+              title: 'Stage',
               headerShown: false
             })}
           />

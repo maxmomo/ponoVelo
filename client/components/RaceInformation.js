@@ -1,15 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
+import { View, Text } from 'react-native';
 
-import { FontAwesome } from '@expo/vector-icons'
 import { commonStyles } from '../styles/GlobalStyles';
-import colors from '../constants/colors';
 
 export default function TeamInformation(props) {
-
-    const openURL = (url) => {
-        Linking.openURL(url).catch(err => console.error('Erreur lors du chargement', err));
-    };
 
     return (
         <View style={[commonStyles.flex1, commonStyles.row, commonStyles.margin2Left]}>

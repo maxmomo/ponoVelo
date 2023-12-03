@@ -4,19 +4,21 @@ import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
-import RaceInformation from '../components/RaceInformation';
+import StageInformation from '../components/StageInformation';
 import TitleRace from '../components/Title/TitleRace';
+import TitleStage from '../components/Title/TitleStage';
 import BasicSubtitle from '../components/Basic/BasicSubtitle';
 import BasicButton from '../components/Basic/BasicButton';
-import StagesList from '../components/List/StagesList';
-import StartlistList from '../components/List/StartlistList';
-import MyTeam from '../components/MyTeam';
 
 import { getStagesRace, getStartListRace } from '../api/race/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
+import StagesList from '../components/List/StagesList';
+import StartlistList from '../components/List/StartlistList';
+import MyTeam from '../components/MyTeam';
+import Profile from '../components/Basic/Profile';
 
-export default function RacePage() {
+export default function StagePage() {
     
     const { state, dispatch } = useMyContext();
     const navigation = useNavigation();
@@ -46,6 +48,9 @@ export default function RacePage() {
     const year = state['year']
     const user_id = state['user']['id']
     const league_id = state['league']['id']
+    const stage = state['stage']
+
+    console.log(stage)
 
     useEffect(() => {
         getRaceDataEffect();
@@ -111,15 +116,12 @@ export default function RacePage() {
         navigation.navigate('RaceBet');
     };
 
-    const goStage = () => {
-        navigation.navigate('Stage');
-    };
-
     return (
         <SafeAreaView style={commonStyles.containerLight}>
             <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
+                <TitleStage name={stage['name']} />
             </View>
             <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
                 <FlatList
@@ -127,16 +129,14 @@ export default function RacePage() {
                         <>
                             <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
                             {visibility.isInformationVisible && <View>
-                                <RaceInformation race={race} />
+                                <StageInformation stage={stage} />
                                 <BasicButton text='Parier' onPress={goRaceBet} />
                             </View>
                             }
-                            <BasicSubtitle text={'ETAPES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STAGES)} />
-                            {visibility.isStagesVisible && <StagesList stages={stages} onItemPress={goStage} />}
-                            <BasicSubtitle text={'MON EQUIPE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.TEAM)} />
-                            {visibility.isTeamVisible && <MyTeam riders={userTeam} />}
-                            <BasicSubtitle text={'STARTLIST'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STARTLIST)} />
-                            {visibility.isStartlistVisible && <StartlistList startlist={startlist} />}
+                            <BasicSubtitle text={'PROFIL'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
+                            <View style={commonStyles.margin2Top}>
+                                <Profile profile={stage.profile} />
+                            </View>
                         </>
                     }
                 />

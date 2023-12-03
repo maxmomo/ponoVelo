@@ -106,7 +106,8 @@ export default function BetModal(props) {
             style={[
                 commonStyles.flex1, 
                 { width: jerseyWidth }, 
-                item.rider_id === selectedRider.rider_id ? styles.selectedTeam : styles.defaultTeam
+                item.rider_id === selectedRider.rider_id ? styles.selectedTeam : styles.defaultTeam,
+                item.is_boost === 1 ? styles.boostRider : styles.defaultTeam
             ]}
             onPress={() => handleSelectRider(item, index)}
         >   
@@ -114,7 +115,15 @@ export default function BetModal(props) {
                 <Portrait picture={item.rider_picture} width={100} height={100} style={item.rider_id === selectedTeam.rider_id ? null : styles.darkerJersey}/>
             </View>
             <View style={[commonStyles.center]}>
-                <Text style={[commonStyles.text14, commonStyles.center]}>{item.rider_name}</Text>
+                <Text 
+                    style={[
+                        commonStyles.text14, 
+                        commonStyles.center,
+                        item.is_boost === 1 ? styles.boostRiderText : commonStyles.text14
+                    ]}
+                >
+                    {item.rider_name}
+                </Text>
             </View>
         </TouchableOpacity>
     );
@@ -173,9 +182,6 @@ const styles = StyleSheet.create({
     selectedItem: {
         color: colors.theme
     },
-    text: {
-        fontSize: 32,
-    },
     defaultTeam: {
         opacity: 0.3 // Rend le maillot plus sombre
     },
@@ -185,4 +191,10 @@ const styles = StyleSheet.create({
     selectedTeam: {
         opacity: 1 // Opacité normale pour le maillot sélectionné
     },
+    boostRider: {
+        backgroundColor: colors.theme
+    },
+    boostRiderText: {
+        color: colors.background
+    }
 });
