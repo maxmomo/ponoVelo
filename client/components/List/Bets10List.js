@@ -9,8 +9,6 @@ export default function Bets10List(props) {
 
     const betsOfType1 = props.bets.filter(bet => bet.type_id === 1);
 
-    console.log(betsOfType1)
-
     const renderNameForPosition = (position) => {
         const bet = betsOfType1.find(bet => bet.position === position);
         return bet ? [bet.fullName, bet.nationality, bet.is_boost] : ['', false];

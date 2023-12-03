@@ -33,8 +33,10 @@ export default function RaceBetPage() {
     const race_id = state['race']['race_id']
 
     useEffect(() => {
-        getBetDataEffect();
-        setStartlist(state['startlist'])
+        if (isModalBetVisible === false) {
+            getBetDataEffect();
+            setStartlist(state['startlist'])
+        }
     }, [getBetDataEffect, riderId, isModalBetVisible]);
 
     const getBetDataEffect = useCallback(async () => {

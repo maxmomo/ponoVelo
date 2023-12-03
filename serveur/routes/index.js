@@ -22,6 +22,7 @@ const {getStartListRace} = require('../controllers/startlist/getStartlistRace');
 const {getUsersLeague} = require('../controllers/league/getUsersLeague');
 const {getBetsUserRace} = require('../controllers/bet/getBetsUserRace');
 const {setBetsUserRace} = require('../controllers/bet/setBetsUserRace');
+const {getUserRidersLeague} = require('../controllers/userRiders/getUserRidersLeague');
 
 router.get("/users/create", createUser)
 router.get("/users/connect", connectUser)
@@ -39,6 +40,7 @@ router.get("/team/race/statistics", getStatisticsTeamRace)
 router.get("/league/create", createLeague)
 router.get("/league/join", joinLeague)
 router.get("/league/users", getUsersLeague)
+router.get("/league/user/riders", getUserRidersLeague)
 
 router.get("/ridersOffers/user", getUserRidersOffer)
 router.get("/ridersOffersMercato/user", getUserRidersOfferMercato)

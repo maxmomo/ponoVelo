@@ -7,11 +7,15 @@ const UsersLeagues = require('./UsersLeagues')
 const UserRidersOffer = sequelize.define('UserRidersOffer', 
     {
         offer: {
-            type: DataTypes.FLOAT
+            type: DataTypes.INTEGER
         },
         LeagueId: {
             type: DataTypes.INTEGER
-        }
+        },
+        state: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
     }, 
     {
         hooks: {

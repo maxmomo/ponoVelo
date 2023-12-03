@@ -50,7 +50,6 @@ const getStagesRace = async (ip_address, race_id) => {
  * @returns {Promise<Object|boolean>} - Renvoie les données de la startlist
  */
 const getStartListRace = async (ip_address, race_id, user_id, league_id) => {
-    console.log(race_id, user_id, league_id)
     try {
         const response = await axios({
             method: 'get',

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
-import RidersOfferList from '../components/RidersOfferList';
+import RidersOfferList from '../components/List/RidersOfferList';
 import MakeOfferModal from '../modals/MakeOfferModal';
 import BasicSubtitleView from '../components/Basic/BasicSubtitleView';
 import BasicSubtitleWhiteView from '../components/Basic/BasicSubtitleWhiteView';

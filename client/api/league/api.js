@@ -54,7 +54,7 @@ const joinLeague = async (ip_address, name, password, user_id) => {
  * @param {string} user_id - id de l'utilisateur connecté.
  * @returns {Promise<Object|boolean>} - Renvoie les utilisateurs de la ligue
  */
-const getUsersLeague = async (ip_address, league_id, user_id ) => {
+const getUsersLeague = async (ip_address, league_id, user_id) => {
     try {
         const response = await axios({
             method: 'get',
@@ -68,5 +68,27 @@ const getUsersLeague = async (ip_address, league_id, user_id ) => {
     }
 };
 
+/**
+ * Fonction pour récupérer les coureurs de l'utilisateur de la ligue.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {string} league_id - id de la ligue.
+ * @param {string} user_id - id de l'utilisateur connecté.
+ * @returns {Promise<Object|boolean>} - Renvoie les coureurs de l'utilisateur de la ligue
+ */
+const getRidersUserLeague = async (ip_address, league_id, user_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/league/user/riders',
+            params: { league_id, user_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
-export { createLeague, joinLeague, getUsersLeague };
+
+export { createLeague, joinLeague, getUsersLeague, getRidersUserLeague };

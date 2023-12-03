@@ -14,6 +14,7 @@ import { getStagesRace, getStartListRace } from '../api/race/api';
 import { commonStyles } from '../styles/GlobalStyles';
 import StagesList from '../components/List/StagesList';
 import StartlistList from '../components/List/StartlistList';
+import MyTeam from '../components/MyTeam';
 
 export default function RacePage() {
     
@@ -22,19 +23,20 @@ export default function RacePage() {
 
     const [stages, setStages] = useState([]);
     const [startlist, setStartlist] = useState([]);
+    const [userTeam, setUserTeam] = useState([]);
 
     const [visibility, setVisibility] = useState({
         isInformationVisible: true,
         isStagesVisible: true,
         isStartlistVisible: true,
-        isPerformancesVisible: true
+        isTeamVisible: true
     });
 
     const VISIBILITY_KEYS = {
         INFORMATION: 'isInformationVisible',
         STAGES: 'isStagesVisible',
-        STARTLIST: 'isStartListVisible',
-        PERFORMANCES: 'isPerformancesVisible'
+        STARTLIST: 'isStartlistVisible',
+        TEAM: 'isTeamVisible'
     };
 
     const [refreshKey, setRefreshKey] = React.useState(0);
@@ -68,6 +70,16 @@ export default function RacePage() {
                     };
                 }
                 acc[team_id].riders.push(rider);
+
+                const riderIds = state['user_team'].map(rider => rider.rider_id);
+
+                const foundId = riderIds.find(id => id === rider.rider_id)
+                
+                if (foundId) {
+                    const foundRider = state['user_team'].find(rider => rider.rider_id === foundId);
+                    setUserTeam(currentTeam => [...currentTeam, foundRider])
+                }
+
                 return acc;
             }, {});
             
@@ -78,11 +90,13 @@ export default function RacePage() {
                 team_jersey: teams[key].team_jersey,
                 team_id: teams[key].team_id,
             }));
+
             dispatch({ type: 'SET_STARTLIST', payload: teamSections });
             setStartlist(teamSections);
             
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+            console.log(error)
         }
 
     }, [team, year, navigation]);
@@ -116,6 +130,8 @@ export default function RacePage() {
                             }
                             <BasicSubtitle text={'ETAPES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STAGES)} />
                             {visibility.isStagesVisible && <StagesList stages={stages}  />}
+                            <BasicSubtitle text={'MON EQUIPE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.TEAM)} />
+                            {visibility.isTeamVisible && <MyTeam riders={userTeam} />}
                             <BasicSubtitle text={'STARTLIST'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STARTLIST)} />
                             {visibility.isStartlistVisible && <StartlistList startlist={startlist} />}
                         </>
