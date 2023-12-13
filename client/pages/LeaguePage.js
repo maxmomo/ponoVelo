@@ -13,7 +13,7 @@ import NextEvent from '../components/NextEvent';
 import CountDown from '../components/Basic/Countdown';
 
 import { getRidersOffer } from '../api/mercato/api';
-import { getRidersUserLeague, getUsersLeague } from '../api/league/api';
+import { getRidersUserLeague, getUsersLeague, getTotalUserLeague } from '../api/league/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
 import UsersList from '../components/List/UsersList';
@@ -29,6 +29,7 @@ export default function LeaguePage() {
     const [users, setUsers] = useState([]);
     const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
     const [refreshing, setRefreshing] = useState(false);
+    const [total, setTotal] = useState(false);
 
     const league = state['league']
     const user_id = state['user']['id']
@@ -69,11 +70,28 @@ export default function LeaguePage() {
         if (!league) return 0
 
         const now = new Date();
-        const mercatoEndDate = new Date(league['mercato_endDate']);
+        let mercatoEndDate = new Date();
+
+        if (league['mercato_turns'] === 2) {
+            mercatoEndDate = new Date(league['mercato_endDate1']);
+        } else if (league['mercato_turns'] === 1) {
+            mercatoEndDate = new Date(league['mercato_endDate2']);
+        }
         const difference = mercatoEndDate - now;
 
         return difference > 0 ? difference : 0;
     }
+
+    const isBeforeSpecifiedDate = () => {
+        let mercatoEndDate = new Date();
+        if (league['mercato_turns'] === 2) {
+            mercatoEndDate = new Date(league['mercato_endDate1']);
+        } else if (league['mercato_turns'] === 1) {
+            mercatoEndDate = new Date(league['mercato_endDate2']);
+        }
+        const currentDate = new Date();
+        return currentDate < mercatoEndDate;
+    };
 
     const getLeagueDataEffect = useCallback(async () => {
         try {
@@ -86,6 +104,9 @@ export default function LeaguePage() {
             const userRidersData = await getRidersUserLeague(state['ip_adress'], league_id, user_id);
             setUserRiders(userRidersData)
             dispatch({ type: 'SET_USER_TEAM', payload: userRidersData });
+
+            const totalData = await getTotalUserLeague(state['ip_adress'], league_id, user_id);
+            setTotal(totalData)
 
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
@@ -107,6 +128,7 @@ export default function LeaguePage() {
         { type: 'headerOffers', data: ridersOffer },
         { type: 'offers', data: ridersOffer },
         { type: 'buttonMercato', data: null },
+        { type: 'buttonHistory', data: null },
         { type: 'subtitle', data: 'Mon équipe' },
         { type: 'riders', data: null },
         { type: 'subtitle', data: 'Prochain evenement' },
@@ -126,7 +148,7 @@ export default function LeaguePage() {
                 <CountDown timeLeft={timeLeft} />
             </View>
             <View style={[commonStyles.margin2Top, commonStyles.margin2Left]}>
-                <Text style={commonStyles.text18}>Budget restant : {league['total']} M</Text>
+                <Text style={commonStyles.text18}>Budget restant : {total} M</Text>
             </View>
             <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
                 <FlatList
@@ -139,29 +161,49 @@ export default function LeaguePage() {
                     }
                     keyExtractor={(item, index) => item.type + '-' + index}
                     renderItem={({ item }) => {
+                        const shouldDisplayOffers = isBeforeSpecifiedDate();
                         switch (item.type) {
                             case 'headerOffers':
-                                if (ridersOffer.length != 0) {
+                                if (shouldDisplayOffers && ridersOffer.length != 0) {
                                     return (
                                         <RidersOfferHeaderList title={'Mes offres'} state={true} />
                                     )
                                 }
+                                break;
                             case 'offers':
-                                return item.data.map((offer, idx) => (
-                                    <RidersOfferList key={idx} rider={offer} state={true}/>
-                                ));
+                                if (shouldDisplayOffers) {
+                                    return item.data.map((offer, idx) => (
+                                        <RidersOfferList key={idx} rider={offer} state={true}/>
+                                    ));
+                                }
+                                break;
                             case 'buttonMercato':
-                                return (
-                                    <View style={commonStyles.margin5Top}>
-                                        <BasicLogoButton text={'Accès au mercato'} onPress={goLeagueRidersOffer} logo={'swap-horizontal'} />
-                                    </View>
-                                );
+                                if (shouldDisplayOffers) {
+                                    return (
+                                        <View style={commonStyles.margin5Top}>
+                                            <BasicLogoButton text={'Accès au mercato'} onPress={goLeagueRidersOffer} logo={'swap-horizontal'} />
+                                        </View>
+                                    );
+                                }
+                                break;
+                            case 'buttonHistory':
+                                if (shouldDisplayOffers) {
+                                    return (
+                                        <View style={commonStyles.margin2Top}>
+                                            <BasicLogoButton text={'Historique du mercato'} onPress={goLeagueRidersOffer} logo={'history'} />
+                                        </View>
+                                    );
+                                }
+                                break;
                             case 'subtitle':
-                                return (
-                                    <View style={commonStyles.margin2Top}>
-                                        <BasicSubtitleWhiteView text={item.data} />
-                                    </View>
-                                );
+                                if (shouldDisplayOffers || item.data !== 'Mes offres') {
+                                    return (
+                                        <View style={commonStyles.margin2Top}>
+                                            <BasicSubtitleWhiteView text={item.data} />
+                                        </View>
+                                    );
+                                }
+                                break;
                             case 'event':
                                 return (
                                     <View style={commonStyles.margin2Top}>

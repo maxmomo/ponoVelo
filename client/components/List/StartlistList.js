@@ -36,7 +36,7 @@ export default function StartlistList(props) {
         <View style={commonStyles.flex1}>
             <SectionList
                 sections={props.startlist}
-                keyExtractor={(item, index) => item + index}
+                keyExtractor={item => item.rider_id.toString()}
                 renderItem={renderRider}
                 renderSectionHeader={renderSectionHeader}
                 numColumns={2}

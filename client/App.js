@@ -18,6 +18,7 @@ import RacePage from './pages/RacePage';
 import RaceBetPage from './pages/RaceBetPage';
 import ProfileMenuPage from './pages/ProfileMenuPage';
 import StagePage from './pages/StagePage';
+import StageBetPage from './pages/StageBetPage';
 
 const Stack = createStackNavigator();
 
@@ -135,6 +136,14 @@ export default function App() {
             component={StagePage}
             options={() => ({
               title: 'Stage',
+              headerShown: false
+            })}
+          />
+          <Stack.Screen 
+            name='StageBet' 
+            component={StageBetPage}
+            options={() => ({
+              title: 'StageBet',
               headerShown: false
             })}
           />

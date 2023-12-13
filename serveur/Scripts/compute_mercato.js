@@ -22,7 +22,8 @@ async function processLeagues() {
         // Récupérer toutes les offres pour la ligue actuelle
         const offers = await UserRidersOffer.findAll({ 
             where: { 
-                LeagueId: league.id 
+                LeagueId: league.id,
+                state: 0
             } 
         });
 
@@ -34,14 +35,17 @@ async function processLeagues() {
                 const highestOfferRecord = await UserRidersOffer.findOne({
                     where: {
                         LeagueId: league.id,
-                        RiderId: offer.RiderId
+                        RiderId: offer.RiderId,
+                        state: 0
                     },
                     order: [
                         ['offer', 'DESC'], // D'abord trier par offre
-                        ['createdAt', 'ASC'] // Ensuite par date de création, par exemple
+                        ['createdAt', 'ASC'] // Ensuite par date de création
                     ],
                     limit: 1
                 });
+
+                console.log(offer)
 
                 await UserRiders.create({ 
                     RiderId: offer.RiderId,
@@ -56,23 +60,24 @@ async function processLeagues() {
                 await highestOfferRecord.update({ state: 1 })
 
                 // On cherche toutes les autres offres et on les met à 2
-                await UserRidersOffer.update(
-                    { state: 2 },
-                    {
-                      where: {
+                const offersToUpdate = await UserRidersOffer.findAll({
+                    where: {
                         LeagueId: league.id,
                         RiderId: offer.RiderId,
                         UserId: { [Op.ne]: highestOfferRecord.UserId }
-                      }
                     }
-                );
-                  
+                });
+                
+                for (const offerToUpdate of offersToUpdate) {
+                    await offerToUpdate.update({ state: 2 });
+                }     
+                
+                // On supprime les
             }
         }
     }
 }
 
-// Vous devez définir les fonctions getOffersForRunner, findHighestOffer et createTeamEntry selon votre logique métier
 console.log('********************')
 processLeagues().then(() => {
     console.log("Traitement des ligues terminé");

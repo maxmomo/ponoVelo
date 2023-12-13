@@ -14,9 +14,17 @@ const League = sequelize.define('League', {
     nb_users: {
         type: DataTypes.INTEGER,
     },
-    mercato_endDate: {
+    mercato_endDate1: {
         type: DataTypes.DATE,
         defaultValue: "2024-01-15"
+    },
+    mercato_endDate2: {
+        type: DataTypes.DATE,
+        defaultValue: "2024-01-30"
+    },
+    mercato_turns: {
+        type: DataTypes.INTEGER,
+        defaultValue: 2
     }
 });
 

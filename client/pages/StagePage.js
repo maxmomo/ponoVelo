@@ -10,12 +10,12 @@ import TitleStage from '../components/Title/TitleStage';
 import BasicSubtitle from '../components/Basic/BasicSubtitle';
 import BasicButton from '../components/Basic/BasicButton';
 
-import { getStagesRace, getStartListRace } from '../api/race/api';
+import { getPrediction } from '../api/stage/api'; 
 
 import { commonStyles } from '../styles/GlobalStyles';
 import StagesList from '../components/List/StagesList';
 import StartlistList from '../components/List/StartlistList';
-import MyTeam from '../components/MyTeam';
+import Prediction from '../components/Prediction';
 import Profile from '../components/Basic/Profile';
 
 export default function StagePage() {
@@ -26,18 +26,19 @@ export default function StagePage() {
     const [stages, setStages] = useState([]);
     const [startlist, setStartlist] = useState([]);
     const [userTeam, setUserTeam] = useState([]);
+    const [prediction, setPrediction] = useState([]);
 
     const [visibility, setVisibility] = useState({
         isInformationVisible: true,
-        isStagesVisible: true,
-        isStartlistVisible: true,
+        isProfilVisible: true,
+        isPredictorVisible: true,
         isTeamVisible: true
     });
 
     const VISIBILITY_KEYS = {
         INFORMATION: 'isInformationVisible',
-        STAGES: 'isStagesVisible',
-        STARTLIST: 'isStartlistVisible',
+        PROFIL: 'isProfilVisible',
+        PREDICTOR: 'isPredictorVisible',
         TEAM: 'isTeamVisible'
     };
 
@@ -50,54 +51,14 @@ export default function StagePage() {
     const league_id = state['league']['id']
     const stage = state['stage']
 
-    console.log(stage)
-
     useEffect(() => {
-        getRaceDataEffect();
-    }, [refreshKey, getRaceDataEffect]);
+        getStageDataEffect();
+    }, [refreshKey, getStageDataEffect]);
 
-    const getRaceDataEffect = useCallback(async () => {
+    const getStageDataEffect = useCallback(async () => {
         try {
-            const stagesData = await getStagesRace(state['ip_adress'], race.race_id);
-            setStages(stagesData);
-            
-            const startlistData = await getStartListRace(state['ip_adress'], race.race_id, user_id, league_id);
-
-            const teams = startlistData.reduce((acc, rider) => {
-                const { team_name, team_id, team_nationality, team_jersey } = rider;
-                if (!acc[team_id]) {
-                    acc[team_id] = {
-                        team_name,
-                        team_nationality,
-                        team_id,
-                        team_jersey,
-                        riders: [],
-                    };
-                }
-                acc[team_id].riders.push(rider);
-
-                const riderIds = state['user_team'].map(rider => rider.rider_id);
-
-                const foundId = riderIds.find(id => id === rider.rider_id)
-                
-                if (foundId) {
-                    const foundRider = state['user_team'].find(rider => rider.rider_id === foundId);
-                    setUserTeam(currentTeam => [...currentTeam, foundRider])
-                }
-
-                return acc;
-            }, {});
-            
-            const teamSections = Object.keys(teams).map(key => ({
-                title: teams[key].team_name,
-                data: teams[key].riders,
-                team_nationality: teams[key].team_nationality,
-                team_jersey: teams[key].team_jersey,
-                team_id: teams[key].team_id,
-            }));
-
-            dispatch({ type: 'SET_STARTLIST', payload: teamSections });
-            setStartlist(teamSections);
+            const predictionData = await getPrediction(state['ip_adress'], stage.id, race.race_id);
+            setPrediction(predictionData);
             
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
@@ -112,8 +73,8 @@ export default function StagePage() {
         }));
     };
 
-    const goRaceBet = () => {
-        navigation.navigate('RaceBet');
+    const goStageBet = () => {
+        navigation.navigate('StageBet');
     };
 
     return (
@@ -123,20 +84,19 @@ export default function StagePage() {
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
                 <TitleStage name={stage['name']} />
             </View>
-            <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
+            <View style={commonStyles.margin2Top}>
+               <BasicButton text='Parier' onPress={goStageBet} />
+            </View>
+            <View style={[commonStyles.flex1]}>
                 <FlatList
                     ListHeaderComponent={
                         <>
                             <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                            {visibility.isInformationVisible && <View>
-                                <StageInformation stage={stage} />
-                                <BasicButton text='Parier' onPress={goRaceBet} />
-                            </View>
-                            }
-                            <BasicSubtitle text={'PROFIL'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                            <View style={commonStyles.margin2Top}>
-                                <Profile profile={stage.profile} />
-                            </View>
+                            {visibility.isInformationVisible && <StageInformation stage={stage} />}
+                            <BasicSubtitle text={'PROFIL'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PROFIL)} />
+                            {visibility.isProfilVisible && <Profile profile={stage.profile} />}
+                            <BasicSubtitle text={'PREDICTOR'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PREDICTOR)} />
+                            {visibility.isPredictorVisible && <Prediction riders={prediction} />}
                         </>
                     }
                 />

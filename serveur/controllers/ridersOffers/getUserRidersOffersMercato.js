@@ -8,9 +8,11 @@ const getUserRidersOfferMercato = async (req, res) => {
         "ri.season_points + 1 as cost " +
         "FROM riders ri " +
         "LEFT JOIN userridersoffers uro ON uro.RiderId = ri.id AND uro.UserId = :user_id AND uro.LeagueId = :league_id " +
+        "LEFT JOIN userriders ur ON ur.RiderId = ri.id AND ur.LeagueId = :league_id " +
         "JOIN teams t ON ri.team_id = t.id " +
         "WHERE t.status in ('WT', 'PRT') AND " +
-        "uro.RiderId IS NULL " +
+        "uro.RiderId IS NULL AND " +
+        "ur.RiderId IS NULL " +
         "ORDER BY ri.season_points DESC",
         {
             type: db.SELECT,

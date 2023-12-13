@@ -1,5 +1,6 @@
 const sequelize = require('../config/database');
 const { DataTypes } = require('sequelize');
+const { Op } = require('sequelize');
 const Rider = require("./Rider")
 const User = require('./User')
 const UsersLeagues = require('./UsersLeagues')
@@ -24,7 +25,7 @@ const UserRidersOffer = sequelize.define('UserRidersOffer',
                 update_total(userRiderOffer);
             },
             afterUpdate: async (userRiderOffer, options) => {
-                console.log("After update triggered");
+                console.log("******************** After update triggered");
                 update_total(userRiderOffer);
             },
             afterDestroy: async (userRiderOffer, options) => {
@@ -39,7 +40,8 @@ const update_total = async (userRiderOffer) => {
     const totalOfferAmount = await UserRidersOffer.sum('offer', {
         where: {
             UserId: userRiderOffer.UserId,
-            LeagueId: userRiderOffer.LeagueId
+            LeagueId: userRiderOffer.LeagueId,
+            state: { [Op.ne]: 2 }
         }
     });
 
@@ -48,7 +50,7 @@ const update_total = async (userRiderOffer) => {
     }, {
         where: {
             UserId: userRiderOffer.UserId,
-            LeagueId: userRiderOffer.LeagueId
+            LeagueId: userRiderOffer.LeagueId,
         }
     });
 }

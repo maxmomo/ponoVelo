@@ -121,16 +121,15 @@ export default function RacePage() {
             <View style={commonStyles.margin2Top}>
                 <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
             </View>
-            <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
+            <View style={commonStyles.margin2Top}>
+                <BasicButton text='Parier' onPress={goRaceBet} />
+            </View>
+            <View style={[commonStyles.flex1]}>
                 <FlatList
                     ListHeaderComponent={
                         <>
                             <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                            {visibility.isInformationVisible && <View>
-                                <RaceInformation race={race} />
-                                <BasicButton text='Parier' onPress={goRaceBet} />
-                            </View>
-                            }
+                            {visibility.isInformationVisible && <RaceInformation race={race} />}
                             <BasicSubtitle text={'ETAPES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.STAGES)} />
                             {visibility.isStagesVisible && <StagesList stages={stages} onItemPress={goStage} />}
                             <BasicSubtitle text={'MON EQUIPE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.TEAM)} />
