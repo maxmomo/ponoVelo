@@ -91,4 +91,26 @@ const deleteOffer = async (ip_address, user_id, league_id, rider_id) => {
     }
 };
 
-export { getRidersOffer, getRidersOfferMercato, createOffer, deleteOffer };
+/**
+ * Fonction pour récupérer les offres de l'utilisateur pour la ligue.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} user_id - id de l'utilisateur.
+ * @param {integer} league_id - id de la ligue.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des offres de l'utilisateur
+ */
+const getRidersOfferHistory = async (ip_address, league_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/ridersOffers/history',
+            params: { league_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+export { getRidersOffer, getRidersOfferMercato, createOffer, deleteOffer, getRidersOfferHistory };

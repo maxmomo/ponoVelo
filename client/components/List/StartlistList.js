@@ -4,7 +4,6 @@ import Flag from 'react-native-flags';
 
 import { commonStyles } from '../../styles/GlobalStyles';
 import colors from '../../constants/colors';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function StartlistList(props) {
 

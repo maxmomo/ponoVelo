@@ -5,7 +5,7 @@ import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
 import RidersList from '../components/List/RidersList';
-import HistoryList from '../components/List/HistoryList';
+import HistoryTeamList from '../components/List/HistoryTeamList';
 import GtDiagram from '../components/Diagram/GtDiagram';
 import TeamInformation from '../components/TeamInformation';
 import TeamPerformance from '../components/TeamPerformance';
@@ -94,7 +94,7 @@ export default function TeamPage() {
                             <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
                             {visibility.isInformationVisible && <TeamInformation team={team} />}
                             <BasicSubtitle text={'HISTORIQUE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.HISTORY)} />
-                            {visibility.isHistoryVisible && <HistoryList history={history} onItemPress={handleRefresh} />}
+                            {visibility.isHistoryVisible && <HistoryTeamList history={history} onItemPress={handleRefresh} />}
                             <BasicSubtitle text={'COUREURS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.RIDERS)} />
                             {visibility.isRidersVisible && <RidersList riders={riders} />}
                             <BasicSubtitle text={'PERFORMANCES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PERFORMANCES)} />

@@ -108,13 +108,21 @@ export default function LeaguesScreen() {
     return (
         <SafeAreaView style={commonStyles.container}>
             <Header is_navigation={false}/>
-            <View style={[commonStyles.margin2Top]}>
-                <BasicLogoButton text={'Nouvelle ligue'} onPress={toggleCreateModal} logo={'plus'} />
-                <BasicLogoButton text={'Rejoindre ligue'} onPress={toggleJoinModal} logo={'arrow-right-circle'} />
+            <View style={{ flex: 1, justifyContent: 'space-between' }}>
+                <View>
+                    <View style={[commonStyles.margin2Top]}>  
+                        <CardLeagues leagues={leagues} onPress={onPressLeague}/> 
+                    </View>
+                </View>
+    
+                <View>
+                    <View style={[commonStyles.margin2Top]}>
+                        <BasicLogoButton text={'Nouvelle ligue'} onPress={toggleCreateModal} logo={'plus'} />
+                        <BasicLogoButton text={'Rejoindre ligue'} onPress={toggleJoinModal} logo={'arrow-right-circle'} />
+                    </View>
+                </View>
             </View>
-            <View style={[commonStyles.margin2Top]}>  
-                <CardLeagues leagues={leagues} onPress={onPressLeague}/> 
-            </View> 
+            
             <CreateLeagueModal visible={isModalCreateVisible} toggleModal={toggleCreateModal} onPressCreate={onPressCreate} name={name} setName={setName} />
             <JoinLeagueModal visible={isModalJoinVisible} toggleModal={toggleJoinModal} onPressCreate={onPressJoin} name={name} setName={setName} password={password} setPassword={setPassword} />
         </SafeAreaView>

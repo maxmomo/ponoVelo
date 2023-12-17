@@ -1,41 +1,48 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { useMyContext } from '../../context/MyContext';
+import { View, Text, SectionList } from 'react-native';
+import Flag from 'react-native-flags';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import colors from '../../constants/colors';
 import { commonStyles } from '../../styles/GlobalStyles';
+import colors from '../../constants/colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import TitleRiders from '../Title/TitleRiders';
 
 export default function HistoryList(props) {
-
-    const { state, dispatch } = useMyContext();
-
-    const goTeam = (item) => {
-        dispatch({ type: 'SET_TEAM', payload: item });
-        if (props.onItemPress) {
-            props.onItemPress();
-        }
-    }
-
-    const ListItem = ({ item }) => (
-        <View style={[commonStyles.row, commonStyles.padding1]}>
-            <View style={commonStyles.flex2}>
-                <Text style={commonStyles.text13}>{item.year}</Text>
+    const renderUser = ({ item }) => (
+        <View style={[commonStyles.flex1, commonStyles.row]}>
+            <View style={[commonStyles.margin2, commonStyles.row, commonStyles.flex1]}>
+                <Text style={[commonStyles.text13, commonStyles.flex5]}>
+                    {item.userName}
+                </Text>
+                <Text style={[commonStyles.text13, commonStyles.margin2Left, commonStyles.flex1]}>
+                    {item.offer}
+                </Text>
+                <View style={[commonStyles.flex1, commonStyles.center]}>
+                    {item.state === 2 && <MaterialCommunityIcons name='close' size={16} color={colors.red} />}
+                    {item.state === 1 && <MaterialCommunityIcons name='check' size={16} color={colors.green} />}
+                </View>
             </View>
-            <View style={commonStyles.flex5}>
-                <Text style={commonStyles.text13}>{item.name}</Text>
+            <View style={commonStyles.flex1}>
             </View>
-            <TouchableOpacity style={commonStyles.flex1} onPress={() => goTeam(item)}>
-                <MaterialCommunityIcons name='arrow-right' size={16} color={colors.theme} />
-            </TouchableOpacity>
         </View>
-    )
+    );
+
+    const renderSectionHeader = ({ section }) => (
+        <View style={commonStyles.flex1}>
+            <TitleRiders name={section.fullName} nationality={section.nationality} />
+        </View>
+    );
 
     return (
-        <FlatList
-            data={props.history}
-            renderItem={({ item }) => <ListItem item={item} />}
-            keyExtractor={item => item.url}
-        />
+        <View style={commonStyles.flex1}>
+            <SectionList
+                sections={props.history}
+                keyExtractor={item => item.userName.toString()}
+                renderItem={renderUser}
+                renderSectionHeader={renderSectionHeader}
+                numColumns={2}
+                stickySectionHeadersEnabled={false}
+            />
+        </View>
     );
 }

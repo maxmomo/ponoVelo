@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     },
     subtitleText: {
         fontSize: 18,
-        fontWeight: 'bold',
         color: colors.whiteText
     },
 });

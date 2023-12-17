@@ -17,7 +17,7 @@ export default function CountDown(props) {
     
     return (
         <View style={styles.titleView}>
-            <Text style={commonStyles.text18}>Fin du mercato dans : {formatTime(props.timeLeft)}</Text>
+            <Text style={commonStyles.text16}>Fin du mercato dans : {formatTime(props.timeLeft)}</Text>
         </View>
     );
 }

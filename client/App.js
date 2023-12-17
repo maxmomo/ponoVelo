@@ -11,9 +11,6 @@ import SplashScreen from './screens/SplashScreen';
 import TeamGTWinPage from './pages/TeamGTWinPage';
 import TeamGTStatPage from './pages/TeamGTStatPage';
 import SplashScreenWait from './screens/SplashScreenWait';
-import LeaguePage from './pages/LeaguePage';
-import RidersOfferPage from './pages/RidersOfferPage';
-import colors from './constants/colors';
 import RacePage from './pages/RacePage';
 import RaceBetPage from './pages/RaceBetPage';
 import ProfileMenuPage from './pages/ProfileMenuPage';
@@ -88,22 +85,6 @@ export default function App() {
             component={TeamGTStatPage}
             options={() => ({
               title: 'TeamGTStat',
-              headerShown: false
-            })}
-          />
-          <Stack.Screen 
-            name='League' 
-            component={LeaguePage}
-            options={() => ({
-              title: 'League',
-              headerShown: false
-            })}
-          />
-          <Stack.Screen 
-            name='RidersOffer' 
-            component={RidersOfferPage}
-            options={() => ({
-              title: 'RidersOffer',
               headerShown: false
             })}
           />

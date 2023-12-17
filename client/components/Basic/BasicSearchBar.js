@@ -22,5 +22,7 @@ const styles = StyleSheet.create({
         marginHorizontal: '1%',
         borderRadius: 10,
         color: colors.whiteText,
+        borderWidth: 1,
+        borderColor: colors.whiteText
     }
 });

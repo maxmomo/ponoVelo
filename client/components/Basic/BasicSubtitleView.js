@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         marginBottom: '2%'
     },
     subtitleText: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         color: colors.theme
     },
