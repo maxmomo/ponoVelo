@@ -52,7 +52,7 @@ export default function Podium(props) {
                         <Text numberOfLines={1} adjustsFontSizeToFit  minimumFontScale={0.5}  style={[commonStyles.text13, thirdPlace.is_boost ? { color: colors.theme } : {}]}>{thirdPlace ? thirdPlace.firstName : ''}</Text>
                         <Text numberOfLines={1} adjustsFontSizeToFit  minimumFontScale={0.5}  style={[commonStyles.text13, thirdPlace.is_boost ? { color: colors.theme } : {}]}>{thirdPlace ? thirdPlace.name : ''}</Text>
                     </View> || <View style={commonStyles.flex3} />}
-                    <View style={[commonStyles.flex2, commonStyles.colorWhite, commonStyles.center]}>
+                    <View style={[commonStyles.flex3, commonStyles.colorWhite, commonStyles.center]}>
                         {thirdPlace && <Flag code={thirdPlace.nationality} size={24} type={'flat'}/>}
                         <Text style={[commonStyles.text20Inv, commonStyles.bold]}>3</Text>
                     </View>

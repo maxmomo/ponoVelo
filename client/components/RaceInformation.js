@@ -6,7 +6,7 @@ import { commonStyles } from '../styles/GlobalStyles';
 export default function TeamInformation(props) {
 
     return (
-        <View style={[commonStyles.flex1, commonStyles.row, commonStyles.margin2Left]}>
+        <View style={[commonStyles.row, commonStyles.margin2Left]}>
             <View style={commonStyles.flex1}>
                 <View style={[commonStyles.row, commonStyles.margin3Bottom]}>
                     <Text style={commonStyles.text14}>Catégorie : </Text>

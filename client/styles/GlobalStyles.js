@@ -138,6 +138,9 @@ const commonStyles = StyleSheet.create({
     padding1: {
         padding: '1%'
     },
+    padding2: {
+        padding: '2%'
+    },
     listView: {
         padding: '1%',
         borderBottomColor: '#E4E9F2',
@@ -149,7 +152,8 @@ const commonStyles = StyleSheet.create({
         marginLeft: '8%',
         marginTop: '2%',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1
     },
     roundyellow: {
         borderWidth: 2,

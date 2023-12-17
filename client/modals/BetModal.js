@@ -11,7 +11,7 @@ import colors from '../constants/colors';
 
 const screenWidth = Dimensions.get('window').width;
 const ITEM_COUNT = 11;
-const ITEM_COUNT_3 = 3;
+const ITEM_COUNT_3 = 4;
 const JERSEY_COUNT = 4;
 
 export default function BetModal(props) {
@@ -76,10 +76,10 @@ export default function BetModal(props) {
 
     const renderPositions = ({ item, index }) => (
         <TouchableOpacity
-            style={[commonStyles.flex1, { width: itemWidth }, commonStyles.center]}
+            style={[commonStyles.flex1, { width: itemWidth }]}
             onPress={() => handleSelect(item, index)}
         >
-            <Text style={[commonStyles.text24, item === selected ? styles.selectedItem : null]}>{item}</Text>
+            <Text style={[commonStyles.text18, item === selected ? styles.selectedItem : null]}>{item}</Text>
         </TouchableOpacity>
     );
 
@@ -106,20 +106,19 @@ export default function BetModal(props) {
             style={[
                 commonStyles.flex1, 
                 { width: jerseyWidth }, 
-                item.rider_id === selectedRider.rider_id ? styles.selectedTeam : styles.defaultTeam,
-                item.is_boost === 1 ? styles.boostRider : styles.defaultTeam
+                item.is_boost === 1 && item.rider_id === selectedRider.rider_id ? styles.boostRider : item.is_boost === 1 && item.rider_id !== selectedRider.rider_id ? styles.boostRiderDark : item.rider_id === selectedRider.rider_id ? styles.selectedTeam : styles.defaultTeam,
             ]}
             onPress={() => handleSelectRider(item, index)}
         >   
             <View style={{height: '60%'}}>
-                <Portrait picture={item.rider_picture} width={100} height={100} style={item.rider_id === selectedTeam.rider_id ? null : styles.darkerJersey}/>
+                <Portrait picture={item.rider_picture} width={100} height={100} style={item.rider_name === selectedRider.rider_name ? null : styles.darkerJersey}/>
             </View>
             <View style={[commonStyles.center]}>
                 <Text 
                     style={[
                         commonStyles.text14, 
                         commonStyles.center,
-                        item.is_boost === 1 ? styles.boostRiderText : commonStyles.text14
+                        item.is_boost === 1 ? styles.boostRiderText : commonStyles.text14,
                     ]}
                 >
                     {item.rider_name}
@@ -136,7 +135,7 @@ export default function BetModal(props) {
             onRequestClose={props.toggleModal}>
             <View style={[modalStyles.modalView, commonStyles.flex1]}>
                 <View style={[commonStyles.margin2Top, commonStyles.center]}>
-                    <Text style={commonStyles.text20}>Parier</Text>
+                    <Text style={commonStyles.text24}>Parier</Text>
                 </View>
                 <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
                     <FlatList
@@ -193,6 +192,10 @@ const styles = StyleSheet.create({
     },
     boostRider: {
         backgroundColor: colors.theme
+    },
+    boostRiderDark: {
+        backgroundColor: colors.theme,
+        opacity: 0.3 
     },
     boostRiderText: {
         color: colors.background

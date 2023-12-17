@@ -21,7 +21,7 @@ export default function StartlistList(props) {
     );
 
     const renderSectionHeader = ({ section }) => (
-        <View style={commonStyles.listView}>
+        <View style={[commonStyles.listView]}>
             <View>
                 <Flag code={section.team_nationality} size={24} type={'flat'}/>
             </View>
@@ -39,6 +39,7 @@ export default function StartlistList(props) {
                 renderItem={renderRider}
                 renderSectionHeader={renderSectionHeader}
                 numColumns={2}
+                stickySectionHeadersEnabled={false}
             />
         </View>
     );
