@@ -1,6 +1,6 @@
 const Bet = require("../../models/Bet")
 
-const setBetsUserRace = async (req, res) => {
+const setBetsUserStage = async (req, res) => {
     params = req.query
 
     const bet = await Bet.findOne({
@@ -9,7 +9,8 @@ const setBetsUserRace = async (req, res) => {
             UserId: params['user_id'],
             LeagueId: params['league_id'],
             position: params['position'],
-            BetTypeId: params['bet_type_id']
+            BetTypeId: params['bet_type_id'],
+            StageId: params['stage_id'],
         }
     })
 
@@ -20,7 +21,8 @@ const setBetsUserRace = async (req, res) => {
             LeagueId: params['league_id'],
             position: params['position'],
             RiderId: params['rider_id'],
-            BetTypeId: params['bet_type_id']
+            BetTypeId: params['bet_type_id'],
+            StageId: params['stage_id'],
         })
     } else {
         bet.RiderId = params['rider_id']
@@ -31,4 +33,4 @@ const setBetsUserRace = async (req, res) => {
 };
 
 
-module.exports = {setBetsUserRace};
+module.exports = {setBetsUserStage};

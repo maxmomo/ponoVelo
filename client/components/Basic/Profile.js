@@ -8,7 +8,7 @@ export default function Profile(props) {
     return (
         props.profile ? 
         (
-            <View style={[commonStyles.flex1, commonStyles.center]}>
+            <View style={[commonStyles.flex1, {alignItems: 'center'}]}>
                 <Image 
                     style={{
                         resizeMode: 'contain',

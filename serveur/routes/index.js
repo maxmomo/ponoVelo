@@ -26,10 +26,14 @@ const {getUserRidersLeague} = require('../controllers/userRiders/getUserRidersLe
 const {getPrediction} = require('../controllers/prediction/getPrediction');
 const {getTotalUserLeague} = require('../controllers/league/getTotalUserLeague');
 const {getHistoryRidersOffer} = require('../controllers/ridersOffers/getHistoryRidersOffer');
+const {getBetsUserStage} = require('../controllers/bet/getBetsUserStage');
+const {setBetsUserStage} = require('../controllers/bet/setBetsUserStage');
+const {setAvatarUser} = require('../controllers/user/setAvatarUser');
 
 router.get("/users/create", createUser)
 router.get("/users/connect", connectUser)
 router.get("/user/leagues", getLeaguesUser)
+router.get("/user/avatar/set", setAvatarUser)
 
 router.get("/teams/all", getTeams)
 
@@ -59,5 +63,7 @@ router.get("/race/user/bets", getBetsUserRace)
 router.get("/race/user/bets/set", setBetsUserRace)
 
 router.get("/stage/prediction", getPrediction)
+router.get("/stage/user/bets", getBetsUserStage)
+router.get("/stage/user/bets/set", setBetsUserStage)
 
 module.exports = router

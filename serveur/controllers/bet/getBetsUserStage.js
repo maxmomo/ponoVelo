@@ -1,6 +1,6 @@
 const db = require("../../config/database")
 
-const getBetsUserRace = async (req, res) => {
+const getBetsUserStage = async (req, res) => {
     params = req.query
 
     const bets = await db.query(
@@ -16,11 +16,12 @@ const getBetsUserRace = async (req, res) => {
         "b.RaceId = :race_id AND " +
         "b.UserId = :user_id AND " +
         "b.LeagueId = :league_id AND " +
-        "b.StageId IS NULL",
+        "b.StageId = :stage_id",
         {
             type: db.SELECT,
             replacements: { 
                 race_id: params['race_id'],
+                stage_id: params['stage_id'],
                 user_id: params['user_id'],
                 league_id: params['league_id']
             },
@@ -30,4 +31,4 @@ const getBetsUserRace = async (req, res) => {
     res.json(bets[0])
 };
 
-module.exports = {getBetsUserRace};
+module.exports = {getBetsUserStage};

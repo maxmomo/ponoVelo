@@ -1,5 +1,5 @@
 const Rider = require("../../models/Rider")
-const UserRidersOffer = require("../../models/UserRidersOffer")
+const User = require("../../models/User")
 
 const getRiders = async (req, res) => {
     params = req.query

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import { View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../context/MyContext';
+import { Avatar } from 'react-native-elements';
+import * as ImagePicker from 'expo-image-picker';
 
 import Header from '../components/Basic/Header';
 import BasicSubtitleView from '../components/Basic/BasicSubtitleView'
+
+import { setAvatarUser } from '../api/user/api';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { commonStyles } from '../styles/GlobalStyles';
@@ -14,6 +18,38 @@ export default function ProfileMenuPage() {
 
     const navigation = useNavigation();
     const { state, dispatch } = useMyContext();
+    const [avatarSource, setAvatarSource] = useState(null);
+
+    const user_id = state['user']['id']
+    const user = state['user']
+
+    useEffect(() => {
+        (async () => {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Désolé, nous avons besoin des permissions de la bibliothèque de photos pour que cela fonctionne!');
+            }
+        })();
+    }, []);
+
+    const selectImage = async () => {
+        try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                quality: 1,
+                allowsEditing: true,
+            });
+
+            if (!result.cancelled) {
+                console.log(result)
+                await setAvatarUser(state['ip_adress'], user_id, result.uri)
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+      
+      
 
     const onPressDisconnect = () => {
         dispatch({ type: 'SET_USERNAME', payload: '' });
@@ -31,6 +67,16 @@ export default function ProfileMenuPage() {
             <Header is_navigation={true} is_profile={true} />
             <BasicSubtitleView text={'Profil'} />
             <View>
+                <View>
+                    <Avatar
+                        size="large"
+                        rounded
+                        source={user['avatar']}
+                        onPress={selectImage}
+                        activeOpacity={0.7}
+                        avatarStyle={{borderColor: 'green'}}
+                    />
+                </View>
                 <TouchableOpacity style={[commonStyles.row, commonStyles.margin2]} onPress={() => {/* Handle password change */}}>
                     <Text style={commonStyles.text18}>Modifier mon mot de passe</Text>
                     <MaterialCommunityIcons name='arrow-right' size={24} color={colors.theme} />

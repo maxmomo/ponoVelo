@@ -1,38 +1,55 @@
 import React from 'react';
-import { View, Text, FlatList, Dimensions } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 
-import Portrait from './Basic/Portrait';
+import Portrait from '../components/Basic/Portrait';
 import { commonStyles } from '../styles/GlobalStyles';
 
-const screenWidth = Dimensions.get('window').width;
+export default function Prediction(props) {
 
-export default function MyTeam(props) {
+    const needsFiller = () => {
+        const numItems = props.riders.length;
+        const numColumns = 3;
+        if ((numItems + 1) % numColumns === 0) {
+            return 1
+        } else if (numItems % numColumns !== 0) {
+            return 2
+        } else {
+            return 0
+        }
+    };
 
-    const itemWidth = screenWidth / props.riders.length;
+    let dataWithFiller = needsFiller() !== 0 ? [...props.riders, { isFiller: true }] : props.riders;
 
-    const renderRiders = ({ item, index }) => (
-        <View style={[{width: itemWidth}]}>   
-            <View style={commonStyles.flex1}>
-                <Portrait picture={item.rider_picture} width={100} height={100} />
+    const renderRiders = ({ item }) => {
+        // Rendre un élément vide pour la vue de remplissage
+        if (item.isFiller) {
+            if (needsFiller() === 1) {
+                return <View style={[commonStyles.flex1, commonStyles.margin1]} />;
+            } else {
+                return <View style={[commonStyles.flex2, commonStyles.margin1]} />;
+            }
+        }
+
+        // Rendu normal pour les autres éléments
+        return (
+            <View style={[commonStyles.flex1, commonStyles.margin2]}>   
+                <Portrait picture={item.rider_picture} width={200} height={120} />
+                <View style={commonStyles.center}>
+                    <Text style={[commonStyles.text14]}>{item.rider_firstname}</Text>
+                    <Text style={commonStyles.text14}>{item.rider_name}</Text>
+                </View>
             </View>
-            <View style={[commonStyles.center, commonStyles.flex1]}>
-                <Text style={[commonStyles.text14, commonStyles.center]}>{item.rider_first_name}</Text>
-            </View>
-            <View style={[commonStyles.center, commonStyles.flex1]}>
-                <Text style={[commonStyles.text14, commonStyles.center]}>{item.rider_name}</Text>
-            </View>
-        </View>
-    );
+        );
+    };
 
     return (
             <View style={[commonStyles.containerLight]}>
                 {props.riders && 
                 <FlatList
-                    data={props.riders}
-                    horizontal
+                    data={dataWithFiller}
                     renderItem={renderRiders}
-                    keyExtractor={item => item.rider_id.toString()}
-                    scrollEnabled={false}
+                    keyExtractor={(item, index) => item.rider_id ? item.rider_id.toString() : 'filler-' + index}
+                    numColumns={3}
                 />}
             </View>
     );

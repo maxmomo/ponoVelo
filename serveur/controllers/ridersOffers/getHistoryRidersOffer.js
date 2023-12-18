@@ -8,7 +8,8 @@ const getHistoryRidersOffer = async (req, res) => {
         "FROM userridersoffers uro " +
         "JOIN riders ri ON uro.RiderId = ri.id " +
         "JOIN users u ON uro.UserId = u.id " +
-        "WHERE uro.LeagueId = :league_id " +
+        "WHERE uro.LeagueId = :league_id AND " +
+        "uro.state in (1,2) " +
         "ORDER BY uro.offer DESC",
         {
             type: db.SELECT,

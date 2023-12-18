@@ -15,6 +15,8 @@ export default function Bets3List(props) {
         bets = props.bets.filter(bet => bet.type_id === 3);
     } else if (props.betTypeId === 4) {
         bets = props.bets.filter(bet => bet.type_id === 4);
+    } else if (props.betTypeId === 8) {
+        bets = props.bets.filter(bet => bet.type_id === 8);
     }
 
     const renderNameForPosition = (position) => {

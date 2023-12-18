@@ -12,10 +12,8 @@ import TeamGTWinPage from './pages/TeamGTWinPage';
 import TeamGTStatPage from './pages/TeamGTStatPage';
 import SplashScreenWait from './screens/SplashScreenWait';
 import RacePage from './pages/RacePage';
-import RaceBetPage from './pages/RaceBetPage';
 import ProfileMenuPage from './pages/ProfileMenuPage';
 import StagePage from './pages/StagePage';
-import StageBetPage from './pages/StageBetPage';
 
 const Stack = createStackNavigator();
 
@@ -97,14 +95,6 @@ export default function App() {
             })}
           />
           <Stack.Screen 
-            name='RaceBet' 
-            component={RaceBetPage}
-            options={() => ({
-              title: 'RaceBet',
-              headerShown: false
-            })}
-          />
-          <Stack.Screen 
             name='ProfileMenu' 
             component={ProfileMenuPage}
             options={() => ({
@@ -117,14 +107,6 @@ export default function App() {
             component={StagePage}
             options={() => ({
               title: 'Stage',
-              headerShown: false
-            })}
-          />
-          <Stack.Screen 
-            name='StageBet' 
-            component={StageBetPage}
-            options={() => ({
-              title: 'StageBet',
               headerShown: false
             })}
           />

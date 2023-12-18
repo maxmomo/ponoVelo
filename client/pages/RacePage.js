@@ -55,6 +55,10 @@ export default function RacePage() {
                 }}
             >
                 <RaceStack.Screen 
+                    name="Paris" 
+                    component={BetRaceSubPage}
+                />
+                <RaceStack.Screen 
                     name="Etapes" 
                     component={StagesRaceSubPage}
                 />
@@ -65,10 +69,6 @@ export default function RacePage() {
                 <RaceStack.Screen 
                     name="Equipe" 
                     component={MyTeamRaceSubPage}
-                />
-                <RaceStack.Screen 
-                    name="Paris" 
-                    component={BetRaceSubPage}
                 />
             </RaceStack.Navigator>
         </SafeAreaView>

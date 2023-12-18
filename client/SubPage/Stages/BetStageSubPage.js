@@ -7,11 +7,11 @@ import Bets10List from '../../components/List/Bets10List';
 import BetModal from '../../modals/BetModal';
 import Bets3List from '../../components/List/Bets3List';
 
-import { getBetsUserRace, setBetsUserRace } from '../../api/race/api';
+import { getBetsUserStage, setBetsUserStage } from '../../api/stage/api';
 
 import { commonStyles } from '../../styles/GlobalStyles';
 
-export default function BetRaceSubPage() {
+export default function BetStageSubPage() {
     
     const { state, dispatch } = useMyContext();
     const navigation = useNavigation();
@@ -28,18 +28,20 @@ export default function BetRaceSubPage() {
     const user_id = state['user']['id']
     const league_id = state['league']['id']
     const race_id = state['race']['race_id']
+    const stage_id = state['stage']['id']
 
     useEffect(() => {
         if (isModalBetVisible === false) {
-            getBetDataEffect();
+            getBetStageDataEffect();
         }
         setStartlist(state['startlist'])
-    }, [getBetDataEffect, riderId, isModalBetVisible]);
+    }, [getBetStageDataEffect, riderId, isModalBetVisible]);
 
-    const getBetDataEffect = useCallback(async () => {
+    const getBetStageDataEffect = useCallback(async () => {
         try {
-            const betsData = await getBetsUserRace(state['ip_adress'], race_id, user_id, league_id);
+            const betsData = await getBetsUserStage(state['ip_adress'], race_id, user_id, league_id, stage_id);
             setBets(betsData);
+            console.log(betsData)
 
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
@@ -49,7 +51,7 @@ export default function BetRaceSubPage() {
 
     const onPressCreateBet = async () => {
         try {
-            await setBetsUserRace(state['ip_adress'], race_id, user_id, league_id, position, riderId, betTypeId);
+            await setBetsUserStage(state['ip_adress'], race_id, user_id, league_id, position, riderId, betTypeId, stage_id);
             setIsModalBetVisible(false)
             
         } catch (error) {
@@ -70,22 +72,7 @@ export default function BetRaceSubPage() {
         <SafeAreaView style={commonStyles.containerLight}>
             <ScrollView style={commonStyles.margin2Top}>
                 <View style={[commonStyles.flex3]}>
-                    <Bets10List bets={bets} onPress={() => onPressItem(1)} betTypeId={1} />
-                </View>
-                <View style={[commonStyles.flex2, commonStyles.row]}>
-                    <View style={[commonStyles.flex1]}>
-                        <Bets3List type={'Points'} bets={bets} onPress={() => onPressItem(2)} betTypeId={2} />
-                    </View>
-                    <View style={[commonStyles.flex1]}>
-                        <Bets3List type={'Montagne'} bets={bets} onPress={() => onPressItem(3)} betTypeId={3} />
-                    </View>
-                </View>
-                <View style={[commonStyles.flex2, commonStyles.row]}>
-                    <View style={[commonStyles.flex1]}>
-                        <Bets3List type={'Jeune'} bets={bets} onPress={() => onPressItem(4)} betTypeId={4} />
-                    </View>
-                    <View style={[commonStyles.flex1]}>
-                    </View>
+                    <Bets3List bets={bets} onPress={() => onPressItem(8)} betTypeId={8} />
                 </View>
             </ScrollView>
             <BetModal visible={isModalBetVisible} toggleModal={toggleBetModal} startlist={startlist} setPosition={setPosition} riderId={riderId} setRiderId={setRiderId} onPress={onPressCreateBet} betTypeId={betTypeId} />
