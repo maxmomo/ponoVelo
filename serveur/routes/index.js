@@ -19,7 +19,9 @@ const {getRiders} = require('../controllers/riders/getRiders');
 const {getNextRace} = require('../controllers/races/getNextRace');
 const {getStagesRace} = require('../controllers/stages/getStagesRace');
 const {getStartListRace} = require('../controllers/startlist/getStartlistRace');
-const {getUsersLeague} = require('../controllers/league/getUsersLeague');
+const {getUsersLeague} = require('../controllers/user/getUsersLeague');
+const {getUsersRace} = require('../controllers/user/getUsersRace');
+const {getUsersStage} = require('../controllers/user/getUsersStage');
 const {getBetsUserRace} = require('../controllers/bet/getBetsUserRace');
 const {setBetsUserRace} = require('../controllers/bet/setBetsUserRace');
 const {getUserRidersLeague} = require('../controllers/userRiders/getUserRidersLeague');
@@ -64,11 +66,13 @@ router.get("/race/startlist", getStartListRace)
 router.get("/race/user/bets", getBetsUserRace)
 router.get("/race/user/bets/set", setBetsUserRace)
 router.get("/race/results", getResultsRace)
+router.get("/race/users", getUsersRace)
 
 router.get("/stage/prediction", getPrediction)
 router.get("/stage/user/bets", getBetsUserStage)
 router.get("/stage/user/bets/set", setBetsUserStage)
 router.get("/stage/results", getResultsStage)
+router.get("/stage/users", getUsersStage)
 
 
 module.exports = router

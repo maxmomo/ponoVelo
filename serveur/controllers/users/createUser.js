@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
             password: params['password']
         })
         
-        result = "User created with id " + users.id
+        result = user[0]
     } else {
         result = "User already exists"
     }

@@ -136,4 +136,26 @@ const getResultsRace = async (ip_address, race_id, user_id, league_id) => {
     }
 };
 
-export { getNextRace, getStagesRace, getStartListRace, getBetsUserRace, setBetsUserRace, getResultsRace };
+/**
+ * Fonction pour récupérer le classement des utilisateurs de la course
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} league_id - id de la ligue.
+ * @param {integer} race_id - id de la course.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des utilisateurs
+ */
+const getUsersRace = async (ip_address, league_id, race_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/race/users',
+            params: { race_id, league_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+export { getNextRace, getStagesRace, getStartListRace, getBetsUserRace, setBetsUserRace, getResultsRace, getUsersRace };

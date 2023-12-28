@@ -78,10 +78,8 @@ async function processLeagues() {
     }
 }
 
-console.log('********************')
 processLeagues().then(() => {
     console.log("Traitement des ligues terminé");
 }).catch((error) => {
     console.error("Une erreur est survenue lors du traitement des ligues:", error);
 });
-

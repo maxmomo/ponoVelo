@@ -4,11 +4,12 @@ const getUsersLeague = async (req, res) => {
     params = req.query
 
     const users = await db.query(
-        "SELECT u.*, ul.total " +
+        "SELECT u.*, ul.total, ul.points " +
         "FROM usersleagues ul " +
         "JOIN users u ON u.id = ul.UserId " +
         "WHERE " + 
-        "ul.LeagueId = :league_id",
+        "ul.LeagueId = :league_id " +
+        "ORDER BY points DESC",
         {
             type: db.SELECT,
             replacements: { 

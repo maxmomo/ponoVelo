@@ -4,7 +4,7 @@ const getBetsUserRace = async (req, res) => {
     params = req.query
 
     const bets = await db.query(
-        "SELECT b.id, b.BetTypeId as type_id , b.position as position, ri.id as rider_id, ri.name as name, ri.firstName as firstName, ri.fullName as fullName, ri.nationality as nationality, ri.picture as picture, " +
+        "SELECT b.id, b.point, b.BetTypeId as type_id , b.position as position, ri.id as rider_id, ri.name as name, ri.firstName as firstName, ri.fullName as fullName, ri.nationality as nationality, ri.picture as picture, " +
         "CASE " +
         "WHEN ur.RiderId IS NOT NULL THEN 1 " +
         "ELSE 0 " + 

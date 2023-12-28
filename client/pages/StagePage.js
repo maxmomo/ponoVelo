@@ -24,6 +24,7 @@ import PredictionStageSubPage from '../SubPage/Stages/PredictionStageSubPage';
 import BetStageSubPage from '../SubPage/Stages/BetStageSubPage';
 import ResultRaceSubPage from '../SubPage/Races/ResultRaceSubPage';
 import ResultsStageSubPage from '../SubPage/Stages/ResultsStageSubPage';
+import RankingStageSubPage from '../SubPage/Stages/RankingStageSubPage';
 
 const StageStack  = createMaterialTopTabNavigator();
 
@@ -129,24 +130,11 @@ export default function StagePage() {
                     name="Predictor" 
                     component={PredictionStageSubPage}
                 />
-            </StageStack.Navigator>
-            {/* <View style={commonStyles.margin2Top}>
-               <BasicButton text='Parier' onPress={goStageBet} />
-            </View>
-            <View style={[commonStyles.flex1]}>
-                <FlatList
-                    ListHeaderComponent={
-                        <>
-                            <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                            {visibility.isInformationVisible && <StageInformation stage={stage} />}
-                            <BasicSubtitle text={'PROFIL'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PROFIL)} />
-                            {visibility.isProfilVisible && <Profile profile={stage.profile} />}
-                            <BasicSubtitle text={'PREDICTOR'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PREDICTOR)} />
-                            {visibility.isPredictorVisible && <Prediction riders={prediction} />}
-                        </>
-                    }
+                <StageStack.Screen 
+                    name="Classement" 
+                    component={RankingStageSubPage}
                 />
-            </View> */}
+            </StageStack.Navigator>
         </SafeAreaView>
     );
 }

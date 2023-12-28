@@ -77,6 +77,7 @@ export default function LeaguesScreen() {
     
     const onPressJoin = async () => {
         try {
+            console.log(state['user'])
             const leagueData = await joinLeague(state['ip_adress'], name, password, user_id);
             
             if (leagueData === 0) {

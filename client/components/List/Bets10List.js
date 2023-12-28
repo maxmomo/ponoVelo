@@ -11,7 +11,7 @@ export default function Bets10List(props) {
 
     const renderNameForPosition = (position) => {
         const bet = betsOfType1.find(bet => bet.position === position);
-        return bet ? [bet.fullName, bet.nationality, bet.is_boost] : ['', false];
+        return bet ? [bet.fullName, bet.nationality, bet.is_boost, bet.point] : ['', false];
     }
 
     return (
@@ -25,13 +25,20 @@ export default function Bets10List(props) {
                         <Text key={position} style={commonStyles.text13}>{position}</Text>
                     ))}
                 </View>
-                <View style={[commonStyles.padding1, commonStyles.spaceBetween]}>
+                <View style={[commonStyles.padding1, , commonStyles.flex1]}>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((position) => (
-                        <View key={position} style={[commonStyles.row]} >
-                            {renderNameForPosition(position)[1] && <Flag code={renderNameForPosition(position)[1]} size={16} type={'flat'}/>}
-                            <Text key={position} style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
-                                {renderNameForPosition(position)[0]}
-                            </Text>
+                        <View key={position} style={[commonStyles.row, commonStyles.flex1]} >
+                            <View style={[commonStyles.row, commonStyles.flex1]}>
+                                {renderNameForPosition(position)[1] && <Flag code={renderNameForPosition(position)[1]} size={16} type={'flat'}/>}
+                                <Text style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
+                                    {renderNameForPosition(position)[0]}
+                                </Text>
+                            </View>
+                            <View style={commonStyles.flex1}>
+                                <Text style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
+                                    {renderNameForPosition(position)[3]}
+                                </Text>
+                            </View>
                         </View>
                     ))}
                 </View>

@@ -8,7 +8,7 @@ import TitleLeague from '../components/Title/TitleLeague';
 import MercatoLeagueSubPage from '../SubPage/Leagues/MercatoLeagueSubPage';
 import OfferLeagueSubPage from '../SubPage/Leagues/OfferLeagueSubPage';
 import NextEventLeagueSubPage from '../SubPage/Leagues/NextEventLeagueSubPage';
-import UsersLeagueSubPage from '../SubPage/Leagues/UsersLeagueSubPage';
+import RankingLeagueSubPage from '../SubPage/Leagues/RankingLeagueSubPage';
 import MyTeamLeagueSubPage from '../SubPage/Leagues/MyTeamLeagueSubPage';
 import HistoryLeagueSubPage from '../SubPage/Leagues/HistoryLeagueSubPage';
 
@@ -68,8 +68,8 @@ export default function LeaguePage() {
                     component={HistoryLeagueSubPage}
                 />
                 <LeagueStack.Screen 
-                    name="Utilisateurs" 
-                    component={UsersLeagueSubPage}
+                    name="Classement" 
+                    component={RankingLeagueSubPage}
                 />
             </LeagueStack.Navigator>
         </SafeAreaView>

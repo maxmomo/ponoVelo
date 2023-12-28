@@ -7,6 +7,10 @@ const UsersLeagues = sequelize.define('UsersLeagues', {
     total: {
         type: DataTypes.INTEGER,
         defaultValue: 200
+    },
+    points: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 })
 

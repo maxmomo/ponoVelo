@@ -9,7 +9,7 @@ import { getUsersLeague } from '../../api/league/api';
 
 import { commonStyles } from '../../styles/GlobalStyles';
 
-export default function UsersLeagueSubPage() {
+export default function RankingLeagueSubPage() {
     
     const navigation = useNavigation();
     const { state, dispatch } = useMyContext();
@@ -20,10 +20,10 @@ export default function UsersLeagueSubPage() {
     const league_id = state['league']['id']
 
     useEffect(() => {
-        getUserLeagueDataEffect();
-    }, [getUserLeagueDataEffect]);
+        getRankingLeagueDataEffect();
+    }, [getRankingLeagueDataEffect]);
 
-    const getUserLeagueDataEffect = useCallback(async () => {
+    const getRankingLeagueDataEffect = useCallback(async () => {
         try {
             const usersData = await getUsersLeague(state['ip_adress'], league_id, user_id);
             setUsers(usersData);

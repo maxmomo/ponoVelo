@@ -15,6 +15,7 @@ import { commonStyles } from '../styles/GlobalStyles';
 import colors from '../constants/colors';
 import BetRaceSubPage from '../SubPage/Races/BetRaceSubPage';
 import ResultRaceSubPage from '../SubPage/Races/ResultRaceSubPage';
+import RankingRaceSubPage from '../SubPage/Races/RankingRaceSubPage';
 
 const RaceStack  = createMaterialTopTabNavigator();
 
@@ -74,6 +75,10 @@ export default function RacePage() {
                 <RaceStack.Screen 
                     name="Equipe" 
                     component={MyTeamRaceSubPage}
+                />
+                <RaceStack.Screen 
+                    name="Classement" 
+                    component={RankingRaceSubPage}
                 />
             </RaceStack.Navigator>
         </SafeAreaView>
