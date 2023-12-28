@@ -76,7 +76,7 @@ const getLeaguesUser = async (ip_address, user_id) => {
 const setAvatarUser = async (ip_address, user_id, avatar) => {
     try {
         const response = await axios({
-            method: 'get',
+            method: 'post',
             url: 'http://' + ip_address + ':3000/user/avatar/set',
             params: { user_id, avatar }
         });

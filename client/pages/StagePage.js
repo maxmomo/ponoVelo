@@ -22,6 +22,8 @@ import colors from '../constants/colors';
 import ProfileStageSubPage from '../SubPage/Stages/ProfileStageSubPage';
 import PredictionStageSubPage from '../SubPage/Stages/PredictionStageSubPage';
 import BetStageSubPage from '../SubPage/Stages/BetStageSubPage';
+import ResultRaceSubPage from '../SubPage/Races/ResultRaceSubPage';
+import ResultsStageSubPage from '../SubPage/Stages/ResultsStageSubPage';
 
 const StageStack  = createMaterialTopTabNavigator();
 
@@ -114,6 +116,10 @@ export default function StagePage() {
                 <StageStack.Screen 
                     name="Paris" 
                     component={BetStageSubPage}
+                />
+                <StageStack.Screen 
+                    name="Résultat" 
+                    component={ResultsStageSubPage}
                 />
                 <StageStack.Screen 
                     name="Profil" 

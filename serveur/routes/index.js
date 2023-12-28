@@ -29,11 +29,13 @@ const {getHistoryRidersOffer} = require('../controllers/ridersOffers/getHistoryR
 const {getBetsUserStage} = require('../controllers/bet/getBetsUserStage');
 const {setBetsUserStage} = require('../controllers/bet/setBetsUserStage');
 const {setAvatarUser} = require('../controllers/user/setAvatarUser');
+const {getResultsRace} = require('../controllers/results/getResultsRace');
+const {getResultsStage} = require('../controllers/results/getResultsStage');
 
 router.get("/users/create", createUser)
 router.get("/users/connect", connectUser)
 router.get("/user/leagues", getLeaguesUser)
-router.get("/user/avatar/set", setAvatarUser)
+router.post("/user/avatar/set", setAvatarUser)
 
 router.get("/teams/all", getTeams)
 
@@ -61,9 +63,12 @@ router.get("/race/stages", getStagesRace)
 router.get("/race/startlist", getStartListRace)
 router.get("/race/user/bets", getBetsUserRace)
 router.get("/race/user/bets/set", setBetsUserRace)
+router.get("/race/results", getResultsRace)
 
 router.get("/stage/prediction", getPrediction)
 router.get("/stage/user/bets", getBetsUserStage)
 router.get("/stage/user/bets/set", setBetsUserStage)
+router.get("/stage/results", getResultsStage)
+
 
 module.exports = router

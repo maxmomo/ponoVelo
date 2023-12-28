@@ -41,7 +41,6 @@ export default function BetStageSubPage() {
         try {
             const betsData = await getBetsUserStage(state['ip_adress'], race_id, user_id, league_id, stage_id);
             setBets(betsData);
-            console.log(betsData)
 
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');

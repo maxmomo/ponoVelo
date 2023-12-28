@@ -3,11 +3,9 @@ const { DataTypes } = require('sequelize');
 const Rider = require("./Rider")
 const Stage = require("./Stage")
 const Race = require("./Race")
+const BetType = require("./BetType")
 
 const Result = sequelize.define('Result', {
-    result_type: {
-        type: DataTypes.STRING
-    },
     points: {
         type: DataTypes.INTEGER,
     },
@@ -24,5 +22,8 @@ Result.belongsTo(Stage);
 
 Race.hasMany(Result);
 Result.belongsTo(Race);
+
+BetType.hasMany(Result);
+Result.belongsTo(BetType);
 
 module.exports = Result;

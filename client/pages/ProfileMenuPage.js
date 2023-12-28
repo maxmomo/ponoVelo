@@ -6,7 +6,6 @@ import { Avatar } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 
 import Header from '../components/Basic/Header';
-import BasicSubtitleView from '../components/Basic/BasicSubtitleView'
 
 import { setAvatarUser } from '../api/user/api';
 
@@ -18,38 +17,42 @@ export default function ProfileMenuPage() {
 
     const navigation = useNavigation();
     const { state, dispatch } = useMyContext();
-    const [avatarSource, setAvatarSource] = useState(null);
 
     const user_id = state['user']['id']
     const user = state['user']
+
+    const [avatarBase64, setAvatarBase64] = useState(null);
 
     useEffect(() => {
         (async () => {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status !== 'granted') {
-                alert('Désolé, nous avons besoin des permissions de la bibliothèque de photos pour que cela fonctionne!');
+                alert('Sorry, we need media library permissions to make this work!');
             }
         })();
+        setAvatarBase64(user['avatar'])
     }, []);
 
-    const selectImage = async () => {
-        try {
-            const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                quality: 1,
-                allowsEditing: true,
-            });
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.1, // Réduisez la qualité pour une taille d'image plus petite
+            base64: true,
+        });
+    
+        if (!result.canceled && result.assets) {
+            const firstAsset = result.assets[0];
+            const base64 = firstAsset.base64;
 
-            if (!result.cancelled) {
-                console.log(result)
-                await setAvatarUser(state['ip_adress'], user_id, result.uri)
-            }
-        } catch (error) {
-            console.error(error);
+            setAvatarBase64(base64); // Pour l'affichage dans l'UI
+            user['avatar'] = base64;
+            dispatch({ type: 'SET_USER', payload: user });
+            await setAvatarUser(state['ip_adress'], user_id, base64); // Pour l'envoi au serveur
         }
     };
-      
-      
+
 
     const onPressDisconnect = () => {
         dispatch({ type: 'SET_USERNAME', payload: '' });
@@ -65,19 +68,18 @@ export default function ProfileMenuPage() {
     return (
         <SafeAreaView style={commonStyles.containerLight}>
             <Header is_navigation={true} is_profile={true} />
-            <BasicSubtitleView text={'Profil'} />
             <View>
-                <View>
+                <View style={commonStyles.center}>
                     <Avatar
-                        size="large"
+                        size="xlarge"
                         rounded
-                        source={user['avatar']}
-                        onPress={selectImage}
-                        activeOpacity={0.7}
-                        avatarStyle={{borderColor: 'green'}}
+                        source={{ uri: avatarBase64 ? `data:image/jpeg;base64,${avatarBase64}` : null }}
+                        onPress={pickImage}
+                        showEditButton
+                        overlayContainerStyle={{borderWidth: 2, borderColor: colors.theme}}
                     />
                 </View>
-                <TouchableOpacity style={[commonStyles.row, commonStyles.margin2]} onPress={() => {/* Handle password change */}}>
+                <TouchableOpacity style={[commonStyles.row, commonStyles.margin2, commonStyles.margin5Top]} onPress={() => {/* Handle password change */}}>
                     <Text style={commonStyles.text18}>Modifier mon mot de passe</Text>
                     <MaterialCommunityIcons name='arrow-right' size={24} color={colors.theme} />
                 </TouchableOpacity>

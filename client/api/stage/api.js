@@ -73,4 +73,28 @@ const setBetsUserStage = async (ip_address, race_id, user_id, league_id, positio
     }
 };
 
-export { getPrediction, getBetsUserStage, setBetsUserStage };
+/**
+ * Fonction pour récupérer les résultats de l'étape'
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} race_id - id de la course.
+ * @param {integer} user_id - id de l'utilisateur'.
+ * @param {integer} league_id - id de la ligue.
+ * @param {integer} stage_id - id de l'étape.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des paris
+ */
+const getResultsStage = async (ip_address, race_id, user_id, league_id,stage_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/stage/results',
+            params: { race_id, user_id, league_id, stage_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+export { getPrediction, getBetsUserStage, setBetsUserStage, getResultsStage };

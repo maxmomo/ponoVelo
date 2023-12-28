@@ -8,8 +8,7 @@ const getUsersLeague = async (req, res) => {
         "FROM usersleagues ul " +
         "JOIN users u ON u.id = ul.UserId " +
         "WHERE " + 
-        "ul.LeagueId = :league_id AND " + 
-        "u.id != :user_id",
+        "ul.LeagueId = :league_id",
         {
             type: db.SELECT,
             replacements: { 

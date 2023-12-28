@@ -129,6 +129,9 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    alignCenter: {
+        alignItems: 'center',
+    },
     centerVertical: {
         justifyContent: 'center'
     },
@@ -158,6 +161,11 @@ const commonStyles = StyleSheet.create({
     roundyellow: {
         borderWidth: 2,
         borderColor: colors.theme,
+        borderRadius: 10
+    },
+    roundWhite: {
+        borderWidth: 2,
+        borderColor: colors.whiteText,
         borderRadius: 10
     },
     colorWhite: {
