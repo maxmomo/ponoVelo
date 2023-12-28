@@ -1,108 +1,62 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import { View, SafeAreaView, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, SafeAreaView } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useMyContext } from '../context/MyContext';
 
 import Header from '../components/Basic/Header';
-import RidersList from '../components/List/RidersList';
-import HistoryTeamList from '../components/List/HistoryTeamList';
-import GtDiagram from '../components/Diagram/GtDiagram';
-import TeamInformation from '../components/TeamInformation';
-import TeamPerformance from '../components/TeamPerformance';
 import TitleTeam from '../components/Title/TitleTeam';
-import BasicSubtitle from '../components/Basic/BasicSubtitle';
-import Jersey from '../components/Basic/Jersey';
-
-import { getRiders, getHistory, getStatistics } from '../api/team/api';
+import InformationTeamSubPage from '../SubPage/Teams/InformationTeamSubPage';
+import HistoryTeamSubPage from '../SubPage/Teams/HistoryTeamSubPage';
+import RidersTeamSubPage from '../SubPage/Teams/RidersTeamSubPage';
+import PerformanceTeamSubPage from '../SubPage/Teams/PerformanceTeamSubPage';
 
 import { commonStyles } from '../styles/GlobalStyles';
+import colors from '../constants/colors';
+
+const TeamStack  = createMaterialTopTabNavigator();
 
 export default function TeamPage() {
     
     const { state, dispatch } = useMyContext();
-    const navigation = useNavigation();
-
-    const [statistics, setStatistics] = useState([]);
-    const [history, setHistory] = useState([]);
-    const [riders, setRiders] = useState([]);
-
-    const [visibility, setVisibility] = useState({
-        isInformationVisible: true,
-        isHistoryVisible: true,
-        isRidersVisible: true,
-        isPerformancesVisible: true
-    });
-
-    const VISIBILITY_KEYS = {
-        INFORMATION: 'isInformationVisible',
-        HISTORY: 'isHistoryVisible',
-        RIDERS: 'isRidersVisible',
-        PERFORMANCES: 'isPerformancesVisible'
-    };
-
-    const [refreshKey, setRefreshKey] = React.useState(0);
-
+    
     const team = state['team']
-    const year = state['year']
-
-    useEffect(() => {
-        getTeamDataEffect();
-    }, [refreshKey, getTeamDataEffect]);
-
-    const getTeamDataEffect = useCallback(async () => {
-        try {
-            const ridersData = await getRiders(state['ip_adress'], team.id);
-            setRiders(ridersData);
-
-            const historyData = await getHistory(state['ip_adress'], team.related_team_id, year, team.year);
-            setHistory(historyData);
-
-            const statisticsData = await getStatistics(state['ip_adress'], team.related_team_id);
-            setStatistics(statisticsData);
-            dispatch({ type: 'SET_STATISTICS', payload: statisticsData });
-        } catch (error) {
-            Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
-        }
-
-    }, [team, year, navigation]);
-
-    const toggleVisibility = (key) => {
-        setVisibility(prevVisibility => ({
-            ...prevVisibility,
-            [key]: !prevVisibility[key]
-        }));
-    };
-
-    const handleRefresh = () => {
-        setRefreshKey(prevKey => prevKey + 1);
-    };
 
     return (
         <SafeAreaView style={commonStyles.containerLight}>
             <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
-                <TitleTeam nationality={team['nationality']} name={team['name']} />
+                <TitleTeam nationality={team['nationality']} name={team['name']} year={team['year']} />
             </View>
-            <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
-            <FlatList
-                    ListHeaderComponent={
-                        <>
-                            <View style={[commonStyles.margin2Top, commonStyles.row]}>
-                                <Jersey jersey={team['jersey']} height={150} width={150} />
-                                <GtDiagram statistics={statistics}></GtDiagram>
-                            </View>
-                            <BasicSubtitle text={'INFORMATIONS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.INFORMATION)} />
-                            {visibility.isInformationVisible && <TeamInformation team={team} />}
-                            <BasicSubtitle text={'HISTORIQUE'} onPress={() => toggleVisibility(VISIBILITY_KEYS.HISTORY)} />
-                            {visibility.isHistoryVisible && <HistoryTeamList history={history} onItemPress={handleRefresh} />}
-                            <BasicSubtitle text={'COUREURS'} onPress={() => toggleVisibility(VISIBILITY_KEYS.RIDERS)} />
-                            {visibility.isRidersVisible && <RidersList riders={riders} />}
-                            <BasicSubtitle text={'PERFORMANCES'} onPress={() => toggleVisibility(VISIBILITY_KEYS.PERFORMANCES)} />
-                            {visibility.isPerformancesVisible && <TeamPerformance />}
-                        </>
-                    }
+            <TeamStack.Navigator
+                screenOptions={{
+                    tabBarStyle: {
+                        backgroundColor: colors.backgroundLight
+                    },
+                    tabBarActiveTintColor: colors.theme,
+                    tabBarInactiveTintColor: colors.whiteText,
+                    tabBarLabelStyle: {
+                        flexShrink: 1,
+                        width: '100%',
+                    },
+                    tabBarScrollEnabled: true,
+                    tabBarIndicatorStyle: {
+                        backgroundColor: colors.theme
+                    },
+                }}
+            >
+                <TeamStack.Screen 
+                    name="Informations" 
+                    component={InformationTeamSubPage}
                 />
-            </View>
+                <TeamStack.Screen 
+                    name="Coureurs" 
+                    component={RidersTeamSubPage}
+                />
+                <TeamStack.Screen 
+                    name="Performance" 
+                    component={PerformanceTeamSubPage}
+                />
+            </TeamStack.Navigator>
         </SafeAreaView>
     );
 }

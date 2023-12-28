@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useMyContext } from '../context/MyContext';
 
@@ -9,26 +8,21 @@ import TitleRace from '../components/Title/TitleRace';
 import StagesRaceSubPage from '../SubPage/Races/StagesRaceSubPage';
 import StartlistRaceSubPage from '../SubPage/Races/StartlistRaceSubPage';
 import MyTeamRaceSubPage from '../SubPage/Races/MyTeamRaceSubPage';
+import BetRaceSubPage from '../SubPage/Races/BetRaceSubPage';
+import ResultRaceSubPage from '../SubPage/Races/ResultRaceSubPage';
+import RankingRaceSubPage from '../SubPage/Races/RankingRaceSubPage';
 import RaceInformation from '../components/RaceInformation';
 
 import { commonStyles } from '../styles/GlobalStyles';
 import colors from '../constants/colors';
-import BetRaceSubPage from '../SubPage/Races/BetRaceSubPage';
-import ResultRaceSubPage from '../SubPage/Races/ResultRaceSubPage';
-import RankingRaceSubPage from '../SubPage/Races/RankingRaceSubPage';
 
 const RaceStack  = createMaterialTopTabNavigator();
 
 export default function RacePage() {
     
     const { state, dispatch } = useMyContext();
-    const navigation = useNavigation();
 
     const race = state['race']
-
-    const goRaceBet = () => {
-        navigation.navigate('RaceBet');
-    };
 
     return (
         <SafeAreaView style={commonStyles.containerLight}>

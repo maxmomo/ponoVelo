@@ -149,7 +149,8 @@ const commonStyles = StyleSheet.create({
         borderBottomColor: '#E4E9F2',
         borderBottomWidth: 1,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1
     },
     startlistView: {
         marginLeft: '8%',

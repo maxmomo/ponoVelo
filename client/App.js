@@ -8,8 +8,6 @@ import TeamPage from './pages/TeamPage';
 
 import { MyContextProvider } from './context/MyContext';
 import SplashScreen from './screens/SplashScreen';
-import TeamGTWinPage from './pages/TeamGTWinPage';
-import TeamGTStatPage from './pages/TeamGTStatPage';
 import SplashScreenWait from './screens/SplashScreenWait';
 import RacePage from './pages/RacePage';
 import ProfileMenuPage from './pages/ProfileMenuPage';
@@ -67,22 +65,6 @@ export default function App() {
             component={TeamPage}
             options={() => ({
               title: 'Team',
-              headerShown: false
-            })}
-          />
-          <Stack.Screen 
-            name='TeamGTWin' 
-            component={TeamGTWinPage}
-            options={() => ({
-              title: 'TeamGTWin',
-              headerShown: false
-            })}
-          />
-          <Stack.Screen 
-            name='TeamGTStat' 
-            component={TeamGTStatPage}
-            options={() => ({
-              title: 'TeamGTStat',
               headerShown: false
             })}
           />

@@ -8,6 +8,7 @@ export default function TitleTeam(props) {
         <View style={styles.titleView}>
             <Flag code={props.nationality} size={32} type={'flat'}/>
             <Text style={styles.titleText}>{props.name.toUpperCase()}</Text>
+            <Text style={styles.titleText}>{props.year}</Text>
         </View>
     );
 }

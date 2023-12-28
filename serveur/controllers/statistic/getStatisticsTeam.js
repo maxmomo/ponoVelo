@@ -14,7 +14,7 @@ const getStatisticsTeam = async (req, res) => {
         "JOIN ridersteams rt ON rt.RiderId = re.RiderId AND rt.TeamId = t2.id AND ra.season = rt.season " +
         "WHERE " + 
         "re.result_rank = 1 AND " +
-        "re.result_type in (1,2,3) " +
+        "re.BetTypeId in (8, 14, 15) " +
         "GROUP BY ra.id, s.id " +
         "ORDER BY ra.season DESC, s.date DESC",
         {

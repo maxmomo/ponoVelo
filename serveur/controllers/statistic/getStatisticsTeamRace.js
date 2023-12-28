@@ -17,7 +17,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 4 AND " + 
+        "re.BetTypeId = 4 AND " + 
         "ra.pcs_id = :pcs_race_id AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " + 
@@ -29,7 +29,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id  " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 4 AND " + 
+        "re.BetTypeId = 4 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id) " + 
@@ -52,7 +52,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "LEFT JOIN stages st ON st.id = re.StageId " +
         "JOIN teams t2 ON t2.related_team_id = :team_id " +
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " +
-        "WHERE re.result_type = 4 AND ra.pcs_id = :pcs_race_id AND " +
+        "WHERE re.BetTypeId = 4 AND ra.pcs_id = :pcs_race_id AND " +
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) " +
         "GROUP BY ra.season) " +
@@ -79,7 +79,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 5 AND " + 
+        "re.BetTypeId = 5 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id AND " +  
@@ -91,7 +91,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id  " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 5 AND " + 
+        "re.BetTypeId = 5 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id) " + 
@@ -114,7 +114,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "LEFT JOIN stages st ON st.id = re.StageId " +
         "JOIN teams t2 ON t2.related_team_id = :team_id " +
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " +
-        "WHERE re.result_type = 5 AND ra.pcs_id = :pcs_race_id AND " +
+        "WHERE re.BetTypeId = 5 AND ra.pcs_id = :pcs_race_id AND " +
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) " +
         "GROUP BY ra.season) " +
@@ -141,7 +141,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 6 AND " + 
+        "re.BetTypeId = 6 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id AND " +  
@@ -153,7 +153,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id  " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 6 AND " + 
+        "re.BetTypeId = 6 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id) " + 
@@ -176,7 +176,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "LEFT JOIN stages st ON st.id = re.StageId " +
         "JOIN teams t2 ON t2.related_team_id = :team_id " +
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " +
-        "WHERE re.result_type = 6 AND ra.pcs_id = :pcs_race_id AND " +
+        "WHERE re.BetTypeId = 6 AND ra.pcs_id = :pcs_race_id AND " +
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) " +
         "GROUP BY ra.season) " +
@@ -203,7 +203,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 7 AND " + 
+        "re.BetTypeId = 7 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id AND " +  
@@ -215,7 +215,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "JOIN teams t2 ON t2.related_team_id = :team_id  " + 
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " + 
         "WHERE " + 
-        "re.result_type = 7 AND " + 
+        "re.BetTypeId = 7 AND " + 
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) AND " +
         "ra.pcs_id = :pcs_race_id) " + 
@@ -238,7 +238,7 @@ const getStatisticsTeamRace = async (req, res) => {
         "LEFT JOIN stages st ON st.id = re.StageId " +
         "JOIN teams t2 ON t2.related_team_id = :team_id " +
         "JOIN ridersteams rt ON rt.RiderId = ri.id AND rt.TeamId = t2.id AND rt.season =  ra.season " +
-        "WHERE re.result_type = 7 AND ra.pcs_id = :pcs_race_id AND " +
+        "WHERE re.BetTypeId = 7 AND ra.pcs_id = :pcs_race_id AND " +
         "(ra.season != EXTRACT(YEAR FROM CURRENT_DATE) OR " +
         "(ra.season = EXTRACT(YEAR FROM CURRENT_DATE) AND ra.end_date < CURRENT_DATE)) " +
         "GROUP BY ra.season) " +
