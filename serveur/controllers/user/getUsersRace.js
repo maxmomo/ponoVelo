@@ -9,7 +9,8 @@ const getUsersRace = async (req, res) => {
         "JOIN users u ON u.id = ul.UserId " +
         "LEFT JOIN bets b ON b.RaceId = :race_id AND b.LeagueId = :league_id AND ul.UserId = b.UserId " +
         "WHERE " + 
-        "ul.LeagueId = :league_id " +
+        "ul.LeagueId = :league_id AND " +
+        "b.StageId IS NULL " +
         "GROUP BY ul.UserId " +
         "ORDER BY points DESC",
         {

@@ -12,8 +12,6 @@ const deleteUserRidersOffers = async (req, res) => {
         individualHooks: true
     });
 
-    console.log(`Deleted count: ${deletedCount}`);
-
     res.json(true)
 };
 

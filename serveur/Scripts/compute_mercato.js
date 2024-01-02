@@ -45,8 +45,6 @@ async function processLeagues() {
                     limit: 1
                 });
 
-                console.log(offer)
-
                 await UserRiders.create({ 
                     RiderId: offer.RiderId,
                     UserId: highestOfferRecord.UserId,

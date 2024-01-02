@@ -37,7 +37,7 @@ export default function RankingLeagueSubPage() {
     return (
         <SafeAreaView style={commonStyles.containerLight}>
             <View style={commonStyles.margin2Top}>
-                <UsersList users={users} />
+                <UsersList users={users} type={'global'} />
             </View>
         </SafeAreaView>
     );

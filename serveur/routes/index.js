@@ -33,6 +33,7 @@ const {setBetsUserStage} = require('../controllers/bet/setBetsUserStage');
 const {setAvatarUser} = require('../controllers/user/setAvatarUser');
 const {getResultsRace} = require('../controllers/results/getResultsRace');
 const {getResultsStage} = require('../controllers/results/getResultsStage');
+const {getUserPoints} = require('../controllers/point/getUserPoints');
 
 router.get("/users/create", createUser)
 router.get("/users/connect", connectUser)
@@ -73,6 +74,8 @@ router.get("/stage/user/bets", getBetsUserStage)
 router.get("/stage/user/bets/set", setBetsUserStage)
 router.get("/stage/results", getResultsStage)
 router.get("/stage/users", getUsersStage)
+
+router.get("/point/user", getUserPoints)
 
 
 module.exports = router

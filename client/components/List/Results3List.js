@@ -19,8 +19,6 @@ export default function Results3List(props) {
         results = props.results.filter(result => result.type_id === 8);
     }
 
-    console.log(results)
-
     const renderNameForPosition = (position) => {
         const result = results.find(result => result.position === position);
         return result ? [result.fullName, result.nationality, result.is_boost] : ['', false];

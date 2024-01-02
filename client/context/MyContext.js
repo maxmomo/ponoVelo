@@ -14,6 +14,7 @@ const SET_RACE = 'SET_RACE';
 const SET_STARTLIST = 'SET_STARTLIST';
 const SET_USER_TEAM = 'SET_USER_TEAM';
 const SET_STAGE = 'SET_STAGE';
+const SET_USER_SELECTED = 'SET_USER_SELECTED';
 
 // Définit le fournisseur du contexte
 export const MyContextProvider = ({ children }) => {
@@ -31,6 +32,7 @@ export const MyContextProvider = ({ children }) => {
         startlist: [],
         user_team: [],
         stage: '',
+        user_selected: ''
     };
 
     const reducer = (state, action) => {
@@ -55,6 +57,8 @@ export const MyContextProvider = ({ children }) => {
                 return { ...state, user_team: action.payload };
             case SET_STAGE: 
                 return { ...state, stage: action.payload };
+            case SET_USER_SELECTED:
+                return { ...state, user_selected: action.payload };
             default:
                 return state;
         }

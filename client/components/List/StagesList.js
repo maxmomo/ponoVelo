@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useMyContext } from '../../context/MyContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import RaceLogo from '../Basic/RaceLogo';
 
 import { commonStyles } from '../../styles/GlobalStyles';
-import RaceLogo from '../Basic/RaceLogo';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
 const logo_montain = require('../../assets/montain.png');

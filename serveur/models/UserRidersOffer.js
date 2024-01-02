@@ -25,7 +25,7 @@ const UserRidersOffer = sequelize.define('UserRidersOffer',
                 update_total(userRiderOffer);
             },
             afterUpdate: async (userRiderOffer, options) => {
-                console.log("******************** After update triggered");
+                console.log("After update triggered");
                 update_total(userRiderOffer);
             },
             afterDestroy: async (userRiderOffer, options) => {

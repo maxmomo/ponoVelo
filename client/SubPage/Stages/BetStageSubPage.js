@@ -10,13 +10,12 @@ import Bets3List from '../../components/List/Bets3List';
 import { getBetsUserStage, setBetsUserStage } from '../../api/stage/api';
 
 import { commonStyles } from '../../styles/GlobalStyles';
+import StageBet from '../../components/StageBet';
 
 export default function BetStageSubPage() {
     
     const { state, dispatch } = useMyContext();
-    const navigation = useNavigation();
 
-    const [bets, setBets] = useState([]);
     const [startlist, setStartlist] = useState([]);
     const [position, setPosition] = useState(0)
     const [riderId, setRiderId] = useState(0)
@@ -31,24 +30,11 @@ export default function BetStageSubPage() {
     const stage_id = state['stage']['id']
 
     useEffect(() => {
-        if (isModalBetVisible === false) {
-            getBetStageDataEffect();
-        }
         setStartlist(state['startlist'])
-    }, [getBetStageDataEffect, riderId, isModalBetVisible]);
-
-    const getBetStageDataEffect = useCallback(async () => {
-        try {
-            const betsData = await getBetsUserStage(state['ip_adress'], race_id, user_id, league_id, stage_id);
-            setBets(betsData);
-
-        } catch (error) {
-            Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
-        }
-
-    }, [team, year, navigation]);
+    }, [isModalBetVisible]);
 
     const onPressCreateBet = async () => {
+        console.log(race_id, user_id, league_id, position, riderId, betTypeId, stage_id)
         try {
             await setBetsUserStage(state['ip_adress'], race_id, user_id, league_id, position, riderId, betTypeId, stage_id);
             setIsModalBetVisible(false)
@@ -69,11 +55,7 @@ export default function BetStageSubPage() {
 
     return (
         <SafeAreaView style={commonStyles.containerLight}>
-            <ScrollView style={commonStyles.margin2Top}>
-                <View style={[commonStyles.flex3]}>
-                    <Bets3List bets={bets} onPress={() => onPressItem(8)} betTypeId={8} />
-                </View>
-            </ScrollView>
+            <StageBet user_id={user_id} onPress={() => onPressItem(8)} isModalBetVisible={isModalBetVisible} readonly={false} />
             <BetModal visible={isModalBetVisible} toggleModal={toggleBetModal} startlist={startlist} setPosition={setPosition} riderId={riderId} setRiderId={setRiderId} onPress={onPressCreateBet} betTypeId={betTypeId} />
         </SafeAreaView>
     );

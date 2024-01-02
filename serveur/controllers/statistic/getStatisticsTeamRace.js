@@ -4,8 +4,6 @@ const db = require("../../config/database")
 const getStatisticsTeamRace = async (req, res) => {
     params = req.query
 
-    console.log(params)
-
     statistics = {}
     
     const statistics_best_result = await db.query(

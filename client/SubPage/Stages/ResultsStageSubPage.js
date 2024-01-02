@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import { View, SafeAreaView, Alert, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useMyContext } from '../../context/MyContext';
 
 import { getResultsStage } from '../../api/stage/api';
@@ -26,8 +25,6 @@ export default function ResultsStageSubPage() {
     const getResultsStageDataEffect = useCallback(async () => {
         try {
             const resultsData = await getResultsStage(state['ip_adress'], race_id, user_id, league_id, stage_id);
-            console.log(resultsData[0])
-            console.log("ùùùùùù")
             setResults(resultsData);
 
         } catch (error) {

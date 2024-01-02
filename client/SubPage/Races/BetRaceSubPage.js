@@ -10,6 +10,7 @@ import Bets3List from '../../components/List/Bets3List';
 import { getBetsUserRace, setBetsUserRace } from '../../api/race/api';
 
 import { commonStyles } from '../../styles/GlobalStyles';
+import RaceBet from '../../components/RaceBet';
 
 export default function BetRaceSubPage() {
     
@@ -68,26 +69,7 @@ export default function BetRaceSubPage() {
 
     return (
         <SafeAreaView style={commonStyles.containerLight}>
-            <ScrollView style={commonStyles.margin2Top}>
-                <View style={[commonStyles.flex3]}>
-                    <Bets10List bets={bets} onPress={() => onPressItem(1)} betTypeId={1} />
-                </View>
-                <View style={[commonStyles.flex2, commonStyles.row]}>
-                    <View style={[commonStyles.flex1]}>
-                        <Bets3List type={'Points'} bets={bets} onPress={() => onPressItem(2)} betTypeId={2} />
-                    </View>
-                    <View style={[commonStyles.flex1]}>
-                        <Bets3List type={'Montagne'} bets={bets} onPress={() => onPressItem(3)} betTypeId={3} />
-                    </View>
-                </View>
-                <View style={[commonStyles.flex2, commonStyles.row]}>
-                    <View style={[commonStyles.flex1]}>
-                        <Bets3List type={'Jeune'} bets={bets} onPress={() => onPressItem(4)} betTypeId={4} />
-                    </View>
-                    <View style={[commonStyles.flex1]}>
-                    </View>
-                </View>
-            </ScrollView>
+            <RaceBet user_id={user_id} onPress={onPressItem} isModalBetVisible={isModalBetVisible} />
             <BetModal visible={isModalBetVisible} toggleModal={toggleBetModal} startlist={startlist} setPosition={setPosition} riderId={riderId} setRiderId={setRiderId} onPress={onPressCreateBet} betTypeId={betTypeId} />
         </SafeAreaView>
     );

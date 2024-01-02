@@ -95,6 +95,9 @@ const commonStyles = StyleSheet.create({
     margin2Left: {
         marginLeft: '2%'
     },
+    margin2Right: {
+        marginRight: '2%'
+    },
     margin1Bottom: {
         marginBottom: '1%'
     },

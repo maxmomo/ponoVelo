@@ -67,11 +67,11 @@ const getLeaguesUser = async (ip_address, user_id) => {
 };
 
 /**
- * Fonction pour récupérer les ligues de l'utilisateur.
+ * Fonction pour changer l'avatar d'un utilisateur.
  *
  * @param {string} ip_address - Adresse IP du serveur.
  * @param {integer} user_id - id de l'utilisateur.
- * @returns {Promise<Object|boolean>} - Renvoie les données des ligues de l'utilisateur
+ * @returns {Promise<Object|boolean>} - Renvoie rien
  */
 const setAvatarUser = async (ip_address, user_id, avatar) => {
     try {
@@ -87,4 +87,26 @@ const setAvatarUser = async (ip_address, user_id, avatar) => {
     }
 };
 
-export { loginUser, createUser, getLeaguesUser, setAvatarUser };
+/**
+ * Fonction pour récupérer les points d'un utilisateur.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} user_id - id de l'utilisateur.
+ * @param {integer} league_id - id de la ligue.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des points de l'utilisateur
+ */
+const getUserPoints = async (ip_address, user_id, league_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/point/user',
+            params: { user_id, league_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+export { loginUser, createUser, getLeaguesUser, setAvatarUser, getUserPoints };

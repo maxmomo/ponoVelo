@@ -8,7 +8,6 @@ import colors from '../../constants/colors';
 export default function Results10List(props) {
 
     const betsOfType1 = props.results.filter(result => result.type_id === 1);
-    console.log(props.results)
 
     const renderNameForPosition = (position) => {
         const result = betsOfType1.find(result => result.position === position);
