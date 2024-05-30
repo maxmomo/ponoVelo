@@ -1,4 +1,7 @@
 const Rider = require("../../models/Rider")
+const RidersTeam = require("../../models/RidersTeams")
+const StartList = require("../../models/Startlist")
+const Results = require("../../models/Result")
 
 const getRiders = async (req, res) => {
     params = req.query

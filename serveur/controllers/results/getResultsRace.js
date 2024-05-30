@@ -13,7 +13,7 @@ const getResultsRace = async (req, res) => {
         "LEFT JOIN userriders ur ON ur.RiderId = ri.id AND ur.UserId = :user_id AND ur.LeagueId = :league_id " + 
         "WHERE " +
         "r.RaceId = :race_id AND " +
-        "r.StageId IS NULL",
+        "r.StageId IS NULL or r.StageId = 0",
         {
             type: db.SELECT,
             replacements: { 

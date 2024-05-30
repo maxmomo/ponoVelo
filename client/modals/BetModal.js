@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, FlatList, StyleSheet, TouchableOpacity, Dimensions   } from 'react-native';
+import { useMyContext } from '../context/MyContext';
 
 import BasicButton from '../components/Basic/BasicButton';
 import Jersey from '../components/Basic/Jersey';
@@ -11,10 +12,15 @@ import colors from '../constants/colors';
 
 const screenWidth = Dimensions.get('window').width;
 const ITEM_COUNT = 11;
-const ITEM_COUNT_3 = 4;
+const ITEM_COUNT_3 = 3;
+const ITEM_COUNT_1 = 1;
 const JERSEY_COUNT = 4;
 
 export default function BetModal(props) {
+
+    const { state, dispatch } = useMyContext();
+
+    const race_nationality = state['race']['nationality']
 
     const [selected, setSelected] = useState(1)
     const [selectedTeam, setSelectedTeam] = useState({})
@@ -29,6 +35,9 @@ export default function BetModal(props) {
         if (props.betTypeId === 1) {
             setItemWidth(screenWidth / ITEM_COUNT);
             setNumbers([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        } else if (props.betTypeId ===  5 || props.betTypeId ===  6){
+            setItemWidth(screenWidth / ITEM_COUNT_1);
+            setNumbers([1, 2, 3])
         } else {
             setItemWidth(screenWidth / ITEM_COUNT_3);
             setNumbers([1, 2, 3])
@@ -42,7 +51,26 @@ export default function BetModal(props) {
         const ridersData = props.startlist.reduce((acc, team) => {
             return acc.concat(team.data);
         }, []);
-        setRiders(ridersData)
+
+        if (props.betTypeId === 4) {
+            const youngRidersData = ridersData.filter(rider => {
+                const birthYear = parseInt(rider.birthdate.split("-")[0]);
+                return birthYear > 1999;
+            })
+
+            setRiders(youngRidersData)
+        }
+        else if (props.betTypeId === 19) {
+            const italianRidersData = ridersData.filter(rider => {
+                const nationality = rider.nationality;
+                return nationality === race_nationality;
+            })
+
+            setRiders(italianRidersData)
+        } else {
+            setRiders(ridersData)
+        }
+
     }, [props.startlist, props.betTypeId]);
 
     const handleSelect = (item, index) => {
@@ -57,13 +85,31 @@ export default function BetModal(props) {
             }
             return acc
         }, []);
-        setRiders(ridersData)
+
+        if (props.betTypeId === 4) {
+            const youngRidersData = ridersData.filter(rider => {
+                const birthYear = parseInt(rider.birthdate.split("-")[0]);
+                return birthYear > 1999;
+            })
+
+            setRiders(youngRidersData)
+        } else if (props.betTypeId === 19) {
+            const italianRidersData = ridersData.filter(rider => {
+                const nationality = rider.nationality;
+                return nationality === race_nationality;
+            })
+
+            setRiders(italianRidersData)
+        } else {
+            setRiders(ridersData)
+        }
+
         setSelectedRider({})
     };
 
     const handleSelectRider = (item, index) => {
         setSelectedRider(item);
-        props.setRiderId(item.rider_id)
+        props.setRiderId(item.id)
         props.setPosition(selected)
     };
 
@@ -76,7 +122,7 @@ export default function BetModal(props) {
 
     const renderPositions = ({ item, index }) => (
         <TouchableOpacity
-            style={[commonStyles.flex1, { width: itemWidth }]}
+            style={[commonStyles.flex1, { width: itemWidth }, commonStyles.center]}
             onPress={() => handleSelect(item, index)}
         >
             <Text style={[commonStyles.text18, item === selected ? styles.selectedItem : null]}>{item}</Text>
@@ -106,12 +152,12 @@ export default function BetModal(props) {
             style={[
                 commonStyles.flex1, 
                 { width: jerseyWidth }, 
-                item.is_boost === 1 && item.rider_id === selectedRider.rider_id ? styles.boostRider : item.is_boost === 1 && item.rider_id !== selectedRider.rider_id ? styles.boostRiderDark : item.rider_id === selectedRider.rider_id ? styles.selectedTeam : styles.defaultTeam,
+                item.is_boost === 1 && item.id === selectedRider.id ? styles.boostRider : item.is_boost === 1 && item.id !== selectedRider.id ? styles.boostRiderDark : item.id === selectedRider.id ? styles.selectedTeam : styles.defaultTeam,
             ]}
             onPress={() => handleSelectRider(item, index)}
         >   
             <View style={{height: '60%'}}>
-                <Portrait picture={item.rider_picture} width={100} height={100} style={item.rider_name === selectedRider.rider_name ? null : styles.darkerJersey}/>
+                <Portrait picture={item.picture} width={100} height={100} style={item.fullName === selectedRider.fullName ? null : styles.darkerJersey}/>
             </View>
             <View style={[commonStyles.center]}>
                 <Text 
@@ -121,7 +167,7 @@ export default function BetModal(props) {
                         item.is_boost === 1 ? styles.boostRiderText : commonStyles.text14,
                     ]}
                 >
-                    {item.rider_name}
+                    {item.name}
                 </Text>
             </View>
         </TouchableOpacity>
@@ -137,7 +183,7 @@ export default function BetModal(props) {
                 <View style={[commonStyles.margin2Top, commonStyles.center]}>
                     <Text style={commonStyles.text24}>Parier</Text>
                 </View>
-                <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
+                {props.betTypeId !==  5 && props.betTypeId !==  6 && <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
                     <FlatList
                         data={numbers}
                         horizontal
@@ -146,7 +192,7 @@ export default function BetModal(props) {
                         showsHorizontalScrollIndicator={false}
                         scrollEnabled={false}
                     />
-                </View>
+                </View>}
                 {teams && <View style={[commonStyles.margin2Top, commonStyles.flex4]}>
                     <FlatList
                         data={teams}
@@ -161,7 +207,7 @@ export default function BetModal(props) {
                         data={riders}
                         horizontal
                         renderItem={renderRiders}
-                        keyExtractor={item => item.rider_id.toString()}
+                        keyExtractor={item => item.id.toString()}
                         showsHorizontalScrollIndicator={false}
                     />
                 </View>}

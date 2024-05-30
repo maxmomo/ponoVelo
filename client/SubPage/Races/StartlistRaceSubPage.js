@@ -18,6 +18,7 @@ export default function StartlistRaceSubPage() {
     const race = state['race']
     const user_id = state['user']['id']
     const league_id = state['league']['id']
+    const year = state['year']
 
     useEffect(() => {
         getStartlistRaceDataEffect();
@@ -25,7 +26,7 @@ export default function StartlistRaceSubPage() {
 
     const getStartlistRaceDataEffect = useCallback(async () => {
         try {
-            const startlistData = await getStartListRace(state['ip_adress'], race.race_id, user_id, league_id);
+            const startlistData = await getStartListRace(state['ip_adress'], race.race_id, user_id, league_id, year);
             
             const teams = startlistData.reduce((acc, rider) => {
                 const { team_name, team_id, team_nationality, team_jersey } = rider;

@@ -4,7 +4,7 @@ const getLeaguesUser = async (req, res) => {
     params = req.query
 
     const leagues = await db.query(
-        "SELECT l.*, ul.total " +
+        "SELECT l.*, ul.total, ul.ranking " +
         "FROM usersleagues ul " +
         "JOIN leagues l ON l.id = ul.LeagueId " +
         "WHERE " + 

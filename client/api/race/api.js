@@ -6,12 +6,13 @@ import axios from 'axios';
  * @param {string} ip_address - Adresse IP du serveur.
  * @returns {Promise<Object|boolean>} - Renvoie les données de la course ou étape (ou les 2)
  */
-const getNextRace = async (ip_address) => {
+const getNextRaces = async (ip_address) => {
     try {
         const response = await axios({
             method: 'get',
             url: 'http://' + ip_address + ':3000/race/next'
         });
+        
         return response.data;
     } catch (error) {
         console.error(error);
@@ -49,12 +50,12 @@ const getStagesRace = async (ip_address, race_id) => {
  * @param {integer} league_id - id de la ligue.
  * @returns {Promise<Object|boolean>} - Renvoie les données de la startlist
  */
-const getStartListRace = async (ip_address, race_id, user_id, league_id) => {
+const getStartListRace = async (ip_address, race_id, user_id, league_id, year) => {
     try {
         const response = await axios({
             method: 'get',
             url: 'http://' + ip_address + ':3000/race/startlist',
-            params: { race_id, user_id, league_id }
+            params: { race_id, user_id, league_id, year }
         });
         return response.data;
     } catch (error) {
@@ -158,4 +159,4 @@ const getUsersRace = async (ip_address, league_id, race_id) => {
     }
 };
 
-export { getNextRace, getStagesRace, getStartListRace, getBetsUserRace, setBetsUserRace, getResultsRace, getUsersRace };
+export { getNextRaces, getStagesRace, getStartListRace, getBetsUserRace, setBetsUserRace, getResultsRace, getUsersRace };

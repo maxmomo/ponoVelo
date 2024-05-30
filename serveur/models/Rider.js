@@ -94,6 +94,9 @@ const Rider = sequelize.define('Rider', {
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
+    birthdate: {
+        type: DataTypes.DATEONLY
+    }
 });
 
 module.exports = Rider;

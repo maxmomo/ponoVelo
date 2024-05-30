@@ -17,7 +17,7 @@ export default function BasicSearchBar(props) {
 const styles = StyleSheet.create({
     searchBar: {
         backgroundColor: colors.backgroundLight,
-        padding: '3%',
+        padding: '2%',
         marginTop: '1%',
         marginHorizontal: '1%',
         borderRadius: 10,

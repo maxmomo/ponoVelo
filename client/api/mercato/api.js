@@ -28,14 +28,15 @@ const getRidersOffer = async (ip_address, user_id, league_id) => {
  * @param {string} ip_address - Adresse IP du serveur.
  * @param {integer} user_id - id de l'utilisateur.
  * @param {integer} league_id - id de la ligue.
+ * @param {integer} year - saison.
  * @returns {Promise<Object|boolean>} - Renvoie les données du mercato restant de l'utilisateur
  */
-const getRidersOfferMercato = async (ip_address, user_id, league_id) => {
+const getRidersOfferMercato = async (ip_address, user_id, league_id, year) => {
     try {
         const response = await axios({
             method: 'get',
             url: 'http://' + ip_address + ':3000/ridersOffersMercato/user',
-            params: { user_id, league_id }
+            params: { user_id, league_id, year }
         });
         return response.data;
     } catch (error) {

@@ -8,7 +8,7 @@ const logo_giro = require('../assets/logo-giro.png');
 const screenWidth = Dimensions.get('window').width;
 const imageWidth = screenWidth / 4;
 
-export default function TeamPerformance(props) {
+export default function TeamPerformance() {
 
     const navigation = useNavigation();
     const { state, dispatch } = useMyContext();

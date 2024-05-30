@@ -8,8 +8,9 @@ import BasicLogoButton from '../components/Basic/BasicLogoButton';
 import CardLeagues from '../components/Cards/CardLeagues';
 import CreateLeagueModal from '../modals/CreateLeagueModal';
 import JoinLeagueModal from '../modals/JoinLeagueModal';
+import InfoLeagueModal from '../modals/InfoLeagueModal';
 
-import { createLeague, joinLeague } from '../api/league/api';
+import { createLeague, joinLeague, quitLeague } from '../api/league/api';
 import { getNextRace } from '../api/race/api';
 import { getLeaguesUser } from '../api/user/api';
 
@@ -32,11 +33,15 @@ export default function LeaguesScreen() {
     const { state, dispatch } = useMyContext();
 
     const [leagues, setLeagues] = useState([]);
+    const [league, setLeague] = useState([]);
     const [refreshKey, setRefreshKey] = React.useState(0);
     const [name, setName] = useState('');
     const [isModalJoinVisible, setIsModalJoinVisible] = useState(false);
     const [isModalCreateVisible, setIsModalCreateVisible] = useState(false);
+    const [isModalInfoVisible, setIsModalInfoVisible] = useState(false);
     const [password, setPassword] = useState('');
+
+    const active = !(isModalCreateVisible || isModalJoinVisible || isModalInfoVisible);
 
     user_id = state['user']['id']
 
@@ -48,9 +53,6 @@ export default function LeaguesScreen() {
         try {
             const leaguesData = await getLeaguesUser(state['ip_adress'], user_id);
             setLeagues(leaguesData)
-
-            const nextRace = await getNextRace(state['ip_adress'])
-            dispatch({ type: 'SET_NEXT_RACE', payload: nextRace });
 
         } catch (error) {
             Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
@@ -92,12 +94,28 @@ export default function LeaguesScreen() {
         }
     };
 
+    const onPressQuit = async () => {
+        try {
+            await quitLeague(state['ip_adress'], league.id, user_id);
+            
+            setRefreshKey(prevKey => prevKey + 1);
+            toggleInfoModal();
+            
+        } catch (error) {
+            Alert.alert('Erreur', 'Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+        }
+    };
+
     const toggleCreateModal = () => {
         setIsModalCreateVisible(!isModalCreateVisible);
     };
 
     const toggleJoinModal = () => {
         setIsModalJoinVisible(!isModalJoinVisible);
+    };
+
+    const toggleInfoModal = () => {
+        setIsModalInfoVisible(!isModalInfoVisible);
     };
     
     const onPressLeague = (item) => {
@@ -107,24 +125,25 @@ export default function LeaguesScreen() {
         
     return (
         <SafeAreaView style={commonStyles.container}>
-            <Header is_navigation={false}/>
-            <View style={{ flex: 1, justifyContent: 'space-between' }}>
-                <View>
+            <Header is_navigation={false} active={active} />
+            <View style={commonStyles.flex1}>
+                <View style={commonStyles.flex4}>
                     <View style={[commonStyles.margin2Top]}>  
-                        <CardLeagues leagues={leagues} onPress={onPressLeague}/> 
+                        <CardLeagues leagues={leagues} onPress={onPressLeague} onPressInfo={toggleInfoModal} league={league} setLeague={setLeague} active={active} /> 
                     </View>
                 </View>
     
-                <View>
-                    <View style={[commonStyles.margin2Top]}>
-                        <BasicLogoButton text={'Nouvelle ligue'} onPress={toggleCreateModal} logo={'plus'} />
-                        <BasicLogoButton text={'Rejoindre ligue'} onPress={toggleJoinModal} logo={'arrow-right-circle'} />
+                <View style={commonStyles.flex1}>
+                    <View style={[commonStyles.margin2Top, commonStyles.margin3Bottom, commonStyles.marginHorizontal2]}>
+                        <BasicLogoButton text={'Nouvelle ligue'} onPress={toggleCreateModal} logo={'plus'} active={active} />
+                        <BasicLogoButton text={'Rejoindre ligue'} onPress={toggleJoinModal} logo={'arrow-right-circle'} active={active} />
                     </View>
                 </View>
             </View>
             
             <CreateLeagueModal visible={isModalCreateVisible} toggleModal={toggleCreateModal} onPressCreate={onPressCreate} name={name} setName={setName} />
             <JoinLeagueModal visible={isModalJoinVisible} toggleModal={toggleJoinModal} onPressCreate={onPressJoin} name={name} setName={setName} password={password} setPassword={setPassword} />
+            <InfoLeagueModal visible={isModalInfoVisible} toggleModal={toggleInfoModal} league={league} onPressQuit={onPressQuit} />
         </SafeAreaView>
     );
 }

@@ -45,8 +45,8 @@ export default function RidersList(props) {
     )
 
     return (
-        <View>
-            <View style={commonStyles.listView}>
+        <View style={commonStyles.flex1}>
+            <View style={commonStyles.row}>
                 <View style={[commonStyles.flex5, commonStyles.center]} />
                 <View style={[commonStyles.flex1, commonStyles.center]} >
                     <Text style={commonStyles.text13}>ODR</Text>

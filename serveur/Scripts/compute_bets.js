@@ -40,9 +40,9 @@ async function processResults() {
 
         let points = 0
 
-        if (result !== null) {
+        if (result !== null && result.result_rank !== 0) {
             // Classement général 
-            if (bet.BetTypeId === 1) {
+            if (bet.BetTypeId === 1 || bet.BetTypeId === 16) {
                 if (bet.position === 1 && result.result_rank === 1) {
                     points = 100
                 } else if (bet.position <= 3 && result.result_rank <= 3) {

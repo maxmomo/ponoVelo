@@ -14,7 +14,7 @@ export default function TeamInformation(props) {
                 </View>
                 <View style={[commonStyles.row, commonStyles.margin3Bottom]}>
                     <Text style={commonStyles.text14}>Denivelé : </Text>
-                    <Text style={[commonStyles.text14, commonStyles.bold]}>{props.stage.vertical_meter}</Text>
+                    <Text style={[commonStyles.text14, commonStyles.bold]}>{props.stage.vertical_meter} m</Text>
                 </View>
             </View>
         </View>

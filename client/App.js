@@ -12,6 +12,7 @@ import SplashScreenWait from './screens/SplashScreenWait';
 import RacePage from './pages/RacePage';
 import ProfileMenuPage from './pages/ProfileMenuPage';
 import StagePage from './pages/StagePage';
+import LeaguePage from './pages/LeaguePage';
 
 const Stack = createStackNavigator();
 
@@ -57,6 +58,14 @@ export default function App() {
             component={HomePage}
             options={() => ({
               title: 'Home',
+              headerShown: false
+            })}
+          />
+          <Stack.Screen 
+            name='League' 
+            component={LeaguePage}
+            options={() => ({
+              title: 'League',
               headerShown: false
             })}
           />

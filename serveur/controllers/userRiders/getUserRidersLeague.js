@@ -4,9 +4,11 @@ const getUserRidersLeague = async (req, res) => {
     params = req.query
 
     const riders = await db.query(
-        "SELECT ri.name as rider_name, ri.firstname as rider_firstname, ri.id as rider_id, ri.picture as rider_picture " +
+        "SELECT ri.*, rt.TeamId as team_id, t.name as team_name " +
         "FROM riders ri " +
         "JOIN userriders ur ON ur.RiderId = ri.id " +
+        "JOIN ridersteams rt ON rt.season = 2024 AND rt.RiderId = ri.id " +
+        "JOIN teams t ON rt.TeamId = t.id " +
         "WHERE ur.UserId = :user_id AND " +
         "ur.LeagueId = :league_id " + 
         "ORDER BY ri.season_points DESC",

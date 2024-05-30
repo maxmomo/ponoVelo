@@ -23,12 +23,12 @@ export default function RacePage() {
     const { state, dispatch } = useMyContext();
 
     const race = state['race']
-
+    
     return (
         <SafeAreaView style={commonStyles.containerLight}>
             <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
-                <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
+                <TitleRace nationality={race['nationality']} name={race['name'] + ' - ' + race['season']} />
             </View>
             <View style={commonStyles.margin2Top}>
                 <RaceInformation race={race} />
@@ -58,16 +58,16 @@ export default function RacePage() {
                     name="Résultats" 
                     component={ResultRaceSubPage}
                 />
-                <RaceStack.Screen 
+                {race['odr'] === '0' && <RaceStack.Screen 
                     name="Etapes" 
                     component={StagesRaceSubPage}
-                />
+                />}
                 <RaceStack.Screen 
                     name="StartList" 
                     component={StartlistRaceSubPage}
                 />
                 <RaceStack.Screen 
-                    name="Equipe" 
+                    name="Mon équipe" 
                     component={MyTeamRaceSubPage}
                 />
                 <RaceStack.Screen 

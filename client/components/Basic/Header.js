@@ -28,7 +28,7 @@ function Header(props) {
                 <Image source={require('../../assets/header.png')} style={styles.logo} />
             </View>
             {!props.is_profile && <TouchableOpacity style={styles.icon} onPress={onPressProfile}>
-                <MaterialCommunityIcons name='account-circle' size={30} color={colors.theme} />
+                <MaterialCommunityIcons name='account-circle' size={30} color={props.active || typeof(props.active) == 'undefined' ? colors.theme : colors.inactive} />
             </TouchableOpacity> ||
             <TouchableOpacity style={styles.icon}>
                 <MaterialCommunityIcons name='account-circle' size={30} color={colors.backgroundLight} />

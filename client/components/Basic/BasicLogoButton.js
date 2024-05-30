@@ -6,7 +6,7 @@ import colors from '../../constants/colors';
 export default function BasicLogoButton(props) {
     return (
         <TouchableOpacity 
-            style={styles.button} 
+            style={[styles.button, {backgroundColor: props.active ? colors.theme : colors.inactive}]} 
             onPress={props.onPress}
         >
             <MaterialCommunityIcons name={props.logo} size={24} color={colors.background} />  

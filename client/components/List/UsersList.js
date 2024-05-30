@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback}  from 'react';
+import React, {useState}  from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

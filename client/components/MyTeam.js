@@ -1,10 +1,19 @@
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 
 import Portrait from '../components/Basic/Portrait';
 import { commonStyles } from '../styles/GlobalStyles';
+import RiderStatModal from '../modals/RiderStatModal';
 
 export default function MyTeam(props) {
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [rider, setRider] = useState({})
+
+    const toggleModal = (item) => {
+        setRider(item)
+        setIsModalVisible(!isModalVisible);
+    };
 
     const needsFiller = () => {
         const numItems = props.riders.length;
@@ -32,13 +41,13 @@ export default function MyTeam(props) {
 
         // Rendu normal pour les autres éléments
         return (
-            <View style={[commonStyles.flex1, commonStyles.margin2]}>   
-                <Portrait picture={item.rider_picture} width={200} height={120} />
+            <TouchableOpacity style={[commonStyles.flex1, commonStyles.margin2]} onPress={() => toggleModal(item)}>   
+                <Portrait picture={item.picture} width={200} height={120} />
                 <View style={commonStyles.center}>
-                    <Text style={[commonStyles.text14]}>{item.rider_firstname}</Text>
-                    <Text style={commonStyles.text14}>{item.rider_name}</Text>
+                    <Text style={[commonStyles.text14]}>{item.fullName}</Text>
                 </View>
-            </View>
+                <RiderStatModal visible={isModalVisible} rider={rider} toggleModal={toggleModal} />
+            </TouchableOpacity>
         );
     };
 

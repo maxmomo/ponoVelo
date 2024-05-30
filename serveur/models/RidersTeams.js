@@ -9,11 +9,9 @@ const RidersTeams = sequelize.define('RidersTeams', {
     },
     since: {
         type: DataTypes.STRING,
-        primaryKey: true
     },
     until: {
         type: DataTypes.STRING,
-        primaryKey: true
     }
 })
 

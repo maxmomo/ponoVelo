@@ -34,7 +34,6 @@ export default function BetStageSubPage() {
     }, [isModalBetVisible]);
 
     const onPressCreateBet = async () => {
-        console.log(race_id, user_id, league_id, position, riderId, betTypeId, stage_id)
         try {
             await setBetsUserStage(state['ip_adress'], race_id, user_id, league_id, position, riderId, betTypeId, stage_id);
             setIsModalBetVisible(false)

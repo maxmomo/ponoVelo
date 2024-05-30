@@ -29,7 +29,7 @@ export default function BetRaceSubPage() {
     const user_id = state['user']['id']
     const league_id = state['league']['id']
     const race_id = state['race']['race_id']
-
+    
     useEffect(() => {
         if (isModalBetVisible === false) {
             getBetDataEffect();

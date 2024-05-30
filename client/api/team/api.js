@@ -22,6 +22,28 @@ const getTeams = async (ip_address, year) => {
 };
 
 /**
+ * Fonction pour une équipe à partir de son Id.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {integer} id - Id de l'équipe.
+ * @returns {Promise<Object|boolean>} - Renvoie les données des équipes
+ */
+const getTeam = async (ip_address, id) => {
+
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/team',
+            params: { id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+/**
  * Fonction pour récupérer les coureurs de l'équipe.
  *
  * @param {string} ip_address - Adresse IP du serveur.
@@ -86,4 +108,4 @@ const getStatistics = async (ip_address, related_team_id) => {
     }
 };
 
-export { getTeams,getRiders, getHistory, getStatistics };
+export { getTeams, getTeam, getRiders, getHistory, getStatistics };

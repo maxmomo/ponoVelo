@@ -21,19 +21,15 @@ export default function RankingInformationModal(props) {
             transparent={true}
             visible={props.visible}
             onRequestClose={props.toggleModal}>
-            <View style={[modalStyles.modalView]}>
-                {props.type === 'stage' && <StageBet user_id={user_id} readonly={true} />}
-                {props.type === 'race' && <RaceBet user_id={user_id} readonly={true} />}
-                <View style={[commonStyles.margin2Top, {alignItems: 'center'}]}>
+            <View style={[modalStyles.modalView, commonStyles.flex1]}>
+                <View style={commonStyles.flex10}>
+                    {props.type === 'stage' && <StageBet user_id={user_id} readonly={true} />}
+                    {props.type === 'race' && <RaceBet user_id={user_id} readonly={true} />}
+                </View>
+                <View style={[commonStyles.margin2Top, commonStyles.flex1]}>
                     <BasicButton text={'Fermer'} onPress={props.toggleModal}/>
                 </View>
             </View>
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-    statView: {
-        justifyContent: 'space-between'
-    }
-});

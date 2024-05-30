@@ -9,7 +9,8 @@ const getUserRidersOfferMercato = async (req, res) => {
         "FROM riders ri " +
         "LEFT JOIN userridersoffers uro ON uro.RiderId = ri.id AND uro.UserId = :user_id AND uro.LeagueId = :league_id " +
         "LEFT JOIN userriders ur ON ur.RiderId = ri.id AND ur.LeagueId = :league_id " +
-        "JOIN teams t ON ri.team_id = t.id " +
+        "JOIN ridersteams rt ON rt.RiderId = ri.id AND season = :year " +
+        "JOIN teams t ON t.id = rt.TeamId " +
         "WHERE t.status in ('WT', 'PRT') AND " +
         "uro.RiderId IS NULL AND " +
         "ur.RiderId IS NULL " +
@@ -19,6 +20,7 @@ const getUserRidersOfferMercato = async (req, res) => {
             replacements: { 
                 user_id: params['user_id'],
                 league_id: params['league_id'],
+                year: params['year']
             },
         }
     )

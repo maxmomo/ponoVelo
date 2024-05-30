@@ -24,6 +24,7 @@ export default function ResultRaceSubPage() {
     const user_id = state['user']['id']
     const league_id = state['league']['id']
     const race_id = state['race']['race_id']
+    const odr = state['race']['odr']
 
     useEffect(() => {
         getResultsDataEffect();
@@ -41,28 +42,27 @@ export default function ResultRaceSubPage() {
 
     }, [team, year, navigation]);
 
-
     return (
         <SafeAreaView style={commonStyles.containerLight}>
             <ScrollView style={commonStyles.margin2Top}>
                 <View style={[commonStyles.flex3]}>
-                    <Results10List results={results} betTypeId={4} />
+                    <Results10List results={results} betTypeId={8} />
                 </View>
-                <View style={[commonStyles.flex2, commonStyles.row]}>
+                {odr === '0' && <View style={[commonStyles.flex2, commonStyles.row]}>
                     <View style={[commonStyles.flex1]}>
                         <Results3List type={'Points'} results={results} resultTypeId={2} />
                     </View>
                     <View style={[commonStyles.flex1]}>
                         <Results3List type={'Montagne'} results={results} resultTypeId={3} />
                     </View>
-                </View>
-                <View style={[commonStyles.flex2, commonStyles.row]}>
+                </View>}
+                {odr === '0' && <View style={[commonStyles.flex2, commonStyles.row]}>
                     <View style={[commonStyles.flex1]}>
                         <Results3List type={'Jeune'} results={results} resultTypeId={4} />
                     </View>
                     <View style={[commonStyles.flex1]}>
                     </View>
-                </View>
+                </View>}
             </ScrollView>
         </SafeAreaView>
     );

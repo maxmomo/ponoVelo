@@ -17,6 +17,7 @@ export default function MyTeamRaceSubPage() {
     const race = state['race']
     const user_id = state['user']['id']
     const league_id = state['league']['id']
+    const year = state['year']
 
     useEffect(() => {
         getMyTeamRaceDataEffect();
@@ -24,16 +25,16 @@ export default function MyTeamRaceSubPage() {
 
     const getMyTeamRaceDataEffect = useCallback(async () => {
         try {
-            const startlistData = await getStartListRace(state['ip_adress'], race.race_id, user_id, league_id);
+            const startlistData = await getStartListRace(state['ip_adress'], race.race_id, user_id, league_id, year);
 
             startlistData.reduce((acc, rider) => {
 
-                const riderIds = state['user_team'].map(rider => rider.rider_id);
+                const riderIds = state['user_team'].map(rider => rider.id);
 
-                const foundId = riderIds.find(id => id === rider.rider_id)
+                const foundId = riderIds.find(id => id === rider.id)
                 
                 if (foundId) {
-                    const foundRider = state['user_team'].find(rider => rider.rider_id === foundId);
+                    const foundRider = state['user_team'].find(rider => rider.id === foundId);
                     setUserTeam(currentTeam => [...currentTeam, foundRider])
                 }
 

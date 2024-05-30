@@ -52,24 +52,24 @@ export default function LeaguePage() {
                     component={NextEventLeagueSubPage}
                 />
                 <LeagueStack.Screen 
+                    name="Classement" 
+                    component={RankingLeagueSubPage}
+                />
+                <LeagueStack.Screen 
+                    name='Mon equipe'
+                    component={MyTeamLeagueSubPage}
+                />
+                <LeagueStack.Screen 
                     name="Mercato" 
                     component={MercatoLeagueSubPage}
                 />
                 <LeagueStack.Screen 
-                    name='Offres'
+                    name='Mes offres'
                     component={OfferLeagueSubPage}
-                />
-                <LeagueStack.Screen 
-                    name='Equipe'
-                    component={MyTeamLeagueSubPage}
                 />
                 <LeagueStack.Screen 
                     name='Historique'
                     component={HistoryLeagueSubPage}
-                />
-                <LeagueStack.Screen 
-                    name="Classement" 
-                    component={RankingLeagueSubPage}
                 />
             </LeagueStack.Navigator>
         </SafeAreaView>

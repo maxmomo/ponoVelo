@@ -21,7 +21,7 @@ export const MyContextProvider = ({ children }) => {
     const initialState = {
         user: '',
         team: '',
-        year: 2023,
+        year: 2024,
         statistics: [],
         raceStatistic: '',
         league: '',

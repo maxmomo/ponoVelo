@@ -34,16 +34,18 @@ const {setAvatarUser} = require('../controllers/user/setAvatarUser');
 const {getResultsRace} = require('../controllers/results/getResultsRace');
 const {getResultsStage} = require('../controllers/results/getResultsStage');
 const {getUserPoints} = require('../controllers/point/getUserPoints');
+const {getTeam} = require('../controllers/teams/getTeam');
+const {quitLeague} = require('../controllers/league/quitLeague');
 
 router.get("/users/create", createUser)
 router.get("/users/connect", connectUser)
 router.get("/user/leagues", getLeaguesUser)
 router.post("/user/avatar/set", setAvatarUser)
 
-router.get("/teams/all", getTeams)
-
 router.get("/riders/all", getRiders)
 
+router.get("/team", getTeam)
+router.get("/teams/all", getTeams)
 router.get("/team/riders", getRidersTeam)
 router.get("/team/history", getHistoryTeam)
 router.get("/team/statistics", getStatisticsTeam)
@@ -51,6 +53,7 @@ router.get("/team/race/statistics", getStatisticsTeamRace)
 
 router.get("/league/create", createLeague)
 router.get("/league/join", joinLeague)
+router.get("/league/quit", quitLeague)
 router.get("/league/users", getUsersLeague)
 router.get("/league/user/riders", getUserRidersLeague)
 router.get("/league/user/total", getTotalUserLeague)

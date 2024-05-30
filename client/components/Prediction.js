@@ -35,7 +35,6 @@ export default function Prediction(props) {
             <View style={[commonStyles.flex1, commonStyles.margin2]}>   
                 <Portrait picture={item.rider_picture} width={200} height={120} />
                 <View style={commonStyles.center}>
-                    <Text style={[commonStyles.text14]}>{item.rider_firstname}</Text>
                     <Text style={commonStyles.text14}>{item.rider_name}</Text>
                 </View>
             </View>

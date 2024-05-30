@@ -14,15 +14,11 @@ import BasicButton from '../components/Basic/BasicButton';
 import { getPrediction } from '../api/stage/api'; 
 
 import { commonStyles } from '../styles/GlobalStyles';
-import StagesList from '../components/List/StagesList';
-import StartlistList from '../components/List/StartlistList';
-import Prediction from '../components/Prediction';
-import Profile from '../components/Basic/Profile';
+
 import colors from '../constants/colors';
 import ProfileStageSubPage from '../SubPage/Stages/ProfileStageSubPage';
 import PredictionStageSubPage from '../SubPage/Stages/PredictionStageSubPage';
 import BetStageSubPage from '../SubPage/Stages/BetStageSubPage';
-import ResultRaceSubPage from '../SubPage/Races/ResultRaceSubPage';
 import ResultsStageSubPage from '../SubPage/Stages/ResultsStageSubPage';
 import RankingStageSubPage from '../SubPage/Stages/RankingStageSubPage';
 
@@ -91,7 +87,7 @@ export default function StagePage() {
         <SafeAreaView style={commonStyles.containerLight}>
             <Header is_navigation={true} />
             <View style={commonStyles.margin2Top}>
-                <TitleRace nationality={race['nationality']} name={race['race_name'] + ' - ' + race['season']} />
+                <TitleRace nationality={race['nationality']} name={race['name'] + ' - ' + race['season']} />
                 <TitleStage name={stage['name']} />
             </View>
             <View style={commonStyles.margin2Top}>

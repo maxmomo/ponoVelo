@@ -25,7 +25,10 @@ const League = sequelize.define('League', {
     mercato_turns: {
         type: DataTypes.INTEGER,
         defaultValue: 2
-    }
+    },
+    avatar: {
+        type: DataTypes.TEXT('long'),
+    } 
 });
 
 module.exports = League;

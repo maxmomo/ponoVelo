@@ -34,8 +34,19 @@ export default function MercatoLeagueSubPage() {
     const league = state['league']
     const user_id = state['user']['id']
     const league_id = state['league']['id']
+    const year = state['year']
 
-    const filteredRidersOfferMercato = ridersOfferMercato.filter(rider => (searchQuery1 === '' || rider.cost <= searchQuery1) && (rider.team_name.toLowerCase().includes(searchQuery2.toLowerCase()) || rider.team_abbreviation.toLowerCase().includes(searchQuery2.toLowerCase())) && rider.rider_name.toLowerCase().includes(searchQuery3.toLowerCase()));
+    filteredRidersOfferMercato = ridersOfferMercato
+
+    if (searchQuery1 !== '') {
+        filteredRidersOfferMercato = filteredRidersOfferMercato.filter(rider => (rider.cost <= searchQuery1))
+    }
+    if (searchQuery2 !== '') {
+        filteredRidersOfferMercato = filteredRidersOfferMercato.filter(rider => (rider.team_name.toLowerCase().includes(searchQuery2.toLowerCase()) || rider.team_abbreviation.toLowerCase().includes(searchQuery2.toLowerCase())))
+    }
+    if (searchQuery3 !== '') {
+        filteredRidersOfferMercato = filteredRidersOfferMercato.filter(rider => (rider.rider_name.toLowerCase().includes(searchQuery3.toLowerCase())))
+    }
 
     useFocusEffect(
         useCallback(() => {
@@ -92,7 +103,7 @@ export default function MercatoLeagueSubPage() {
     const getMercatoeDataEffect = useCallback(async () => {
         setIsLoading(true);
         try {
-            const mercatoData = await getRidersOfferMercato(state['ip_adress'], user_id, league_id);
+            const mercatoData = await getRidersOfferMercato(state['ip_adress'], user_id, league_id, year);
             setRidersOfferMercato(mercatoData);
 
             const totalData = await getTotalUserLeague(state['ip_adress'], league_id, user_id);
@@ -138,7 +149,7 @@ export default function MercatoLeagueSubPage() {
     
     return (
         <SafeAreaView style={commonStyles.containerLight}>
-            <View style={commonStyles.flex1}>
+            <View style={commonStyles.flex2}>
                 <View style={commonStyles.margin5Top}> 
                     <CountDown timeLeft={timeLeft} />
                 </View>
@@ -157,7 +168,7 @@ export default function MercatoLeagueSubPage() {
                     <BasicSearchBar placeholder={'Coût inférieur à ...'} value={searchQuery1} onChangeText={setSearchQuery1} />
                 </View>
             </View>
-            {isLoading && <ActivityIndicator size="large" color={colors.theme} /> || <View style={commonStyles.flex1}>
+            {isLoading && <ActivityIndicator size="large" color={colors.theme} /> || <View style={commonStyles.flex3}>
                 <RidersOfferList mercato={true} offers={filteredRidersOfferMercato} rider={rider} setRider={setRider} toggleModal={toggleModal} offer={offer} setOffer={setOffer} />
             </View>} 
             <MakeOfferModal visible={isModalVisible} rider={rider} toggleModal={toggleModal} onPressValidate={onPressValidate} offer={offer} setOffer={setOffer} />

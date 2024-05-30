@@ -7,18 +7,8 @@ import colors from '../../constants/colors';
 
 export default function Bets3List(props) {
 
-    let bets = []
+    const bets = props.bets.filter(bet => bet.type_id === props.betTypeId);
 
-    if (props.betTypeId === 2) {
-        bets = props.bets.filter(bet => bet.type_id === 2);
-    } else if (props.betTypeId === 3) {
-        bets = props.bets.filter(bet => bet.type_id === 3);
-    } else if (props.betTypeId === 4) {
-        bets = props.bets.filter(bet => bet.type_id === 4);
-    } else if (props.betTypeId === 8) {
-        bets = props.bets.filter(bet => bet.type_id === 8);
-    }
-    
     const renderNameForPosition = (position) => {
         const bet = bets.find(bet => bet.position === position);
         return bet ? [bet.fullName, bet.nationality, bet.is_boost, bet.point] : ['', false];
@@ -34,7 +24,7 @@ export default function Bets3List(props) {
                 <View style={[commonStyles.row, commonStyles.flex1]}>
                     <View style={[commonStyles.padding1, commonStyles.spaceBetween]}>
                         {[1, 2, 3].map((position) => (
-                            <Text key={position} style={commonStyles.text13}>{position}</Text>
+                            <Text key={position} style={commonStyles.text12}>{position}</Text>
                         ))}
                     </View>
                     <View style={[commonStyles.padding1, commonStyles.flex1]}>
@@ -42,12 +32,12 @@ export default function Bets3List(props) {
                             <View key={position} style={[commonStyles.row, commonStyles.flex1]} >
                                 <View style={[commonStyles.row, commonStyles.flex1]}>
                                     {renderNameForPosition(position)[1] && <Flag code={renderNameForPosition(position)[1]} size={16} type={'flat'}/>}
-                                    <Text style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
+                                    <Text style={[commonStyles.text12, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
                                         {renderNameForPosition(position)[0]}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.flex1}>
-                                    <Text style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
+                                    <Text style={[commonStyles.text12, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
                                         {renderNameForPosition(position)[3]}
                                     </Text>
                                 </View>
@@ -63,7 +53,7 @@ export default function Bets3List(props) {
                 <View style={[commonStyles.row, commonStyles.flex1]}>
                     <View style={[commonStyles.padding1, commonStyles.spaceBetween]}>
                         {[1, 2, 3].map((position) => (
-                            <Text key={position} style={commonStyles.text13}>{position}</Text>
+                            <Text key={position} style={commonStyles.text12}>{position}</Text>
                         ))}
                     </View>
                     <View style={[commonStyles.padding1, commonStyles.flex1]}>
@@ -71,12 +61,12 @@ export default function Bets3List(props) {
                             <View key={position} style={[commonStyles.row, commonStyles.flex1]} >
                                 <View style={[commonStyles.row, commonStyles.flex1]}>
                                     {renderNameForPosition(position)[1] && <Flag code={renderNameForPosition(position)[1]} size={16} type={'flat'}/>}
-                                    <Text style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
+                                    <Text style={[commonStyles.text12, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
                                         {renderNameForPosition(position)[0]}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.flex1}>
-                                    <Text style={[commonStyles.text13, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
+                                    <Text style={[commonStyles.text12, commonStyles.margin2Left, renderNameForPosition(position)[2] ? { color: colors.theme } : {}]}>
                                         {renderNameForPosition(position)[3]}
                                     </Text>
                                 </View>

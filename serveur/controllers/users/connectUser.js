@@ -1,4 +1,5 @@
 const User = require("../../models/User")
+const bcrypt = require("bcrypt")
 
 const connectUser = async (req, res) => {
     params = req.query
@@ -7,14 +8,18 @@ const connectUser = async (req, res) => {
     user = await User.findAll({
         where: {
             email: params['email'],
-            password: params['password'] 
         }
     })
 
     if (user.length == 0) {
         result = false
     } else {
-        result = user[0]
+        console.log(params['password'], user[0].password)
+        if (await bcrypt.compare(params['password'], user[0].password)) {
+            result = user[0]
+        } else {
+            result = false
+        }
     }
     
     res.json(result)

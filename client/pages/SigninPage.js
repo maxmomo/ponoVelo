@@ -47,7 +47,7 @@ export default function SigninPage() {
                     <BasicTextInput value={userName} onChangeText={setUsername} placeholder={'Nom d\'utilisateur'} secureTextEntry={false} />
                 </View>
                 <View style={styles.inputView}>
-                    <BasicTextInput type={'password'} value={password} onChangeText={setPassword} placeholder={'Mot de passe'} secureTextEntry={true} />
+                    <BasicTextInput type={'visible-password'} value={password} onChangeText={setPassword} placeholder={'Mot de passe'} secureTextEntry={true} />
                 </View>
             </View>
             <View style={styles.buttonsView}>

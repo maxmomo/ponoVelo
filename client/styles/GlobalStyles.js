@@ -4,11 +4,19 @@ import colors from '../constants/colors';
 const commonStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background
+        backgroundColor: colors.backgroundLight
     },
     containerLight: {
         flex: 1,
         backgroundColor: colors.backgroundLight
+    },
+    text10: {
+        color: colors.whiteText,
+        fontSize: 10
+    },
+    text11: {
+        color: colors.whiteText,
+        fontSize: 10
     },
     text12: {
         color: colors.whiteText,
@@ -63,13 +71,16 @@ const commonStyles = StyleSheet.create({
         fontSize: 24
     },
     greenText: {
-        color: 'green',
+        color: colors.green,
     },
     orangeText: {
-        color: 'orange',
+        color: colors.orange,
     },
     redText: {
-        color: 'red',
+        color: colors.red,
+    },
+    themeText: {
+        color: colors.theme,
     },
     bold: {
         fontWeight: 'bold',

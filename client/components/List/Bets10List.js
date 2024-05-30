@@ -7,7 +7,7 @@ import colors from '../../constants/colors';
 
 export default function Bets10List(props) {
 
-    const betsOfType1 = props.bets.filter(bet => bet.type_id === 1);
+    const betsOfType1 = props.bets.filter(bet => bet.type_id === 1 || bet.type_id === 16);
 
     const renderNameForPosition = (position) => {
         const bet = betsOfType1.find(bet => bet.position === position);

@@ -47,6 +47,28 @@ const joinLeague = async (ip_address, name, password, user_id) => {
 };
 
 /**
+ * Fonction pour rejoindre une ligue.
+ *
+ * @param {string} ip_address - Adresse IP du serveur.
+ * @param {string} id - ID de la ligue.
+ * @param {integer} user_id - ID de l'utilisateur.
+ * @returns {string} - Renvoie OK
+ */
+const quitLeague = async (ip_address, league_id, user_id) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://' + ip_address + ':3000/league/quit',
+            params: { league_id, user_id }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+/**
  * Fonction pour récupérer les utilisateurs de la ligue.
  *
  * @param {string} ip_address - Adresse IP du serveur.
@@ -113,4 +135,4 @@ const getTotalUserLeague = async (ip_address, league_id, user_id) => {
 };
 
 
-export { createLeague, joinLeague, getUsersLeague, getRidersUserLeague, getTotalUserLeague };
+export { createLeague, joinLeague, quitLeague, getUsersLeague, getRidersUserLeague, getTotalUserLeague };

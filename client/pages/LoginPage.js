@@ -10,6 +10,7 @@ import Logo from '../components/Basic/Logo';
 import { loginUser } from '../api/user/api';
 
 import { commonStyles } from '../styles/GlobalStyles';
+import colors from '../constants/colors';
 
 export default function LoginPage() {
     
@@ -40,7 +41,7 @@ export default function LoginPage() {
     }, [navigation]);
 
     return (
-        <SafeAreaView style={[commonStyles.container, {alignItems: 'center'}]}>
+        <SafeAreaView style={[commonStyles.container, {alignItems: 'center', backgroundColor: colors.background}]}>
             <View style={styles.logoView}>
                 <Logo width={250} height={200} />
             </View>
